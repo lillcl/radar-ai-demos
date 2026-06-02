@@ -92,12 +92,12 @@ export default function NewsPage() {
 
         <div className="max-w-7xl mx-auto">
           <motion.div
-            className="max-w-3xl"
+            className="max-w-3xl mx-auto text-center"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center justify-center gap-3 mb-6">
               <div className="w-8 h-px bg-gold" />
               <span className="text-xs tracking-[0.2em] uppercase text-[var(--gold)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>資訊中心</span>
             </div>
@@ -106,7 +106,7 @@ export default function NewsPage() {
               最新消息
             </h1>
 
-            <p className="text-lg text-text-body max-w-xl leading-relaxed" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+            <p className="text-lg text-text-body max-w-xl mx-auto leading-relaxed" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
               追蹤 MIMUNYA 的最新動態，了解模擬聯合國活動、國際事務與青年發展的最新資訊。
             </p>
           </motion.div>

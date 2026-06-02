@@ -42,6 +42,12 @@
   box-sizing: border-box;
 }
 
+/* Tailwind v4 fallback: keep constrained site containers truly centered. */
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 html {
   scroll-behavior: smooth;
 }

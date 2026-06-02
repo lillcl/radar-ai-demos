@@ -81,12 +81,12 @@ export default function AboutPage() {
 
         <div className="max-w-7xl mx-auto">
           <motion.div
-            className="max-w-3xl"
+            className="max-w-3xl mx-auto text-center"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center justify-center gap-3 mb-6">
               <div className="w-8 h-px bg-gold" />
               <span className="text-xs tracking-[0.2em] uppercase text-[var(--gold)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>關於我們</span>
             </div>
@@ -95,7 +95,7 @@ export default function AboutPage() {
               關於<br /><span className="text-forest italic">MIMUNYA</span>
             </h1>
 
-            <p className="text-lg text-text-body max-w-xl leading-relaxed" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+            <p className="text-lg text-text-body max-w-xl mx-auto leading-relaxed" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
               MIMUNYA 是一個位於澳門的非牟利組織，致力於透過模擬聯合國活動推動青年國際視野與領導能力的發展。
             </p>
           </motion.div>
@@ -186,20 +186,20 @@ export default function AboutPage() {
 
         <div className="max-w-7xl mx-auto">
           <motion.div
-            className="max-w-2xl mb-16"
+            className="max-w-2xl mx-auto mb-16 text-center"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center justify-center gap-3 mb-6">
               <div className="w-8 h-px bg-gold" />
               <span className="text-xs tracking-[0.2em] uppercase text-[var(--gold)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>核心價值</span>
             </div>
             <h2 className="font-display text-4xl md:text-5xl text-navy mb-6">我們的價值觀</h2>
           </motion.div>
 
-          <div className="space-y-8">
+          <div className="space-y-8 max-w-5xl mx-auto">
             {values.map((value, index) => (
               <motion.div
                 key={value.title}
@@ -282,13 +282,13 @@ export default function AboutPage() {
       <section className="py-24 px-6 md:px-12 bg-bg-cream">
         <div className="max-w-7xl mx-auto">
           <motion.div
-            className="max-w-2xl mb-16"
+            className="max-w-2xl mx-auto mb-16 text-center"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center justify-center gap-3 mb-6">
               <div className="w-8 h-px bg-gold" />
               <span className="text-xs tracking-[0.2em] uppercase text-[var(--gold)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>團隊成員</span>
             </div>
@@ -298,7 +298,7 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {team.map((member, index) => (
               <motion.article
                 key={member.name}
