@@ -15,9 +15,9 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[var(--navy)] text-white">
+    <footer className="relative bg-navy text-white">
       {/* Decorative top border */}
-      <div className="h-1 bg-gradient-to-r from-[var(--gold)] via-[var(--gold-light)] to-[var(--gold)]" />
+      <div className="h-1" style={{ background: 'linear-gradient-to-r from-[var(--gold)] via-[var(--gold-light)] to-[var(--gold)]' }} />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
@@ -52,7 +52,7 @@ export default function Footer() {
             {/* Decorative element */}
             <div className="flex items-center gap-3">
               <div className="w-12 h-px bg-[var(--gold)]" />
-              <span className="text-[var(--gold)] text-xs tracking-widest">EST. 2018</span>
+              <span className="text-gold text-xs tracking-widest">EST. 2018</span>
             </div>
           </motion.div>
 
@@ -77,7 +77,7 @@ export default function Footer() {
                     {link.label}
                     <ArrowUpRight
                       size={14}
-                      className="opacity-0 -translate-y-0.5 translate-x-0.5 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300 text-[var(--gold)]"
+                      className="opacity-0 -translate-y-0.5 translate-x-0.5 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300 text-gold"
                     />
                   </Link>
                 </li>
@@ -97,7 +97,7 @@ export default function Footer() {
             </h4>
             <a
               href="mailto:info@moimun.org"
-              className="inline-flex items-center gap-3 text-white/80 hover:text-[var(--gold)] transition-colors duration-300 mb-6"
+              className="inline-flex items-center gap-3 text-white/80 hover:text-gold transition-colors duration-300 mb-6"
               style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}
             >
               <EnvelopeSimple size={20} weight="regular" />
@@ -127,7 +127,7 @@ export default function Footer() {
               © {year} 澳門國際模擬聯合國青年協會. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <span className="text-[var(--gold)] text-xs tracking-widest">MIMUNYA</span>
+              <span className="text-gold text-xs tracking-widest">MIMUNYA</span>
               <span className="text-white/20">|</span>
               <span className="text-white/40 text-xs">Macau, China</span>
             </div>

@@ -82,12 +82,12 @@ export default function HomePage() {
   }, [pathname]);
 
   return (
-    <div ref={containerRef} className="relative bg-[var(--bg-cream)]">
+    <div ref={containerRef} className="relative bg-bg-cream">
       {/* Hero Section */}
       <section ref={heroRef} className="relative min-h-[100dvh] flex items-center overflow-hidden">
         {/* Background Image Grid */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[var(--bg-cream)]/90 z-10" />
+          <div className="absolute inset-0 bg-bg-cream/90 z-10" />
           <div className="grid grid-cols-3 h-full opacity-20">
             {heroImages.map((src, i) => (
               <motion.div
@@ -122,11 +122,11 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="w-12 h-px bg-[var(--navy)]" />
+              <div className="w-12 h-px bg-navy" />
               <span className="text-xs tracking-[0.3em] uppercase text-[var(--text-muted)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
                 澳門國際模擬聯合國青年協會
               </span>
-              <div className="w-12 h-px bg-[var(--navy)]" />
+              <div className="w-12 h-px bg-navy" />
             </motion.div>
 
             {/* Main Heading */}
@@ -137,9 +137,9 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <span className="block text-[var(--navy)]">探索</span>
-              <span className="block text-[var(--forest)] italic">國際事務</span>
-              <span className="block text-[var(--navy)]">連結青年</span>
+              <span className="block text-navy">探索</span>
+              <span className="block text-forest italic">國際事務</span>
+              <span className="block text-navy">連結青年</span>
             </motion.h1>
 
             {/* Description */}
@@ -179,15 +179,15 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.9 }}
             >
               <div className="text-center">
-                <p className="font-display text-3xl text-[var(--navy)]" style={{ fontSize: "2.5rem" }}>2018</p>
+                <p className="font-display text-3xl text-navy" style={{ fontSize: "2.5rem" }}>2018</p>
                 <p className="text-xs text-[var(--text-muted)] mt-1 tracking-wide" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>成立年份</p>
               </div>
               <div className="text-center">
-                <p className="font-display text-3xl text-[var(--navy)]" style={{ fontSize: "2.5rem" }}>5000+</p>
+                <p className="font-display text-3xl text-navy" style={{ fontSize: "2.5rem" }}>5000+</p>
                 <p className="text-xs text-[var(--text-muted)] mt-1 tracking-wide" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>青年參與者</p>
               </div>
               <div className="text-center">
-                <p className="font-display text-3xl text-[var(--navy)]" style={{ fontSize: "2.5rem" }}>50+</p>
+                <p className="font-display text-3xl text-navy" style={{ fontSize: "2.5rem" }}>50+</p>
                 <p className="text-xs text-[var(--text-muted)] mt-1 tracking-wide" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>合作機構</p>
               </div>
             </motion.div>
@@ -232,7 +232,7 @@ export default function HomePage() {
                   <div className="w-8 h-px bg-[var(--gold)]" />
                   <span className="text-xs tracking-[0.2em] uppercase text-[var(--gold)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>我們的價值</span>
                 </div>
-                <h2 className="font-display text-4xl md:text-5xl text-[var(--navy)] mb-6">核心價值</h2>
+                <h2 className="font-display text-4xl md:text-5xl text-navy mb-6">核心價值</h2>
                 <p className="text-[var(--text-body)] leading-relaxed" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
                   透過專業的模擬聯合國會議與培訓，培育具有國際視野、領導才能與外交能力的青年人才。
                 </p>
@@ -244,17 +244,17 @@ export default function HomePage() {
               {features.map((feature, index) => (
                 <motion.div
                   key={feature.title}
-                  className="group reveal grid md:grid-cols-12 gap-6 p-8 bg-[var(--bg-cream)] rounded-sm hover:shadow-lg transition-all duration-500"
+                  className="group reveal grid md:grid-cols-12 gap-6 p-8 bg-bg-cream rounded-sm hover:shadow-lg transition-all duration-500"
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
                   <div className="md:col-span-2">
-                    <span className="font-display text-5xl text-[var(--navy)] opacity-20" style={{ fontSize: "3.5rem" }}>{feature.number}</span>
+                    <span className="font-display text-5xl text-navy opacity-20" style={{ fontSize: "3.5rem" }}>{feature.number}</span>
                   </div>
                   <div className="md:col-span-4">
-                    <h3 className="font-display text-2xl text-[var(--navy)] mb-1">{feature.title}</h3>
+                    <h3 className="font-display text-2xl text-navy mb-1">{feature.title}</h3>
                     <p className="text-xs text-[var(--text-muted)] tracking-wider" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>{feature.titleEn}</p>
                   </div>
                   <div className="md:col-span-6">
@@ -285,7 +285,7 @@ export default function HomePage() {
               <div className="w-8 h-px bg-[var(--gold)]" />
               <span className="text-xs tracking-[0.2em] uppercase text-[var(--gold)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>活動內容</span>
             </div>
-            <h2 className="font-display text-4xl md:text-5xl text-[var(--navy)] mb-6">精彩活動</h2>
+            <h2 className="font-display text-4xl md:text-5xl text-navy mb-6">精彩活動</h2>
             <p className="text-[var(--text-body)] leading-relaxed" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
               多元化的活動涵蓋模擬會議、工作坊、國際交流等，為青年提供全方位的學習與成長平台。
             </p>
@@ -312,10 +312,10 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--navy)]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   {/* Year badge */}
                   <div className="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm">
-                    <span className="text-xs font-medium text-[var(--navy)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>{activity.year}</span>
+                    <span className="text-xs font-medium text-navy" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>{activity.year}</span>
                   </div>
                 </div>
-                <h3 className="font-display text-xl text-[var(--navy)] mb-2 group-hover:text-[var(--forest)] transition-colors duration-300">{activity.title}</h3>
+                <h3 className="font-display text-xl text-navy mb-2 group-hover:text-forest transition-colors duration-300">{activity.title}</h3>
                 <p className="text-sm text-[var(--text-muted)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>{activity.location}</p>
               </motion.article>
             ))}
@@ -329,7 +329,7 @@ export default function HomePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <Link href="/news" className="inline-flex items-center gap-2 text-[var(--navy)] font-medium hover:text-[var(--forest)] transition-colors duration-300" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+            <Link href="/news" className="inline-flex items-center gap-2 text-navy font-medium hover:text-forest transition-colors duration-300" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
               查看所有活動
               <ArrowRight size={16} />
             </Link>
@@ -338,7 +338,7 @@ export default function HomePage() {
       </section>
 
       {/* Quote / Mission Section */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-[var(--navy)] relative overflow-hidden">
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-navy relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-0 left-0 w-64 h-64 border border-white/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 right-0 w-96 h-96 border border-white/5 rounded-full translate-x-1/2 translate-y-1/2" />
@@ -362,7 +362,7 @@ export default function HomePage() {
             MIMUNYA 是一個位於澳門的非牟利組織，致力於透過模擬聯合國活動推動青年國際視野與領導能力的發展。
           </p>
 
-          <Link href="/about" className="inline-flex items-center gap-2 mt-10 px-8 py-4 border border-white/30 text-white hover:bg-white hover:text-[var(--navy)] transition-all duration-300" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+          <Link href="/about" className="inline-flex items-center gap-2 mt-10 px-8 py-4 border border-white/30 text-white hover:bg-white hover:text-navy transition-all duration-300" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
             關於我們
             <ArrowRight size={16} />
           </Link>
@@ -383,7 +383,7 @@ export default function HomePage() {
                 <div className="w-8 h-px bg-[var(--gold)]" />
                 <span className="text-xs tracking-[0.2em] uppercase text-[var(--gold)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>加入我們</span>
               </div>
-              <h2 className="font-display text-4xl md:text-5xl text-[var(--navy)] mb-6">準備好開始了嗎？</h2>
+              <h2 className="font-display text-4xl md:text-5xl text-navy mb-6">準備好開始了嗎？</h2>
               <p className="text-[var(--text-body)] leading-relaxed mb-8" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
                 熱烈歡迎充滿熱情的青年加入 MIMUNYA，共同探索國際事務，連結大灣區與世界。
               </p>
@@ -401,7 +401,7 @@ export default function HomePage() {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <div className="aspect-square max-w-md mx-auto relative">
-                <div className="absolute inset-0 bg-[var(--forest)]/10 rounded-sm" />
+                <div className="absolute inset-0 bg-forest/10 rounded-sm" />
                 <img
                   src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&q=80"
                   alt="Youth empowerment"
