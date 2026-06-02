@@ -76,7 +76,7 @@
 <body>
   <div class="container">
     <div class="video-wrapper">
-      <video src="brain.mp4" muted playsinline></video>
+      <video src="brain.mp4" autoplay muted loop playsinline></video>
     </div>
     <div class="words-container">
       <span class="word">think</span>
@@ -133,13 +133,13 @@
         trigger: container,
         start: "top top",
         end: "30% top",
-        scrub: 1
+        toggleActions: 'play none none reverse'
       }
     });
 
     // Words: Stage 3 fade out stagger in reverse (65-100%)
     gsap.to(words, {
-      y: 30,
+      y: -30,
       opacity: 0,
       stagger: { each: 0.1, from: "end" },
       ease: "power2.in",
@@ -147,7 +147,7 @@
         trigger: container,
         start: "65% top",
         end: "bottom bottom",
-        scrub: 1
+        toggleActions: 'play none none reverse'
       }
     });
   </script>
