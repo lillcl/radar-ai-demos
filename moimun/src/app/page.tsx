@@ -111,22 +111,21 @@ export default function HomePage() {
 
         {/* Content */}
         <motion.div
-          className="relative z-30 max-w-5xl mx-auto px-6 md:px-12 pt-32 pb-20 text-center"
+          className="relative z-30 w-full max-w-7xl mx-auto px-6 md:px-12 pt-32 pb-20 flex flex-col items-center"
           style={{ y: heroY, opacity: heroOpacity }}
         >
-          <div className="flex flex-col items-center">
-            {/* Overline */}
+          {/* Overline */}
             <motion.div
-              className="flex items-center gap-4 mb-8"
+              className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 mb-8 text-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="w-12 h-px bg-navy" />
-              <span className="text-xs tracking-[0.3em] uppercase text-[var(--text-muted)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+              <div className="w-12 h-px bg-navy hidden sm:block" />
+              <span className="text-xs tracking-[0.2em] sm:tracking-[0.3em] uppercase text-[var(--text-muted)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
                 澳門國際模擬聯合國青年協會
               </span>
-              <div className="w-12 h-px bg-navy" />
+              <div className="w-12 h-px bg-navy hidden sm:block" />
             </motion.div>
 
             {/* Main Heading */}
@@ -157,7 +156,7 @@ export default function HomePage() {
 
             {/* CTAs */}
             <motion.div
-              className="flex flex-wrap items-center justify-center gap-6"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
@@ -173,7 +172,8 @@ export default function HomePage() {
 
             {/* Stats */}
             <motion.div
-              className="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-[var(--border-warm)] w-full max-w-lg"
+              className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12 sm:mt-16 pt-6 sm:pt-8 border-t w-full max-w-lg mx-auto"
+              style={{ borderColor: 'var(--border-warm)' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.9 }}
@@ -191,7 +191,6 @@ export default function HomePage() {
                 <p className="text-xs text-[var(--text-muted)] mt-1 tracking-wide" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>合作機構</p>
               </div>
             </motion.div>
-          </div>
 
           {/* Scroll Indicator */}
           <motion.div
@@ -215,54 +214,45 @@ export default function HomePage() {
       {/* Features Section */}
       <section className="py-24 md:py-32 px-6 md:px-12 bg-white relative overflow-hidden">
         {/* Section number */}
-        <span className="section-number -top-8 -left-4">01</span>
+        <span className="section-number -top-8 left-4 md:-left-4">01</span>
 
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-16 items-start">
-            {/* Section Header */}
-            <div className="lg:col-span-4">
+          {/* Section Header - Centered */}
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="w-8 h-px bg-[var(--gold)]" />
+              <span className="text-xs tracking-[0.2em] uppercase text-[var(--gold)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>我們的價值</span>
+              <div className="w-8 h-px bg-[var(--gold)]" />
+            </div>
+            <h2 className="font-display text-4xl md:text-5xl text-navy mb-6">核心價值</h2>
+            <p className="text-[var(--text-body)] leading-relaxed max-w-2xl mx-auto" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+              透過專業的模擬聯合國會議與培訓，培育具有國際視野、領導才能與外交能力的青年人才。
+            </p>
+          </motion.div>
+
+          {/* Feature Cards - Centered on mobile */}
+          <div className="space-y-8 max-w-4xl mx-auto">
+            {features.map((feature, index) => (
               <motion.div
-                className="sticky top-32"
-                initial={{ opacity: 0, y: 30 }}
+                key={feature.title}
+                className="group reveal text-center p-8 bg-bg-cream rounded-sm hover:shadow-lg transition-all duration-500"
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-8 h-px bg-[var(--gold)]" />
-                  <span className="text-xs tracking-[0.2em] uppercase text-[var(--gold)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>我們的價值</span>
-                </div>
-                <h2 className="font-display text-4xl md:text-5xl text-navy mb-6">核心價值</h2>
-                <p className="text-[var(--text-body)] leading-relaxed" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
-                  透過專業的模擬聯合國會議與培訓，培育具有國際視野、領導才能與外交能力的青年人才。
-                </p>
+                <span className="font-display text-5xl text-navy opacity-20" style={{ fontSize: "3.5rem" }}>{feature.number}</span>
+                <h3 className="font-display text-2xl text-navy mb-1">{feature.title}</h3>
+                <p className="text-xs text-[var(--text-muted)] tracking-wider mb-4" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>{feature.titleEn}</p>
+                <p className="text-[var(--text-body)] leading-relaxed max-w-lg mx-auto" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>{feature.description}</p>
               </motion.div>
-            </div>
-
-            {/* Feature Cards */}
-            <div className="lg:col-span-8 space-y-8">
-              {features.map((feature, index) => (
-                <motion.div
-                  key={feature.title}
-                  className="group reveal grid md:grid-cols-12 gap-6 p-8 bg-bg-cream rounded-sm hover:shadow-lg transition-all duration-500"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  <div className="md:col-span-2">
-                    <span className="font-display text-5xl text-navy opacity-20" style={{ fontSize: "3.5rem" }}>{feature.number}</span>
-                  </div>
-                  <div className="md:col-span-4">
-                    <h3 className="font-display text-2xl text-navy mb-1">{feature.title}</h3>
-                    <p className="text-xs text-[var(--text-muted)] tracking-wider" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>{feature.titleEn}</p>
-                  </div>
-                  <div className="md:col-span-6">
-                    <p className="text-[var(--text-body)] leading-relaxed" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>{feature.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -270,29 +260,30 @@ export default function HomePage() {
       {/* Activities Section */}
       <section className="py-24 md:py-32 px-6 md:px-12 bg-[var(--bg-warm)] relative overflow-hidden">
         {/* Section number */}
-        <span className="section-number -top-8 -right-4">02</span>
+        <span className="section-number -top-8 right-4 md:-right-4">02</span>
 
         <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
+          {/* Section Header - Centered */}
           <motion.div
-            className="max-w-2xl mb-16"
+            className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center justify-center gap-3 mb-6">
               <div className="w-8 h-px bg-[var(--gold)]" />
               <span className="text-xs tracking-[0.2em] uppercase text-[var(--gold)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>活動內容</span>
+              <div className="w-8 h-px bg-[var(--gold)]" />
             </div>
             <h2 className="font-display text-4xl md:text-5xl text-navy mb-6">精彩活動</h2>
-            <p className="text-[var(--text-body)] leading-relaxed" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+            <p className="text-[var(--text-body)] leading-relaxed max-w-2xl mx-auto" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
               多元化的活動涵蓋模擬會議、工作坊、國際交流等，為青年提供全方位的學習與成長平台。
             </p>
           </motion.div>
 
-          {/* Activity Cards */}
-          <div className="grid md:grid-cols-3 gap-8">
+          {/* Activity Cards - Centered on mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {activities.map((activity, index) => (
               <motion.article
                 key={activity.title}
@@ -372,43 +363,26 @@ export default function HomePage() {
       {/* CTA Section */}
       <section className="py-24 md:py-32 px-6 md:px-12 bg-white relative">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="flex flex-col items-center text-center gap-12">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center justify-center gap-3 mb-6">
                 <div className="w-8 h-px bg-[var(--gold)]" />
                 <span className="text-xs tracking-[0.2em] uppercase text-[var(--gold)]" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>加入我們</span>
+                <div className="w-8 h-px bg-[var(--gold)]" />
               </div>
               <h2 className="font-display text-4xl md:text-5xl text-navy mb-6">準備好開始了嗎？</h2>
-              <p className="text-[var(--text-body)] leading-relaxed mb-8" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+              <p className="text-[var(--text-body)] leading-relaxed mb-8 max-w-xl mx-auto" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
                 熱烈歡迎充滿熱情的青年加入 MIMUNYA，共同探索國際事務，連結大灣區與世界。
               </p>
               <Link href="/contact" className="btn-primary">
                 聯絡我們
                 <ArrowRight size={16} weight="bold" />
               </Link>
-            </motion.div>
-
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="aspect-square max-w-md mx-auto relative">
-                <div className="absolute inset-0 bg-forest/10 rounded-sm" />
-                <img
-                  src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&q=80"
-                  alt="Youth empowerment"
-                  className="w-full h-full object-cover rounded-sm"
-                  style={{ filter: "sepia(20%)" }}
-                />
-              </div>
             </motion.div>
           </div>
         </div>
