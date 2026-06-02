@@ -1,155 +1,685 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brain Scroll</title>
-  <style>
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <head>
+    <!-- __PREVIEW_HEAD__ -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Neuroform | Spatial AI Interface</title>
+    <meta
+      name="description"
+      content="A high-end GSAP ScrollTrigger scrollytelling landing page for Neuroform, a fictional spatial AI product brand."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #101113;
+        --muted: #65686f;
+        --paper: #f7f4ed;
+        --line: rgba(16, 17, 19, 0.13);
+        --accent: #3b6c5b;
+      }
 
-    html {
-      scroll-behavior: auto;
-    }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      background: #000;
-      overflow-x: hidden;
-    }
+      html {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Geist", system-ui, sans-serif;
+        scroll-behavior: auto;
+      }
 
-    .container {
-      height: 300vh;
-      position: relative;
-    }
+      body {
+        min-width: 320px;
+        min-height: 100%;
+        overflow-x: hidden;
+        background:
+          linear-gradient(90deg, rgba(16, 17, 19, 0.045) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(16, 17, 19, 0.035) 1px, transparent 1px),
+          var(--paper);
+        background-size: 96px 96px;
+        color: var(--ink);
+      }
 
-    .video-wrapper {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 80;
+        pointer-events: none;
+        opacity: 0.22;
+        background-image: radial-gradient(rgba(16, 17, 19, 0.16) 0.65px, transparent 0.65px);
+        background-size: 4px 4px;
+      }
 
-    .video-wrapper video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: translate(-50%, -50%);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-    }
+      button {
+        font: inherit;
+      }
 
-    .words-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-    }
+      canvas {
+        display: block;
+      }
 
-    .word {
-      position: absolute;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: clamp(4vw, 8vw, 10vw);
-      font-weight: 700;
-      color: #fff;
-      text-transform: lowercase;
-      opacity: 0;
-      white-space: nowrap;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="video-wrapper">
-      <video src="brain.mp4" autoplay muted loop playsinline></video>
+      .site-shell {
+        position: relative;
+        min-height: 100dvh;
+      }
+
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        border-bottom: 1px solid rgba(16, 17, 19, 0.08);
+        background: rgba(247, 244, 237, 0.72);
+        backdrop-filter: blur(20px);
+      }
+
+      .nav-inner {
+        width: min(100% - 40px, 1460px);
+        height: 72px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .brand {
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 17px;
+        font-weight: 800;
+        letter-spacing: -0.055em;
+      }
+
+      .brand span {
+        color: var(--accent);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: rgba(16, 17, 19, 0.58);
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 650;
+        letter-spacing: 0.015em;
+        transition: color 260ms ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--ink);
+      }
+
+      .nav-meta {
+        justify-self: end;
+        font-family: "Geist Mono", monospace;
+        color: rgba(16, 17, 19, 0.56);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .intro {
+        width: min(100% - 40px, 1460px);
+        min-height: 100dvh;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: minmax(240px, 0.74fr) minmax(280px, 1.26fr);
+        gap: clamp(32px, 6vw, 110px);
+        align-items: end;
+        padding: 142px 0 90px;
+      }
+
+      .intro-kicker,
+      .panel-kicker,
+      .outro-kicker {
+        font-family: "Geist Mono", monospace;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .intro-kicker {
+        color: var(--accent);
+        margin-bottom: 22px;
+      }
+
+      .intro h1 {
+        max-width: 850px;
+        font-size: clamp(56px, 8.2vw, 142px);
+        font-weight: 800;
+        line-height: 0.89;
+        letter-spacing: -0.075em;
+      }
+
+      .intro-copy {
+        display: grid;
+        gap: 28px;
+        justify-items: start;
+      }
+
+      .intro-copy p {
+        max-width: 510px;
+        color: var(--muted);
+        font-size: clamp(16px, 1.35vw, 22px);
+        line-height: 1.55;
+        letter-spacing: -0.018em;
+      }
+
+      .intro-rule {
+        width: min(100%, 520px);
+        height: 1px;
+        background: var(--line);
+      }
+
+      .intro-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px;
+        width: min(100%, 520px);
+      }
+
+      .intro-metrics strong {
+        display: block;
+        margin-bottom: 6px;
+        font-family: "Geist Mono", monospace;
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .intro-metrics span {
+        color: rgba(16, 17, 19, 0.5);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .story {
+        position: relative;
+        min-height: 360dvh;
+      }
+
+      .story-pin {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        min-height: 100dvh;
+        overflow: hidden;
+      }
+
+      .stage {
+        position: absolute;
+        inset: 0;
+      }
+
+      #brain-scene {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+      }
+
+      #brain-scene canvas {
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .stage-vignette {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 50% 50%, transparent 0 28%, rgba(247, 244, 237, 0.16) 54%, var(--paper) 86%),
+          linear-gradient(180deg, rgba(247, 244, 237, 0.92), rgba(247, 244, 237, 0.06) 22%, rgba(247, 244, 237, 0.06) 70%, rgba(247, 244, 237, 0.88));
+      }
+
+      .stage-axis {
+        position: absolute;
+        left: 50%;
+        top: 96px;
+        bottom: 84px;
+        z-index: 3;
+        width: 1px;
+        background: linear-gradient(180deg, transparent, rgba(16, 17, 19, 0.16), transparent);
+        transform: translateX(-50%);
+      }
+
+      .scroll-progress {
+        position: fixed;
+        left: 26px;
+        top: 50%;
+        z-index: 55;
+        width: 1px;
+        height: 180px;
+        background: rgba(16, 17, 19, 0.12);
+        transform: translateY(-50%);
+      }
+
+      .scroll-progress span {
+        display: block;
+        width: 1px;
+        height: 0%;
+        background: var(--ink);
+      }
+
+      .copy-panel {
+        position: absolute;
+        z-index: 8;
+        width: min(38vw, 540px);
+        color: var(--ink);
+        will-change: transform, opacity;
+      }
+
+      .copy-panel[data-panel="center"] {
+        left: 50%;
+        top: 72%;
+        width: min(62vw, 760px);
+        text-align: center;
+        transform: translateX(-50%);
+      }
+
+      .copy-panel[data-panel="right"] {
+        right: clamp(28px, 8vw, 130px);
+        top: 22%;
+      }
+
+      .copy-panel[data-panel="left"] {
+        left: clamp(28px, 8vw, 130px);
+        top: 22%;
+      }
+
+      .panel-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 22px;
+        color: var(--accent);
+      }
+
+      .panel-kicker::before {
+        content: "";
+        width: 38px;
+        height: 1px;
+        background: currentColor;
+      }
+
+      .copy-panel[data-panel="center"] .panel-kicker::before {
+        display: none;
+      }
+
+      .copy-panel h2 {
+        font-size: clamp(38px, 5.1vw, 86px);
+        font-weight: 800;
+        line-height: 0.94;
+        letter-spacing: -0.068em;
+      }
+
+      .copy-panel p {
+        max-width: 470px;
+        margin-top: 24px;
+        color: rgba(16, 17, 19, 0.62);
+        font-size: clamp(15px, 1.2vw, 19px);
+        line-height: 1.64;
+        letter-spacing: -0.012em;
+      }
+
+      .copy-panel[data-panel="center"] p {
+        margin-inline: auto;
+      }
+
+      .spec-strip {
+        position: absolute;
+        right: clamp(24px, 4vw, 68px);
+        bottom: 42px;
+        z-index: 8;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(100px, 1fr));
+        gap: 1px;
+        width: min(680px, calc(100vw - 48px));
+        border: 1px solid var(--line);
+        background: var(--line);
+        opacity: 0;
+        transform: translateY(28px);
+      }
+
+      .spec-strip div {
+        min-height: 92px;
+        padding: 18px;
+        background: rgba(247, 244, 237, 0.78);
+        backdrop-filter: blur(14px);
+      }
+
+      .spec-strip strong {
+        display: block;
+        margin-bottom: 10px;
+        font-family: "Geist Mono", monospace;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .spec-strip span {
+        display: block;
+        color: rgba(16, 17, 19, 0.56);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .outro {
+        width: min(100% - 40px, 1460px);
+        min-height: 100dvh;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: minmax(280px, 0.82fr) minmax(320px, 1.18fr);
+        gap: clamp(32px, 7vw, 124px);
+        align-items: center;
+        padding: 100px 0;
+      }
+
+      .outro-kicker {
+        margin-bottom: 22px;
+        color: var(--accent);
+      }
+
+      .outro h2 {
+        max-width: 780px;
+        font-size: clamp(44px, 6.8vw, 116px);
+        line-height: 0.9;
+        letter-spacing: -0.072em;
+      }
+
+      .outro p {
+        max-width: 540px;
+        color: var(--muted);
+        font-size: clamp(16px, 1.35vw, 22px);
+        line-height: 1.56;
+      }
+
+      .outro-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .button {
+        border: 1px solid var(--ink);
+        border-radius: 999px;
+        padding: 13px 22px;
+        color: var(--paper);
+        background: var(--ink);
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 700;
+        transition:
+          transform 260ms ease,
+          background 260ms ease,
+          color 260ms ease;
+      }
+
+      .button.secondary {
+        color: var(--ink);
+        background: transparent;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+      }
+
+      .button:active {
+        transform: translateY(0) scale(0.98);
+      }
+
+      .is-hidden {
+        opacity: 0;
+      }
+
+      @media (max-width: 900px) {
+        body {
+          background-size: 56px 56px;
+        }
+
+        .nav-inner {
+          width: min(100% - 28px, 760px);
+          grid-template-columns: 1fr auto;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .nav-meta {
+          font-size: 10px;
+        }
+
+        .intro,
+        .outro {
+          width: min(100% - 28px, 760px);
+          grid-template-columns: 1fr;
+          align-items: start;
+        }
+
+        .intro {
+          padding: 118px 0 70px;
+        }
+
+        .intro h1,
+        .outro h2 {
+          font-size: clamp(42px, 12vw, 64px);
+          letter-spacing: -0.06em;
+        }
+
+        .copy-panel h2 {
+          font-size: clamp(34px, 10vw, 54px);
+        }
+
+        .intro-metrics {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+
+        .story {
+          min-height: 330dvh;
+        }
+
+        .stage-axis,
+        .scroll-progress {
+          display: none;
+        }
+
+        .copy-panel,
+        .copy-panel[data-panel="center"],
+        .copy-panel[data-panel="left"],
+        .copy-panel[data-panel="right"] {
+          left: 18px;
+          right: 18px;
+          top: auto;
+          bottom: 8.5dvh;
+          width: auto;
+          text-align: left;
+          transform: none;
+        }
+
+        .copy-panel h2 {
+          max-width: 620px;
+        }
+
+        .copy-panel p {
+          max-width: 450px;
+          margin-inline: 0;
+        }
+
+        .copy-panel[data-panel="center"] .panel-kicker::before {
+          display: block;
+        }
+
+        .spec-strip {
+          grid-template-columns: 1fr;
+          right: 14px;
+          bottom: 16px;
+          width: calc(100vw - 28px);
+        }
+
+        .spec-strip div {
+          min-height: auto;
+          padding: 14px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.183.2/build/three.module.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <nav class="nav" aria-label="Neuroform navigation">
+        <div class="nav-inner">
+          <a class="brand" href="#top">Neuro<span>form</span></a>
+          <ul class="nav-links">
+            <li><a href="#story">Motion Study</a></li>
+            <li><a href="#systems">Systems</a></li>
+            <li><a href="#contact">Access</a></li>
+          </ul>
+          <div class="nav-meta">Scroll study 01</div>
+        </div>
+      </nav>
+
+      <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+      <main id="top">
+        <section class="intro" aria-label="Neuroform introduction">
+          <div>
+            <div class="intro-kicker">Fictional spatial AI product</div>
+            <h1>Thought, made visible.</h1>
+          </div>
+          <div class="intro-copy">
+            <p>
+              Neuroform turns a living neural map into a clean operating surface
+              for research teams, product labs, and high-pressure decision rooms.
+            </p>
+            <div class="intro-rule"></div>
+            <div class="intro-metrics" aria-label="Product metrics">
+              <div>
+                <strong>41.8ms</strong>
+                <span>signal-to-view response</span>
+              </div>
+              <div>
+                <strong>12 layers</strong>
+                <span>semantic memory depth</span>
+              </div>
+              <div>
+                <strong>Live</strong>
+                <span>adaptive spatial model</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="story" class="story" aria-label="Neuroform brain scroll sequence">
+          <div class="story-pin">
+            <div class="stage">
+              <div id="brain-scene" aria-hidden="true"></div>
+              <div class="stage-vignette"></div>
+              <div class="stage-axis"></div>
+            </div>
+
+            <article class="copy-panel" data-panel="center">
+              <div class="panel-kicker">Initialize cortex</div>
+              <h2>The brain enters from the center.</h2>
+              <p>
+                A calm opening state: the product waits in balance while the
+                neural surface breathes with low-amplitude motion.
+              </p>
+            </article>
+
+            <article class="copy-panel is-hidden" data-panel="right">
+              <div class="panel-kicker">Zoom into intent</div>
+              <h2>Scale expands. Meaning shifts left.</h2>
+              <p>
+                As the model grows, blank space opens for the first product
+                message. The copy arrives in black with a clipped kinetic reveal.
+              </p>
+            </article>
+
+            <article class="copy-panel is-hidden" data-panel="left">
+              <div class="panel-kicker">Resolve the map</div>
+              <h2>Zoom out. The cortex lands right.</h2>
+              <p>
+                The final scroll state compresses complexity into a readable
+                command view, leaving the left field clear for the closing idea.
+              </p>
+            </article>
+
+            <div class="spec-strip" aria-label="Neuroform capabilities">
+              <div>
+                <strong>MODEL</strong>
+                <span>Generative memory mesh with live intent weighting.</span>
+              </div>
+              <div>
+                <strong>SIGNAL</strong>
+                <span>Black-space prompts reveal when the map makes room.</span>
+              </div>
+              <div>
+                <strong>MOTION</strong>
+                <span>GSAP ScrollTrigger timeline with smooth inertial scroll.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" class="outro" aria-label="Neuroform access">
+          <div>
+            <div class="outro-kicker">Production-grade scroll narrative</div>
+            <h2>One idea, staged with restraint.</h2>
+          </div>
+          <div>
+            <p>
+              The choreography is pinned, scrubbed, and responsive: centered
+              brain, left zoom, right resolve, with copy paced to the motion.
+            </p>
+            <div class="outro-actions">
+              <button class="button" type="button">Request access</button>
+              <button class="button secondary" type="button">View motion notes</button>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
-    <div class="words-container">
-      <span class="word">think</span>
-      <span class="word">recall</span>
-      <span class="word">synapse</span>
-      <span class="word">memory</span>
-      <span class="word">neural</span>
-      <span class="word">cognition</span>
-    </div>
-  </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script>
-    gsap.registerPlugin(ScrollTrigger);
-
-    const words = document.querySelectorAll('.word');
-    const video = document.querySelector('.video-wrapper video');
-    const container = document.querySelector('.container');
-
-    // Video: Stage 2 zoom + pan left (30-65%)
-    gsap.to(video, {
-      scale: 1.5,
-      x: "-20vw",
-      ease: "power1.inOut",
-      scrollTrigger: {
-        trigger: container,
-        start: "30% top",
-        end: "65% top",
-        scrub: 1
-      }
-    });
-
-    // Video: Stage 3 zoom out + pan right (65-100%)
-    gsap.to(video, {
-      scale: 1.0,
-      x: "20vw",
-      ease: "power1.inOut",
-      scrollTrigger: {
-        trigger: container,
-        start: "65% top",
-        end: "bottom bottom",
-        scrub: 1
-      }
-    });
-
-    // Words: Stage 1 fade in stagger (0-30%)
-    gsap.from(words, {
-      y: 30,
-      opacity: 0,
-      stagger: 0.1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: container,
-        start: "top top",
-        end: "30% top",
-        toggleActions: 'play none none reverse'
-      }
-    });
-
-    // Words: Stage 3 fade out stagger in reverse (65-100%)
-    gsap.to(words, {
-      y: -30,
-      opacity: 0,
-      stagger: { each: 0.1, from: "end" },
-      ease: "power2.in",
-      scrollTrigger: {
-        trigger: container,
-        start: "65% top",
-        end: "bottom bottom",
-        toggleActions: 'play none none reverse'
-      }
-    });
-  </script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script type="module" src="./scene.js?v=20260602-scroll-4"></script>
+    <!-- __PREVIEW_BODY__ -->
+  </body>
 </html>
