@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brain Scroll</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+
+    body {
+      background: #000;
+      overflow-x: hidden;
+    }
+
+    .container {
+      height: 300vh;
+      position: relative;
+    }
+
+    .video-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+
+    .words-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .word {
+      position: absolute;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: clamp(4vw, 8vw, 10vw);
+      font-weight: 700;
+      color: #fff;
+      text-transform: lowercase;
+      opacity: 0;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="video-wrapper">
+      <video src="brain.mp4" muted playsinline></video>
+    </div>
+    <div class="words-container">
+      <span class="word">think</span>
+      <span class="word">recall</span>
+      <span class="word">synapse</span>
+      <span class="word">memory</span>
+      <span class="word">neural</span>
+      <span class="word">cognition</span>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const words = document.querySelectorAll('.word');
+    const video = document.querySelector('.video-wrapper video');
+    const container = document.querySelector('.container');
+
+    // Video: Stage 2 zoom + pan left (30-65%)
+    gsap.to(video, {
+      scale: 1.5,
+      x: "-20%",
+      ease: "power1.inOut",
+      scrollTrigger: {
+        trigger: container,
+        start: "30% top",
+        end: "65% top",
+        scrub: 1
+      }
+    });
+
+    // Video: Stage 3 zoom out + pan right (65-100%)
+    gsap.to(video, {
+      scale: 1.0,
+      x: "20%",
+      ease: "power1.inOut",
+      scrollTrigger: {
+        trigger: container,
+        start: "65% top",
+        end: "bottom bottom",
+        scrub: 1
+      }
+    });
+
+    // Words: Stage 1 fade in stagger (0-30%)
+    gsap.from(words, {
+      y: 30,
+      opacity: 0,
+      stagger: 0.1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: container,
+        start: "top top",
+        end: "30% top",
+        scrub: 1
+      }
+    });
+
+    // Words: Stage 3 fade out stagger in reverse (65-100%)
+    gsap.to(words, {
+      y: 30,
+      opacity: 0,
+      stagger: { each: 0.1, from: "end" },
+      ease: "power2.in",
+      scrollTrigger: {
+        trigger: container,
+        start: "65% top",
+        end: "bottom bottom",
+        scrub: 1
+      }
+    });
+  </script>
+</body>
+</html>
