@@ -3,81 +3,270 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Remix: Remix: Blue Marble Globe</title>
-  <meta name="description" content="Amir Realty – Trusted property consultants helping clients buy, sell, and invest in New Metro City Kharian – Sarai Alamgir, Pakistan."/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <title>Radar AI — Macau Demo</title>
+  <meta name="description" content="Radar AI — Macau's Premier AI-Powered Real Estate Intelligence Platform. Discover premium properties, AI-driven analytics, and exclusive investment opportunities in Macau and Greater China."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     :root {
-      --gold: #D4AF37;
-      --gold-light: #e8c84a;
-      --gold-dark: #b8952e;
-      --charcoal: #111111;
-      --charcoal2: #1a1a1a;
-      --charcoal3: #222222;
-      --white: #ffffff;
-      --gray: #f5f5f0;
-      --text-muted: #888888;
+      --red: #B91C1C;
+      --red-dark: #7F1D1D;
+      --red-glow: #DC2626;
+      --gold: #F59E0B;
+      --gold-light: #FBBF24;
+      --charcoal: #09090B;
+      --charcoal2: #18181B;
+      --charcoal3: #27272A;
+      --zinc-950: #09090B;
+      --zinc-900: #18181B;
+      --zinc-800: #27272A;
+      --zinc-700: #3F3F46;
+      --zinc-600: #52525B;
+      --zinc-400: #A1A1AA;
+      --zinc-300: #D4D4D8;
+      --zinc-200: #E4E4E7;
+      --zinc-100: #F4F4F5;
+      --white: #FFFFFF;
+      --text-muted: #71717A;
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body { font-family: 'Inter', sans-serif; background: var(--charcoal); color: var(--white); overflow-x: hidden; }
 
     /* ── SCROLLBAR ── */
-    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--charcoal); }
-    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 10px; }
 
-    /* ── NAVBAR ── */
+    /* ═══════════════════════════════════════════
+       TYPOGRAPHY SYSTEM
+    ═══════════════════════════════════════════ */
+    .display-xl { font-size: clamp(48px, 7vw, 88px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; }
+    .display-lg { font-size: clamp(36px, 5vw, 60px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+    .display-md { font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+    .text-gradient-gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* ═══════════════════════════════════════════
+       GLASSMORPHISM PRIMITIVES
+    ═══════════════════════════════════════════ */
+    .glass-panel {
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.05) inset,
+        0 20px 40px -20px rgba(0,0,0,0.5);
+    }
+    .glass-card {
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset;
+    }
+
+    /* ═══════════════════════════════════════════
+       PREMIUM BUTTON SYSTEM
+    ═══════════════════════════════════════════ */
+    .btn-premium {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      overflow: hidden;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+    .btn-premium:active { transform: scale(0.97) translateY(1px); }
+
+    .btn-premium::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .btn-premium:hover::before { opacity: 1; }
+
+    /* Primary Red Button with Shimmer */
+    .btn-premium-primary {
+      background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+      color: var(--white);
+      box-shadow: 0 4px 20px -5px rgba(185,28,28,0.4);
+    }
+    .btn-premium-primary::before {
+      background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+      transform: translateX(-100%);
+      animation: shimmerBtn 3s infinite;
+    }
+    .btn-premium-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px -5px rgba(185,28,28,0.5);
+    }
+    @keyframes shimmerBtn {
+      0% { transform: translateX(-100%); }
+      50%, 100% { transform: translateX(100%); }
+    }
+
+    /* Outline Button with Directional Fill */
+    .btn-premium-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: none;
+    }
+    .btn-premium-outline::before {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      opacity: 0;
+    }
+    .btn-premium-outline:hover {
+      transform: translateY(-2px);
+      border-color: transparent;
+      color: var(--white);
+      box-shadow: 0 8px 30px -8px rgba(185,28,28,0.3);
+    }
+    .btn-premium-outline:hover::before { opacity: 1; }
+
+    /* Gold Outline - Holographic Foil */
+    .btn-premium-gold {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid rgba(245,158,11,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-premium-gold::before {
+      background: linear-gradient(135deg,
+        rgba(245,158,11,0.1),
+        rgba(251,191,36,0.15),
+        rgba(245,158,11,0.1)
+      );
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .btn-premium-gold::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(90deg, transparent, rgba(245,158,11,0.2), transparent);
+      transform: translateX(-100%);
+      animation: holoShift 4s ease-in-out infinite;
+    }
+    @keyframes holoShift {
+      0%, 100% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+    }
+    .btn-premium-gold:hover {
+      transform: translateY(-2px);
+      border-color: var(--gold);
+      box-shadow: 0 0 30px -10px rgba(245,158,11,0.3), 0 8px 30px -8px rgba(0,0,0,0.4);
+    }
+    .btn-premium-gold:hover::before { opacity: 1; }
+
+    /* Ghost Button */
+    .btn-premium-ghost {
+      background: rgba(255,255,255,0.04);
+      color: var(--zinc-300);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+    }
+    .btn-premium-ghost:hover {
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    /* ═══════════════════════════════════════════
+       NAVBAR - MacOS Dock Style
+    ═══════════════════════════════════════════ */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px; height: 72px;
-      background: rgba(10,10,10,0.0);
-      backdrop-filter: blur(0px);
-      border-bottom: 1px solid rgba(212,175,55,0);
-      transition: all 0.5s ease;
+      padding: 0 48px; height: 68px;
+      background: rgba(9,9,11,0.7);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     nav.scrolled {
-      background: rgba(10,10,10,0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(212,175,55,0.2);
+      background: rgba(9,9,11,0.9);
+      border-bottom: 1px solid rgba(185,28,28,0.15);
+      box-shadow: 0 20px 60px -20px rgba(0,0,0,0.6);
     }
     .nav-logo {
-      display: flex; align-items: center; gap: 12px; text-decoration: none;
+      display: flex; align-items: center; gap: 14px; text-decoration: none;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    .nav-logo:hover { transform: scale(1.02); }
     .nav-logo-icon {
-      width: 40px; height: 40px; background: var(--gold);
-      border-radius: 8px; display: flex; align-items: center; justify-content: center;
-      font-size: 18px; color: var(--charcoal); font-weight: 900;
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 800; color: var(--white);
+      box-shadow: 0 4px 15px -5px rgba(185,28,28,0.5);
+      letter-spacing: -0.02em;
     }
     .nav-logo-text { display: flex; flex-direction: column; }
-    .nav-logo-name { font-size: 18px; font-weight: 700; color: var(--white); line-height: 1; }
-    .nav-logo-sub { font-size: 9px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a {
-      color: rgba(255,255,255,0.8); text-decoration: none;
-      font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
-      transition: color 0.3s; position: relative;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-      height: 1px; background: var(--gold); transform: scaleX(0);
-      transition: transform 0.3s;
-    }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-links a:hover::after { transform: scaleX(1); }
-    .nav-cta {
-      background: var(--gold); color: var(--charcoal);
-      padding: 10px 24px; border-radius: 6px; font-size: 13px;
-      font-weight: 700; text-decoration: none; letter-spacing: 0.5px;
-      transition: all 0.3s; border: none; cursor: pointer;
-    }
-    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
-    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-    .nav-hamburger span { width: 24px; height: 2px; background: var(--white); transition: all 0.3s; }
+    .nav-logo-name { font-size: 17px; font-weight: 700; color: var(--white); line-height: 1; letter-spacing: -0.01em; }
+    .nav-logo-sub { font-size: 9px; font-weight: 500; color: var(--gold); letter-spacing: 2.5px; text-transform: uppercase; margin-top: 2px; }
 
-    /* ── HERO ── */
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links li a {
+      color: rgba(255,255,255,0.6); text-decoration: none;
+      font-size: 13.5px; font-weight: 500; letter-spacing: 0.01em;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      padding: 6px 0;
+    }
+    .nav-links li a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0); transform-origin: right;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-links li a:hover { color: var(--white); }
+    .nav-links li a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+    .nav-cta {
+      padding: 10px 22px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: var(--white);
+      border-radius: 10px;
+      font-size: 13px; font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 15px -5px rgba(185,28,28,0.4);
+    }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px -5px rgba(185,28,28,0.5);
+    }
+    .nav-cta:active { transform: scale(0.97); }
+
+    .nav-hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; padding: 8px; }
+    .nav-hamburger span { width: 24px; height: 1.5px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+    .nav-hamburger:hover span { background: var(--gold); }
+
+    /* ═══════════════════════════════════════════
+       HERO SECTION
+    ═══════════════════════════════════════════ */
     #hero {
       min-height: 100vh; position: relative; display: flex; align-items: center;
       overflow: hidden;
@@ -86,12 +275,12 @@
     .hero-slide {
       position: absolute; inset: 0;
       background-size: cover; background-position: center;
-      opacity: 0; transition: opacity 1.5s ease;
+      opacity: 0; transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .hero-slide.active { opacity: 1; }
     .hero-slide::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 60%, rgba(212,175,55,0.08) 100%);
+      background: linear-gradient(135deg, rgba(9,9,11,0.85) 0%, rgba(9,9,11,0.5) 50%, rgba(185,28,28,0.06) 100%);
     }
     .hero-slide-1 { background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=80'); }
     .hero-slide-2 { background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80'); }
@@ -99,426 +288,572 @@
     .hero-slide-4 { background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&q=80'); }
 
     .hero-content {
-      position: relative; z-index: 2; max-width: 1200px;
-      margin: 0 auto; padding: 120px 40px 80px;
+      position: relative; z-index: 2; max-width: 1300px;
+      margin: 0 auto; padding: 140px 48px 100px;
       width: 100%;
     }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.4);
-      color: var(--gold); padding: 8px 18px; border-radius: 50px;
-      font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
-      text-transform: uppercase; margin-bottom: 28px;
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(185,28,28,0.12);
+      border: 1px solid rgba(185,28,28,0.25);
+      color: var(--gold); padding: 10px 20px; border-radius: 100px;
+      font-size: 11px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 32px;
       opacity: 0; transform: translateY(20px);
-      animation: fadeUp 0.8s 0.3s forwards;
+      animation: fadeUp 0.7s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero-eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
     }
     .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(38px, 5.5vw, 72px);
-      font-weight: 800; line-height: 1.1;
-      color: var(--white); margin-bottom: 24px;
+      font-size: clamp(44px, 6.5vw, 80px);
+      font-weight: 800; line-height: 0.95;
+      letter-spacing: -0.04em; color: var(--white); margin-bottom: 28px;
       opacity: 0; transform: translateY(30px);
-      animation: fadeUp 0.8s 0.5s forwards;
+      animation: fadeUp 0.7s 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    .hero-title span { color: var(--gold); }
+    .hero-title .accent {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
     .hero-subtitle {
-      font-size: clamp(15px, 1.8vw, 19px);
-      color: rgba(255,255,255,0.75); max-width: 580px;
-      line-height: 1.7; margin-bottom: 40px;
+      font-size: clamp(16px, 1.5vw, 19px);
+      color: rgba(255,255,255,0.55); max-width: 540px;
+      line-height: 1.7; margin-bottom: 44px;
       opacity: 0; transform: translateY(30px);
-      animation: fadeUp 0.8s 0.7s forwards;
+      animation: fadeUp 0.7s 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    .hero-buttons {
-      display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 48px;
+    .hero-actions {
+      display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 52px;
       opacity: 0; transform: translateY(30px);
-      animation: fadeUp 0.8s 0.9s forwards;
+      animation: fadeUp 0.7s 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    .btn-primary {
-      background: var(--gold); color: var(--charcoal);
-      padding: 16px 36px; border-radius: 6px; font-size: 14px;
-      font-weight: 700; text-decoration: none; letter-spacing: 0.5px;
-      transition: all 0.3s; border: none; cursor: pointer;
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(212,175,55,0.35); }
-    .btn-outline {
-      background: transparent; color: var(--white);
-      padding: 16px 36px; border-radius: 6px; font-size: 14px;
-      font-weight: 600; text-decoration: none; letter-spacing: 0.5px;
-      transition: all 0.3s; border: 1px solid rgba(255,255,255,0.4);
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
-    .btn-gold-outline {
-      background: transparent; color: var(--gold);
-      padding: 16px 36px; border-radius: 6px; font-size: 14px;
-      font-weight: 600; text-decoration: none;
-      border: 1px solid var(--gold); transition: all 0.3s;
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .btn-gold-outline:hover { background: var(--gold); color: var(--charcoal); }
-
-    .hero-contact {
-      display: inline-flex; align-items: center; gap: 12px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      padding: 14px 24px; border-radius: 8px;
-      backdrop-filter: blur(10px);
-      opacity: 0; animation: fadeUp 0.8s 1.1s forwards;
+    .hero-contact-badge {
+      display: inline-flex; align-items: center; gap: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 14px 22px; border-radius: 14px;
+      backdrop-filter: blur(20px);
+      opacity: 0; animation: fadeUp 0.7s 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     .hero-contact-icon {
-      width: 40px; height: 40px; background: var(--gold);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      color: var(--charcoal); font-size: 16px;
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white); font-size: 16px;
+      box-shadow: 0 4px 15px -5px rgba(185,28,28,0.5);
     }
-    .hero-contact-label { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
-    .hero-contact-number { font-size: 18px; font-weight: 700; color: var(--white); }
+    .hero-contact-label { font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+    .hero-contact-number { font-size: 18px; font-weight: 700; color: var(--white); letter-spacing: -0.01em; }
 
-    .hero-scroll {
-      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero Search */
+    .hero-search {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 24px 28px; display: flex; gap: 20px; align-items: flex-end;
+      max-width: 720px; margin-top: 44px;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset, 0 20px 50px -20px rgba(0,0,0,0.4);
+      opacity: 0; animation: fadeUp 0.7s 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero-search-group { flex: 1; min-width: 150px; }
+    .hero-search-label { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; font-weight: 600; }
+    .hero-search-select {
+      background: transparent; border: none; outline: none;
+      color: var(--white); font-size: 14px; font-weight: 500;
+      font-family: 'Inter', sans-serif; width: 100%; cursor: pointer;
+      appearance: none;
+    }
+    .hero-search-select option { background: var(--charcoal2); color: white; }
+    .hero-search-divider { width: 1px; height: 44px; background: rgba(255,255,255,0.1); align-self: center; }
+    .hero-search-btn {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: var(--white); border: none;
+      padding: 14px 28px; border-radius: 12px;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; gap: 8px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 15px -5px rgba(185,28,28,0.4);
+      white-space: nowrap;
+    }
+    .hero-search-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgba(185,28,28,0.5); }
+    .hero-search-btn:active { transform: scale(0.97); }
+
+    .hero-scroll-indicator {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 8px;
-      color: rgba(255,255,255,0.4); font-size: 11px; letter-spacing: 2px;
-      text-transform: uppercase; animation: bounce 2s infinite;
+      color: rgba(255,255,255,0.35); font-size: 10px; letter-spacing: 3px;
+      text-transform: uppercase; animation: float 3s ease-in-out infinite;
       z-index: 2;
     }
-    .hero-scroll-arrow { width: 20px; height: 30px; border: 1px solid rgba(255,255,255,0.3); border-radius: 10px; display: flex; align-items: flex-start; justify-content: center; padding-top: 6px; }
-    .hero-scroll-dot { width: 3px; height: 6px; background: var(--gold); border-radius: 2px; animation: scrollDot 1.8s infinite; }
+    .hero-scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+    @keyframes float {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
 
     .hero-dots {
-      position: absolute; bottom: 36px; right: 40px;
+      position: absolute; bottom: 40px; right: 48px;
       display: flex; gap: 8px; z-index: 3;
     }
     .hero-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: rgba(255,255,255,0.3); cursor: pointer;
-      transition: all 0.3s;
+      width: 8px; height: 8px; border-radius: 4px;
+      background: rgba(255,255,255,0.25); cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .hero-dot.active { background: var(--gold); width: 24px; border-radius: 4px; }
+    .hero-dot.active {
+      background: var(--gold);
+      width: 28px;
+      box-shadow: 0 0 15px -3px rgba(245,158,11,0.5);
+    }
 
-    /* ── STATS BAR ── */
+    /* ═══════════════════════════════════════════
+       STATS BAR - Breathing Animation
+    ═══════════════════════════════════════════ */
     .stats-bar {
-      background: var(--gold); padding: 0;
+      background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+      position: relative;
       overflow: hidden;
     }
+    .stats-bar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+      transform: translateX(-100%);
+      animation: statsShimmer 4s ease-in-out infinite;
+    }
+    @keyframes statsShimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
     .stats-bar-inner {
-      max-width: 1200px; margin: 0 auto;
+      max-width: 1300px; margin: 0 auto;
       display: grid; grid-template-columns: repeat(4, 1fr);
     }
     .stat-item {
-      padding: 28px 32px; text-align: center;
-      border-right: 1px solid rgba(0,0,0,0.1);
-      position: relative; overflow: hidden;
+      padding: 36px 40px; text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      position: relative;
     }
     .stat-item:last-child { border-right: none; }
-    .stat-item::before {
-      content: ''; position: absolute; inset: 0;
-      background: rgba(0,0,0,0); transition: background 0.3s;
-    }
-    .stat-item:hover::before { background: rgba(0,0,0,0.05); }
     .stat-number {
-      font-size: 32px; font-weight: 900; color: var(--charcoal);
-      font-family: 'Playfair Display', serif; line-height: 1;
+      font-size: 38px; font-weight: 800; color: var(--white);
+      font-family: 'Inter', sans-serif; line-height: 1;
+      letter-spacing: -0.03em;
     }
-    .stat-label { font-size: 12px; font-weight: 600; color: rgba(0,0,0,0.6); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+    .stat-label {
+      font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.65);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-top: 6px;
+    }
 
-    /* ── SECTIONS ── */
-    section { padding: 100px 40px; }
-    .container { max-width: 1200px; margin: 0 auto; }
-    .section-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      color: var(--gold); font-size: 12px; font-weight: 600;
-      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;
+    /* ═══════════════════════════════════════════
+       SECTION SYSTEM
+    ═══════════════════════════════════════════ */
+    section { padding: 120px 48px; }
+    .container { max-width: 1300px; margin: 0 auto; }
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: var(--gold); font-size: 11px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 20px;
     }
-    .section-tag::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+    .section-eyebrow::before {
+      content: ''; width: 28px; height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
     .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(28px, 4vw, 48px);
-      font-weight: 700; line-height: 1.2; margin-bottom: 20px;
-      color: var(--white);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
+      color: var(--white); margin-bottom: 24px;
     }
-    .section-title.dark { color: var(--charcoal); }
+    .section-title .accent { color: var(--gold); }
     .section-subtitle {
-      font-size: 16px; color: var(--text-muted);
-      line-height: 1.7; max-width: 560px; margin-bottom: 60px;
+      font-size: 16px; color: var(--zinc-400);
+      line-height: 1.75; max-width: 540px; margin-bottom: 64px;
     }
-    .section-subtitle.dark { color: #555; }
-    .text-gold { color: var(--gold); }
 
-    /* ── ABOUT ── */
+    /* ═══════════════════════════════════════════
+       ABOUT SECTION - Asymmetric Layout
+    ═══════════════════════════════════════════ */
     #about { background: var(--charcoal2); }
     .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
+      display: grid; grid-template-columns: 1.1fr 1fr;
+      gap: 100px; align-items: center;
     }
     .about-image-wrap {
-      position: relative; border-radius: 16px; overflow: hidden;
+      position: relative; border-radius: 24px; overflow: hidden;
     }
     .about-image-wrap img {
-      width: 100%; height: 500px; object-fit: cover;
-      display: block; border-radius: 16px;
-      transition: transform 0.6s ease;
+      width: 100%; height: 580px; object-fit: cover;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .about-image-wrap:hover img { transform: scale(1.04); }
     .about-image-badge {
       position: absolute; bottom: 24px; left: 24px;
-      background: var(--gold); color: var(--charcoal);
-      padding: 14px 20px; border-radius: 10px;
-      font-weight: 800; font-size: 14px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: var(--white); padding: 16px 24px; border-radius: 14px;
+      font-weight: 700; font-size: 13px;
+      box-shadow: 0 8px 30px -10px rgba(185,28,28,0.6);
     }
+    .about-content .section-tag { margin-bottom: 24px; }
     .about-features {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 16px; margin-top: 40px;
+      gap: 12px; margin-top: 44px;
     }
     .about-feature {
       display: flex; align-items: center; gap: 12px;
-      padding: 14px 18px; background: rgba(212,175,55,0.07);
-      border: 1px solid rgba(212,175,55,0.15); border-radius: 8px;
-      transition: all 0.3s;
+      padding: 14px 18px;
+      background: rgba(185,28,28,0.06);
+      border: 1px solid rgba(185,28,28,0.12);
+      border-radius: 12px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .about-feature:hover { background: rgba(212,175,55,0.12); border-color: rgba(212,175,55,0.35); transform: translateX(4px); }
+    .about-feature:hover {
+      background: rgba(185,28,28,0.1);
+      border-color: rgba(185,28,28,0.25);
+      transform: translateX(6px);
+    }
     .about-feature-icon { color: var(--gold); font-size: 14px; flex-shrink: 0; }
-    .about-feature-text { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.8); }
+    .about-feature-text { font-size: 13px; font-weight: 500; color: var(--zinc-300); }
 
-    /* ── PROPERTIES ── */
+    /* ═══════════════════════════════════════════
+       PROPERTIES - Bento Grid with Tilt Cards
+    ═══════════════════════════════════════════ */
     #properties { background: var(--charcoal); }
     .properties-filter {
-      display: flex; gap: 12px; margin-bottom: 48px; flex-wrap: wrap;
+      display: flex; gap: 10px; margin-bottom: 48px; flex-wrap: wrap;
     }
     .filter-btn {
-      padding: 10px 22px; border-radius: 50px;
+      padding: 11px 24px; border-radius: 100px;
       font-size: 13px; font-weight: 600; cursor: pointer;
-      border: 1px solid rgba(212,175,55,0.3); color: rgba(255,255,255,0.6);
-      background: transparent; transition: all 0.3s;
+      border: 1px solid rgba(255,255,255,0.1); color: var(--zinc-400);
+      background: transparent; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .filter-btn.active, .filter-btn:hover {
-      background: var(--gold); border-color: var(--gold);
-      color: var(--charcoal);
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      border-color: transparent; color: var(--white);
+      box-shadow: 0 4px 20px -8px rgba(185,28,28,0.5);
+      transform: translateY(-1px);
     }
     .properties-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 28px;
     }
     .property-card {
-      background: var(--charcoal2); border-radius: 16px; overflow: hidden;
+      background: var(--charcoal2);
       border: 1px solid rgba(255,255,255,0.06);
-      transition: all 0.4s ease; cursor: pointer;
+      border-radius: 20px; overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      transform-style: preserve-3d;
+      perspective: 1000px;
     }
     .property-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(212,175,55,0.3);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+      transform: translateY(-10px) rotateX(0deg) rotateY(0deg);
+      border-color: rgba(185,28,28,0.3);
+      box-shadow:
+        0 30px 60px -20px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(185,28,28,0.1);
     }
     .property-image {
-      position: relative; height: 220px; overflow: hidden;
+      position: relative; height: 240px; overflow: hidden;
     }
     .property-image img {
       width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.5s ease;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .property-card:hover .property-image img { transform: scale(1.08); }
     .property-badge {
       position: absolute; top: 16px; left: 16px;
-      background: var(--gold); color: var(--charcoal);
-      padding: 5px 12px; border-radius: 4px;
-      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: var(--white); padding: 6px 14px; border-radius: 8px;
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
       text-transform: uppercase;
+      box-shadow: 0 4px 15px -5px rgba(185,28,28,0.5);
     }
-    .property-badge.new { background: #22c55e; color: white; }
-    .property-badge.hot { background: #ef4444; color: white; }
+    .property-badge.new {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: var(--charcoal);
+    }
+    .property-badge.hot { background: #EF4444; }
     .property-fav {
       position: absolute; top: 16px; right: 16px;
-      width: 36px; height: 36px; background: rgba(0,0,0,0.5);
+      width: 38px; height: 38px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
       border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: all 0.3s; backdrop-filter: blur(4px);
-      color: rgba(255,255,255,0.6); font-size: 14px;
+      cursor: pointer; transition: all 0.3s;
+      color: rgba(255,255,255,0.5); font-size: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
     }
-    .property-fav:hover { background: rgba(212,175,55,0.9); color: var(--charcoal); }
-    .property-body { padding: 22px; }
+    .property-fav:hover {
+      background: rgba(185,28,28,0.9);
+      color: var(--white);
+      transform: scale(1.1);
+      border-color: transparent;
+    }
+    .property-body { padding: 24px; }
     .property-price {
       font-size: 22px; font-weight: 800; color: var(--gold);
-      font-family: 'Playfair Display', serif; margin-bottom: 8px;
+      letter-spacing: -0.02em; margin-bottom: 8px;
     }
     .property-name {
       font-size: 16px; font-weight: 600; color: var(--white);
-      margin-bottom: 6px;
+      margin-bottom: 8px; line-height: 1.3;
     }
     .property-loc {
-      font-size: 12px; color: var(--text-muted);
-      display: flex; align-items: center; gap: 4px; margin-bottom: 16px;
+      font-size: 12px; color: var(--zinc-500);
+      display: flex; align-items: center; gap: 6px; margin-bottom: 20px;
     }
+    .property-loc i { color: var(--gold); font-size: 11px; }
     .property-specs {
-      display: flex; gap: 16px; padding: 14px 0;
-      border-top: 1px solid rgba(255,255,255,0.07);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      margin-bottom: 16px;
+      display: flex; gap: 18px; padding: 16px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 18px;
     }
     .property-spec {
       display: flex; align-items: center; gap: 6px;
-      font-size: 12px; color: var(--text-muted);
+      font-size: 12px; color: var(--zinc-400);
     }
     .property-spec i { color: var(--gold); font-size: 11px; }
-    .property-details-btn {
-      width: 100%; padding: 12px; border-radius: 8px;
-      background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.25);
+    .property-btn {
+      width: 100%; padding: 13px;
+      background: rgba(185,28,28,0.08);
+      border: 1px solid rgba(185,28,28,0.2);
       color: var(--gold); font-size: 13px; font-weight: 600;
-      cursor: pointer; transition: all 0.3s; letter-spacing: 0.5px;
+      border-radius: 10px; cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      letter-spacing: 0.01em;
     }
-    .property-details-btn:hover { background: var(--gold); color: var(--charcoal); }
+    .property-btn:hover {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: var(--white);
+      border-color: transparent;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px -8px rgba(185,28,28,0.4);
+    }
 
-    /* ── NEW METRO CITY ── */
-    #nmc { background: var(--charcoal2); }
-    .nmc-grid {
+    /* ═══════════════════════════════════════════
+       MACAU SECTION - Split Layout
+    ═══════════════════════════════════════════ */
+    #macau { background: var(--charcoal2); }
+    .macau-grid {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 60px; align-items: start;
+      gap: 80px; align-items: start;
     }
-    .nmc-features { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
-    .nmc-feature {
-      padding: 24px; background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
-      transition: all 0.3s;
+    .macau-features { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
+    .macau-feature {
+      padding: 26px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .nmc-feature:hover {
-      border-color: rgba(212,175,55,0.3);
-      background: rgba(212,175,55,0.05);
+    .macau-feature:hover {
+      background: rgba(185,28,28,0.05);
+      border-color: rgba(185,28,28,0.2);
       transform: translateY(-4px);
     }
-    .nmc-feature-icon {
-      width: 44px; height: 44px; background: rgba(212,175,55,0.15);
-      border-radius: 10px; display: flex; align-items: center; justify-content: center;
-      color: var(--gold); font-size: 18px; margin-bottom: 12px;
+    .macau-feature-icon {
+      width: 48px; height: 48px;
+      background: rgba(185,28,28,0.12);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 18px; margin-bottom: 16px;
     }
-    .nmc-feature h4 { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
-    .nmc-feature p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-    .nmc-map {
-      border-radius: 16px; overflow: hidden;
-      border: 1px solid rgba(212,175,55,0.2);
+    .macau-feature h4 { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+    .macau-feature p { font-size: 12px; color: var(--zinc-400); line-height: 1.6; }
+    .macau-map {
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid rgba(185,28,28,0.15);
       position: sticky; top: 100px;
+      box-shadow: 0 20px 60px -20px rgba(0,0,0,0.5);
     }
-    .nmc-map iframe {
-      width: 100%; height: 400px; border: none;
-      filter: grayscale(30%) contrast(1.1);
+    .macau-map iframe {
+      width: 100%; height: 440px; border: none;
+      filter: grayscale(20%) contrast(1.05);
     }
-    .nmc-map-label {
-      background: var(--charcoal2); padding: 16px 20px;
-      display: flex; align-items: center; gap: 12px;
+    .macau-map-label {
+      background: var(--charcoal2); padding: 18px 24px;
+      display: flex; align-items: center; gap: 14px;
     }
-    .nmc-map-label i { color: var(--gold); }
-    .nmc-map-label span { font-size: 13px; color: rgba(255,255,255,0.7); }
+    .macau-map-label i { color: var(--red); font-size: 16px; }
+    .macau-map-label span { font-size: 13px; color: var(--zinc-300); }
 
-    /* ── SERVICES ── */
+    /* ═══════════════════════════════════════════
+       SERVICES - Glassmorphism Cards
+    ═══════════════════════════════════════════ */
     #services { background: var(--charcoal); }
     .services-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
+      gap: 24px;
     }
     .service-card {
-      padding: 36px 30px; background: var(--charcoal2);
-      border: 1px solid rgba(255,255,255,0.06); border-radius: 16px;
-      text-align: center; transition: all 0.4s; position: relative; overflow: hidden;
+      padding: 40px 32px;
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      text-align: center; position: relative; overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .service-card::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 2px; background: var(--gold);
-      transform: scaleX(0); transition: transform 0.4s;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+      transform: scaleX(0);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .service-card:hover { border-color: rgba(212,175,55,0.25); transform: translateY(-6px); }
+    .service-card:hover {
+      border-color: rgba(185,28,28,0.2);
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.4);
+    }
     .service-card:hover::before { transform: scaleX(1); }
     .service-icon {
-      width: 64px; height: 64px; background: rgba(212,175,55,0.12);
-      border-radius: 16px; display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 20px; font-size: 26px; color: var(--gold);
-      transition: all 0.4s;
+      width: 68px; height: 68px;
+      background: rgba(185,28,28,0.1);
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px; font-size: 26px; color: var(--gold);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .service-card:hover .service-icon { background: var(--gold); color: var(--charcoal); transform: scale(1.08); }
+    .service-card:hover .service-icon {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: var(--white);
+      transform: scale(1.1) rotate(-5deg);
+    }
     .service-card h3 { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
-    .service-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+    .service-card p { font-size: 13px; color: var(--zinc-400); line-height: 1.75; }
 
-    /* ── WHY INVEST ── */
+    /* ═══════════════════════════════════════════
+       INVESTMENT SECTION
+    ═══════════════════════════════════════════ */
     #invest {
-      background: linear-gradient(135deg, #0d0d0d 0%, #1a1400 50%, #0d0d0d 100%);
+      background: linear-gradient(135deg, var(--charcoal) 0%, #1a0505 50%, var(--charcoal) 100%);
       position: relative; overflow: hidden;
     }
     #invest::before {
       content: ''; position: absolute;
-      top: -200px; left: -200px; width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+      top: -250px; left: -250px; width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(185,28,28,0.06) 0%, transparent 70%);
       pointer-events: none;
     }
     .invest-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 24px; margin-top: 20px;
+      gap: 24px; margin-top: 24px;
     }
     .invest-card {
-      padding: 32px; background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(212,175,55,0.15); border-radius: 16px;
-      transition: all 0.4s; position: relative;
+      padding: 36px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(185,28,28,0.1);
+      border-radius: 20px;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
     .invest-card:hover {
-      background: rgba(212,175,55,0.06);
-      border-color: rgba(212,175,55,0.4);
-      transform: translateY(-4px);
+      background: rgba(185,28,28,0.05);
+      border-color: rgba(185,28,28,0.3);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px -15px rgba(0,0,0,0.4);
     }
     .invest-number {
-      font-size: 48px; font-weight: 900; color: rgba(212,175,55,0.12);
-      font-family: 'Playfair Display', serif; position: absolute;
-      top: 16px; right: 20px; line-height: 1;
+      font-size: 56px; font-weight: 800;
+      color: rgba(185,28,28,0.08);
+      font-family: 'Inter', sans-serif; position: absolute;
+      top: 20px; right: 28px; line-height: 1;
+      letter-spacing: -0.04em;
     }
-    .invest-icon { font-size: 28px; color: var(--gold); margin-bottom: 16px; }
+    .invest-icon { font-size: 30px; color: var(--gold); margin-bottom: 20px; }
     .invest-card h3 { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
-    .invest-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+    .invest-card p { font-size: 13px; color: var(--zinc-400); line-height: 1.75; }
 
-    /* ── TESTIMONIALS ── */
+    /* ═══════════════════════════════════════════
+       TESTIMONIALS - Glassmorphism Panel
+    ═══════════════════════════════════════════ */
     #testimonials { background: var(--charcoal2); }
     .testimonials-slider { position: relative; overflow: hidden; }
-    .testimonials-track {
-      display: flex; transition: transform 0.6s ease;
-    }
-    .testimonial-slide { min-width: 100%; padding: 0 4px; }
+    .testimonials-track { display: flex; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    .testimonial-slide { min-width: 100%; }
     .testimonials-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 24px;
     }
     .testimonial-card {
-      background: var(--charcoal); border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 16px; padding: 28px;
-      transition: all 0.3s;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px; padding: 32px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .testimonial-card:hover { border-color: rgba(212,175,55,0.25); transform: translateY(-4px); }
-    .testimonial-stars { color: var(--gold); font-size: 13px; margin-bottom: 14px; letter-spacing: 2px; }
+    .testimonial-card:hover {
+      border-color: rgba(185,28,28,0.2);
+      transform: translateY(-4px);
+    }
+    .testimonial-stars { color: var(--gold); font-size: 14px; margin-bottom: 16px; letter-spacing: 3px; }
     .testimonial-text {
-      font-size: 14px; color: rgba(255,255,255,0.75);
-      line-height: 1.8; margin-bottom: 20px; font-style: italic;
+      font-size: 14px; color: var(--zinc-300);
+      line-height: 1.85; margin-bottom: 24px;
+      font-style: italic;
     }
     .testimonial-author { display: flex; align-items: center; gap: 14px; }
     .testimonial-avatar {
-      width: 46px; height: 46px; border-radius: 50%;
-      background: var(--gold); display: flex; align-items: center; justify-content: center;
-      font-size: 18px; color: var(--charcoal); font-weight: 700;
+      width: 48px; height: 48px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: var(--white); font-weight: 700;
       flex-shrink: 0;
     }
     .testimonial-name { font-size: 14px; font-weight: 700; color: var(--white); }
-    .testimonial-prop { font-size: 12px; color: var(--gold); }
-    .slider-nav {
-      display: flex; justify-content: center; gap: 12px; margin-top: 40px;
-    }
+    .testimonial-role { font-size: 12px; color: var(--gold); }
+    .slider-nav { display: flex; justify-content: center; gap: 12px; margin-top: 48px; }
     .slider-btn {
-      width: 44px; height: 44px; border-radius: 50%;
-      background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.25);
-      color: var(--gold); cursor: pointer; transition: all 0.3s;
+      width: 48px; height: 48px; border-radius: 14px;
+      background: rgba(185,28,28,0.1);
+      border: 1px solid rgba(185,28,28,0.2);
+      color: var(--gold); cursor: pointer; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex; align-items: center; justify-content: center;
     }
-    .slider-btn:hover { background: var(--gold); color: var(--charcoal); }
+    .slider-btn:hover {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: var(--white);
+      border-color: transparent;
+      transform: scale(1.05);
+    }
 
-    /* ── GALLERY ── */
+    /* ═══════════════════════════════════════════
+       GALLERY - Bento Grid
+    ═══════════════════════════════════════════ */
     #gallery { background: var(--charcoal); }
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-template-rows: auto;
-      gap: 12px;
+      gap: 14px;
     }
     .gallery-item {
-      border-radius: 12px; overflow: hidden;
+      border-radius: 16px; overflow: hidden;
       position: relative; cursor: pointer;
     }
     .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
@@ -526,217 +861,265 @@
     .gallery-item img {
       width: 100%; height: 100%; object-fit: cover;
       min-height: 200px; display: block;
-      transition: transform 0.5s ease;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-item:hover img { transform: scale(1.1); }
     .gallery-overlay {
       position: absolute; inset: 0;
-      background: rgba(0,0,0,0); transition: all 0.4s;
+      background: rgba(185,28,28,0);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex; align-items: center; justify-content: center;
     }
-    .gallery-item:hover .gallery-overlay { background: rgba(212,175,55,0.2); }
+    .gallery-item:hover .gallery-overlay { background: rgba(185,28,28,0.15); }
     .gallery-overlay i { color: white; font-size: 28px; opacity: 0; transition: all 0.4s; }
-    .gallery-item:hover .gallery-overlay i { opacity: 1; }
+    .gallery-item:hover .gallery-overlay i { opacity: 1; transform: scale(1); }
 
-    /* ── CONTACT ── */
+    /* ═══════════════════════════════════════════
+       CONTACT - Glassmorphism Form
+    ═══════════════════════════════════════════ */
     #contact { background: var(--charcoal2); }
     .contact-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 60px; align-items: start;
+      display: grid; grid-template-columns: 1.1fr 1fr;
+      gap: 80px; align-items: start;
     }
     .contact-form {
-      background: var(--charcoal); border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 20px; padding: 40px;
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 48px;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset;
     }
-    .form-group { margin-bottom: 20px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
-    .form-label { display: block; font-size: 12px; font-weight: 600; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+    .form-group { margin-bottom: 22px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 22px; }
+    .form-label {
+      display: block; font-size: 11px; font-weight: 600;
+      color: var(--gold); letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
     .form-input {
-      width: 100%; padding: 14px 18px; background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+      width: 100%; padding: 15px 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
       color: var(--white); font-size: 14px; font-family: 'Inter', sans-serif;
-      transition: all 0.3s; outline: none;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      outline: none;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset;
     }
-    .form-input:focus { border-color: var(--gold); background: rgba(212,175,55,0.05); }
-    .form-input::placeholder { color: rgba(255,255,255,0.3); }
+    .form-input:focus {
+      border-color: var(--red);
+      background: rgba(185,28,28,0.05);
+      box-shadow: 0 0 0 3px rgba(185,28,28,0.1), 0 1px 0 rgba(255,255,255,0.05) inset;
+    }
+    .form-input::placeholder { color: rgba(255,255,255,0.25); }
     select.form-input { cursor: pointer; }
-    select.form-input option { background: var(--charcoal); }
-    textarea.form-input { height: 120px; resize: none; }
-    .contact-info { padding-top: 20px; }
+    select.form-input option { background: var(--charcoal2); color: white; }
+    textarea.form-input { height: 130px; resize: none; }
+
+    .contact-info { padding-top: 16px; }
     .contact-info-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 32px; font-weight: 700; color: var(--white); margin-bottom: 16px;
+      font-size: 34px; font-weight: 800;
+      color: var(--white); margin-bottom: 16px;
+      letter-spacing: -0.03em; line-height: 1.1;
     }
-    .contact-info-text { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 36px; }
+    .contact-info-text {
+      font-size: 15px; color: var(--zinc-400);
+      line-height: 1.75; margin-bottom: 40px;
+    }
     .contact-detail {
-      display: flex; align-items: flex-start; gap: 16px;
-      margin-bottom: 24px; padding: 20px; border-radius: 12px;
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-      transition: all 0.3s;
+      display: flex; align-items: flex-start; gap: 18px;
+      margin-bottom: 20px; padding: 22px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .contact-detail:hover { border-color: rgba(212,175,55,0.25); background: rgba(212,175,55,0.05); }
+    .contact-detail:hover {
+      border-color: rgba(185,28,28,0.2);
+      background: rgba(185,28,28,0.03);
+    }
     .contact-detail-icon {
-      width: 44px; height: 44px; background: rgba(212,175,55,0.15);
-      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px;
+      background: rgba(185,28,28,0.12);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
       color: var(--gold); font-size: 16px; flex-shrink: 0;
     }
-    .contact-detail-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-    .contact-detail-value { font-size: 15px; font-weight: 600; color: var(--white); margin-top: 2px; }
+    .contact-detail-label {
+      font-size: 11px; color: var(--zinc-500);
+      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px;
+    }
+    .contact-detail-value {
+      font-size: 15px; font-weight: 600; color: var(--white);
+    }
+    .contact-btns { margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; }
 
-    /* ── FOOTER ── */
+    /* ═══════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════ */
     footer {
-      background: #080808; border-top: 1px solid rgba(212,175,55,0.15);
-      padding: 60px 40px 30px;
+      background: #050505;
+      border-top: 1px solid rgba(185,28,28,0.1);
+      padding: 80px 48px 40px;
     }
     .footer-grid {
-      max-width: 1200px; margin: 0 auto;
+      max-width: 1300px; margin: 0 auto;
       display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 48px; margin-bottom: 48px;
+      gap: 56px; margin-bottom: 56px;
     }
-    .footer-brand p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin: 16px 0 24px; }
+    .footer-brand p {
+      font-size: 14px; color: var(--zinc-500);
+      line-height: 1.75; margin: 20px 0 28px;
+    }
     .footer-social { display: flex; gap: 10px; }
     .footer-social a {
-      width: 38px; height: 38px; border-radius: 8px;
-      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      width: 42px; height: 42px; border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
       display: flex; align-items: center; justify-content: center;
-      color: var(--text-muted); font-size: 14px; text-decoration: none;
-      transition: all 0.3s;
+      color: var(--zinc-400); font-size: 15px; text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .footer-social a:hover { background: var(--gold); border-color: var(--gold); color: var(--charcoal); }
-    .footer-col h4 { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 20px; letter-spacing: 0.5px; }
+    .footer-social a:hover {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      border-color: transparent;
+      color: var(--white);
+      transform: translateY(-3px);
+    }
+    .footer-col h4 {
+      font-size: 13px; font-weight: 700; color: var(--white);
+      margin-bottom: 24px; letter-spacing: 0.02em;
+    }
     .footer-col ul { list-style: none; }
-    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li { margin-bottom: 12px; }
     .footer-col ul li a {
-      color: var(--text-muted); text-decoration: none; font-size: 13px;
-      transition: color 0.3s; display: flex; align-items: center; gap: 6px;
+      color: var(--zinc-500); text-decoration: none; font-size: 13px;
+      transition: color 0.3s;
+      display: flex; align-items: center; gap: 6px;
     }
-    .footer-col ul li a::before { content: '›'; color: var(--gold); }
+    .footer-col ul li a::before {
+      content: ''; width: 4px; height: 4px; border-radius: 50%;
+      background: var(--gold); opacity: 0.5;
+    }
     .footer-col ul li a:hover { color: var(--gold); }
     .footer-bottom {
-      max-width: 1200px; margin: 0 auto;
-      padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.07);
+      max-width: 1300px; margin: 0 auto;
+      padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.05);
       display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 12px;
+      flex-wrap: wrap; gap: 16px;
     }
-    .footer-bottom p { font-size: 12px; color: var(--text-muted); }
+    .footer-bottom p { font-size: 12px; color: var(--zinc-600); }
     .footer-bottom span { color: var(--gold); }
 
-    /* ── FLOATING BUTTONS ── */
+    /* ═══════════════════════════════════════════
+       FLOATING ACTION BUTTONS
+    ═══════════════════════════════════════════ */
     .float-btns {
-      position: fixed; bottom: 28px; right: 28px;
+      position: fixed; bottom: 32px; right: 32px;
       display: flex; flex-direction: column; gap: 12px;
       z-index: 999;
     }
     .float-btn {
-      width: 54px; height: 54px; border-radius: 50%;
+      width: 56px; height: 56px; border-radius: 16px;
       display: flex; align-items: center; justify-content: center;
       font-size: 22px; cursor: pointer; text-decoration: none;
-      transition: all 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 8px 30px -10px rgba(0,0,0,0.5);
     }
-    .float-wa { background: #25D366; color: white; }
-    .float-wa:hover { background: #1ebe5a; transform: scale(1.1); }
-    .float-call { background: var(--gold); color: var(--charcoal); }
-    .float-call:hover { background: var(--gold-light); transform: scale(1.1); }
+    .float-wa {
+      background: #25D366; color: white;
+      box-shadow: 0 8px 30px -10px rgba(37,211,102,0.5);
+    }
+    .float-wa:hover {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 12px 40px -10px rgba(37,211,102,0.6);
+    }
+    .float-call {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: var(--white);
+    }
+    .float-call:hover {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 12px 40px -10px rgba(185,28,28,0.5);
+    }
 
-    /* ── LIGHTBOX ── */
+    /* ═══════════════════════════════════════════
+       LIGHTBOX
+    ═══════════════════════════════════════════ */
     .lightbox {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.92);
-      z-index: 9999; display: none; align-items: center; justify-content: center;
-      backdrop-filter: blur(6px);
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 9999; display: none;
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(20px);
     }
     .lightbox.open { display: flex; }
     .lightbox img {
-      max-width: 90vw; max-height: 85vh; border-radius: 12px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+      max-width: 90vw; max-height: 88vh;
+      border-radius: 16px;
+      box-shadow: 0 40px 100px -30px rgba(0,0,0,0.8);
     }
     .lightbox-close {
       position: absolute; top: 24px; right: 24px;
-      width: 44px; height: 44px; background: rgba(255,255,255,0.1);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
       cursor: pointer; color: white; font-size: 18px;
-      border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.4s;
     }
-    .lightbox-close:hover { background: var(--gold); color: var(--charcoal); }
+    .lightbox-close:hover {
+      background: var(--red);
+      border-color: transparent;
+      transform: rotate(90deg);
+    }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(8px); }
-    }
-    @keyframes scrollDot {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(10px); opacity: 0; }
-    }
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
+    /* ═══════════════════════════════════════════
+       REVEAL ANIMATIONS
+    ═══════════════════════════════════════════ */
     .reveal {
       opacity: 0; transform: translateY(40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
     .reveal-delay-4 { transition-delay: 0.4s; }
-    .reveal-delay-5 { transition-delay: 0.5s; }
 
-    /* ── MOBILE ── */
-    @media (max-width: 1024px) {
-      .about-grid, .nmc-grid, .contact-grid { grid-template-columns: 1fr; }
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
+    @media (max-width: 1200px) {
+      .about-grid, .macau-grid, .contact-grid { grid-template-columns: 1fr; gap: 60px; }
       .properties-grid, .services-grid, .invest-grid { grid-template-columns: 1fr 1fr; }
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
       .gallery-item:nth-child(1) { grid-column: span 1; grid-row: span 1; }
       .gallery-item:nth-child(5) { grid-column: span 1; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
-      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
-      section { padding: 70px 20px; }
-      nav { padding: 0 20px; }
+      section { padding: 80px 24px; }
+      nav { padding: 0 24px; }
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
-      .hero-content { padding: 120px 20px 80px; }
-      .hero-buttons { flex-direction: column; }
-      .btn-primary, .btn-outline, .btn-gold-outline { width: 100%; justify-content: center; }
+      .hero-content { padding: 120px 24px 80px; }
+      .hero-actions { flex-direction: column; }
+      .hero-search { flex-direction: column; }
       .stats-bar-inner { grid-template-columns: 1fr 1fr; }
       .about-features { grid-template-columns: 1fr; }
+      .macau-features { grid-template-columns: 1fr; }
+      .macau-map { position: static; }
       .properties-grid, .services-grid, .invest-grid { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: 1fr 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
-      .float-btns { bottom: 16px; right: 16px; }
+      .float-btns { bottom: 20px; right: 20px; }
+      .float-btn { width: 50px; height: 50px; font-size: 20px; }
     }
-
-    /* ── SEARCH BAR IN HERO ── */
-    .hero-search {
-      background: rgba(255,255,255,0.08); backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;
-      padding: 20px 24px; display: flex; gap: 16px; align-items: flex-end;
-      max-width: 700px; margin-top: 36px; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp 0.8s 1.3s forwards;
-    }
-    .hero-search-group { flex: 1; min-width: 140px; }
-    .hero-search-label { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-    .hero-search-select {
-      background: transparent; border: none; outline: none;
-      color: var(--white); font-size: 14px; font-weight: 500;
-      font-family: 'Inter', sans-serif; width: 100%; cursor: pointer;
-    }
-    .hero-search-select option { background: #1a1a1a; color: white; }
-    .hero-search-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); align-self: center; }
-    .hero-search-btn {
-      background: var(--gold); color: var(--charcoal);
-      border: none; padding: 12px 24px; border-radius: 8px;
-      font-size: 14px; font-weight: 700; cursor: pointer;
-      display: flex; align-items: center; gap: 8px;
-      transition: all 0.3s; white-space: nowrap;
-    }
-    .hero-search-btn:hover { background: var(--gold-light); }
   </style>
 </head>
 <body>
@@ -744,21 +1127,21 @@
 <!-- NAVBAR -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-icon">AR</div>
+    <div class="nav-logo-icon">RA</div>
     <div class="nav-logo-text">
-      <span class="nav-logo-name">Amir Realty</span>
-      <span class="nav-logo-sub">New Metro City</span>
+      <span class="nav-logo-name">Radar AI</span>
+      <span class="nav-logo-sub">Macau</span>
     </div>
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#properties">Properties</a></li>
-    <li><a href="#nmc">New Metro City</a></li>
+    <li><a href="#macau">Macau</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="tel:03086262091" class="nav-cta">📞 Call Now</a>
+  <a href="tel:+85312345678" class="nav-cta">Call Now</a>
   <div class="nav-hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
@@ -773,19 +1156,28 @@
     <div class="hero-slide hero-slide-4"></div>
   </div>
   <div class="hero-content">
-    <div class="hero-badge"><i class="fas fa-star"></i> New Metro City Kharian – Sarai Alamgir</div>
-    <h1 class="hero-title">Find Your <span>Dream Property</span><br/>with Amir Realty</h1>
-    <p class="hero-subtitle">Trusted property consultants helping clients buy, sell, and invest in New Metro City Kharian – Sarai Alamgir, Pakistan.</p>
-    <div class="hero-buttons">
-      <a href="#properties" class="btn-primary"><i class="fas fa-building"></i> View Properties</a>
-      <a href="#contact" class="btn-outline"><i class="fas fa-calendar-check"></i> Book Consultation</a>
-      <a href="#contact" class="btn-gold-outline"><i class="fas fa-envelope"></i> Contact Us</a>
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      AI-Powered Real Estate — Macau
     </div>
-    <div class="hero-contact">
+    <h1 class="hero-title">Your <span class="accent">AI-Powered</span><br/>Real Estate Partner</h1>
+    <p class="hero-subtitle">Radar AI — Macau's Premier AI-Powered Real Estate Intelligence Platform. Discover premium properties, AI-driven analytics, and exclusive investment opportunities.</p>
+    <div class="hero-actions">
+      <a href="#properties" class="btn-premium btn-premium-primary">
+        <i class="fas fa-building"></i> View Properties
+      </a>
+      <a href="#contact" class="btn-premium btn-premium-outline">
+        <i class="fas fa-calendar-check"></i> Book Consultation
+      </a>
+      <a href="#contact" class="btn-premium btn-premium-gold">
+        <i class="fas fa-envelope"></i> Contact Us
+      </a>
+    </div>
+    <div class="hero-contact-badge">
       <div class="hero-contact-icon"><i class="fas fa-phone"></i></div>
       <div>
         <div class="hero-contact-label">Call or WhatsApp</div>
-        <div class="hero-contact-number">0308-6262091</div>
+        <div class="hero-contact-number">+853 1234 5678</div>
       </div>
     </div>
     <!-- SEARCH BAR -->
@@ -794,10 +1186,10 @@
         <div class="hero-search-label">Property Type</div>
         <select class="hero-search-select">
           <option>All Properties</option>
-          <option>3 Marla House</option>
-          <option>5 Marla House</option>
-          <option>Residential Plot</option>
+          <option>Luxury Apartment</option>
+          <option>Penthouse</option>
           <option>Commercial</option>
+          <option>Villa</option>
         </select>
       </div>
       <div class="hero-search-divider"></div>
@@ -805,26 +1197,29 @@
         <div class="hero-search-label">Budget</div>
         <select class="hero-search-select">
           <option>Any Budget</option>
-          <option>Under 30 Lac</option>
-          <option>30–60 Lac</option>
-          <option>60 Lac – 1 Crore</option>
-          <option>1 Crore+</option>
+          <option>Under 5M HKD</option>
+          <option>5M – 15M HKD</option>
+          <option>15M – 30M HKD</option>
+          <option>30M+ HKD</option>
         </select>
       </div>
       <div class="hero-search-divider"></div>
       <div class="hero-search-group">
         <div class="hero-search-label">Location</div>
         <select class="hero-search-select">
-          <option>New Metro City</option>
-          <option>Kharian</option>
-          <option>Sarai Alamgir</option>
+          <option>Macau Peninsula</option>
+          <option>Taipa</option>
+          <option>Coloane</option>
+          <option>Cotai Strip</option>
         </select>
       </div>
-      <button class="hero-search-btn"><i class="fas fa-search"></i> Search</button>
+      <button class="hero-search-btn">
+        <i class="fas fa-search"></i> AI Search
+      </button>
     </div>
   </div>
-  <div class="hero-scroll">
-    <div class="hero-scroll-arrow"><div class="hero-scroll-dot"></div></div>
+  <div class="hero-scroll-indicator">
+    <div class="hero-scroll-line"></div>
     Scroll
   </div>
   <div class="hero-dots">
@@ -839,20 +1234,20 @@
 <div class="stats-bar">
   <div class="stats-bar-inner">
     <div class="stat-item">
-      <div class="stat-number" data-count="500">0</div>
+      <div class="stat-number" data-count="850">0</div>
       <div class="stat-label">Happy Clients</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number" data-count="100">0</div>
-      <div class="stat-label">Properties Sold</div>
+      <div class="stat-number" data-count="120">0</div>
+      <div class="stat-label">Premium Properties</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number" data-count="5">0</div>
+      <div class="stat-number" data-count="8">0</div>
       <div class="stat-label">Years Experience</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number" data-count="100">0</div>
-      <div class="stat-label">% Client Satisfaction</div>
+      <div class="stat-number" data-count="98">0</div>
+      <div class="stat-label">% AI Accuracy</div>
     </div>
   </div>
 </div>
@@ -863,21 +1258,41 @@
     <div class="about-grid">
       <div class="reveal">
         <div class="about-image-wrap">
-          <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&q=80" alt="Amir Realty Office"/>
-          <div class="about-image-badge">✦ Trusted Since 2019</div>
+          <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&q=80" alt="Radar AI Macau Office"/>
+          <div class="about-image-badge">
+            <i class="fas fa-robot" style="margin-right:6px;"></i> AI-Powered Since 2016
+          </div>
         </div>
       </div>
-      <div class="reveal reveal-delay-2">
-        <div class="section-tag">About Amir Realty</div>
-        <h2 class="section-title">New Metro City's <span class="text-gold">Most Trusted</span> Real Estate Partner</h2>
-        <p class="section-subtitle">Amir Realty is a trusted real estate company providing professional property consultancy, verified listings, investment opportunities, and marketing solutions in New Metro City Kharian – Sarai Alamgir.</p>
+      <div class="about-content reveal reveal-delay-2">
+        <div class="section-eyebrow">About Radar AI</div>
+        <h2 class="section-title">Macau's Most <span class="accent">AI-Driven</span> Real Estate Platform</h2>
+        <p class="section-subtitle">Radar AI leverages cutting-edge artificial intelligence to provide unparalleled property insights, market analytics, and investment recommendations for Macau and Greater China.</p>
         <div class="about-features">
-          <div class="about-feature"><i class="fas fa-check-circle about-feature-icon"></i><span class="about-feature-text">Verified Property Listings</span></div>
-          <div class="about-feature"><i class="fas fa-shield-alt about-feature-icon"></i><span class="about-feature-text">Transparent Transactions</span></div>
-          <div class="about-feature"><i class="fas fa-brain about-feature-icon"></i><span class="about-feature-text">Expert Market Knowledge</span></div>
-          <div class="about-feature"><i class="fas fa-chart-line about-feature-icon"></i><span class="about-feature-text">Investment Guidance</span></div>
-          <div class="about-feature"><i class="fas fa-headset about-feature-icon"></i><span class="about-feature-text">Fast Customer Support</span></div>
-          <div class="about-feature"><i class="fas fa-bullhorn about-feature-icon"></i><span class="about-feature-text">Professional Marketing</span></div>
+          <div class="about-feature">
+            <i class="fas fa-check-circle about-feature-icon"></i>
+            <span class="about-feature-text">AI Property Matching</span>
+          </div>
+          <div class="about-feature">
+            <i class="fas fa-shield-alt about-feature-icon"></i>
+            <span class="about-feature-text">Secure Transactions</span>
+          </div>
+          <div class="about-feature">
+            <i class="fas fa-brain about-feature-icon"></i>
+            <span class="about-feature-text">Smart Market Analytics</span>
+          </div>
+          <div class="about-feature">
+            <i class="fas fa-chart-line about-feature-icon"></i>
+            <span class="about-feature-text">Investment Insights</span>
+          </div>
+          <div class="about-feature">
+            <i class="fas fa-headset about-feature-icon"></i>
+            <span class="about-feature-text">24/7 AI Support</span>
+          </div>
+          <div class="about-feature">
+            <i class="fas fa-bullhorn about-feature-icon"></i>
+            <span class="about-feature-text">Premium Marketing</span>
+          </div>
         </div>
       </div>
     </div>
@@ -887,81 +1302,76 @@
 <!-- PROPERTIES -->
 <section id="properties">
   <div class="container">
-    <div class="section-tag reveal">Featured Properties</div>
-    <h2 class="section-title reveal">Premium Listings in <span class="text-gold">New Metro City</span></h2>
-    <p class="section-subtitle reveal">Explore our handpicked selection of verified properties with flexible payment plans.</p>
+    <div class="section-eyebrow reveal">Featured Properties</div>
+    <h2 class="section-title reveal">Premium Listings in <span class="accent">Macau</span></h2>
+    <p class="section-subtitle reveal">Explore our handpicked selection of AI-verified premium properties with exclusive access.</p>
     <div class="properties-filter reveal">
       <button class="filter-btn active" onclick="filterProps(this,'all')">All</button>
-      <button class="filter-btn" onclick="filterProps(this,'house')">Houses</button>
-      <button class="filter-btn" onclick="filterProps(this,'plot')">Plots</button>
+      <button class="filter-btn" onclick="filterProps(this,'house')">Apartments</button>
+      <button class="filter-btn" onclick="filterProps(this,'plot')">Villas</button>
       <button class="filter-btn" onclick="filterProps(this,'commercial')">Commercial</button>
     </div>
-    <div class="properties-grid" id="propertiesGrid">
-      <!-- Cards injected by JS -->
-    </div>
+    <div class="properties-grid" id="propertiesGrid"></div>
   </div>
 </section>
 
-<!-- NEW METRO CITY -->
-<section id="nmc">
+<!-- MACAU -->
+<section id="macau">
   <div class="container">
-    <div class="nmc-grid">
+    <div class="macau-grid">
       <div>
-        <div class="section-tag reveal">Location</div>
-        <h2 class="section-title reveal">New Metro City <span class="text-gold">Kharian</span></h2>
-        <p class="section-subtitle reveal">A master-planned modern housing society featuring world-class infrastructure, amenities, and investment potential in the heart of Punjab, Pakistan.</p>
-        <div class="nmc-features reveal">
-          <div class="nmc-feature">
-            <div class="nmc-feature-icon"><i class="fas fa-road"></i></div>
-            <h4>Wide Roads</h4>
-            <p>120-ft & 80-ft wide carpeted boulevards</p>
+        <div class="section-eyebrow reveal">Location</div>
+        <h2 class="section-title reveal">Macau — <span class="accent">Asia's</span> Premier Hub</h2>
+        <p class="section-subtitle reveal">A world-class destination featuring luxury properties, vibrant culture, and unmatched investment potential in the heart of the Greater Bay Area.</p>
+        <div class="macau-features reveal">
+          <div class="macau-feature">
+            <div class="macau-feature-icon"><i class="fas fa-building"></i></div>
+            <h4>Skyline Living</h4>
+            <p>Iconic skyscrapers with breathtaking views</p>
           </div>
-          <div class="nmc-feature">
-            <div class="nmc-feature-icon"><i class="fas fa-graduation-cap"></i></div>
+          <div class="macau-feature">
+            <div class="macau-feature-icon"><i class="fas fa-graduation-cap"></i></div>
             <h4>Education</h4>
-            <p>Schools, colleges & universities within society</p>
+            <p>International schools and universities nearby</p>
           </div>
-          <div class="nmc-feature">
-            <div class="nmc-feature-icon"><i class="fas fa-hospital"></i></div>
+          <div class="macau-feature">
+            <div class="macau-feature-icon"><i class="fas fa-hospital"></i></div>
             <h4>Healthcare</h4>
-            <p>State-of-the-art hospitals & clinics</p>
+            <p>World-class hospitals and medical centers</p>
           </div>
-          <div class="nmc-feature">
-            <div class="nmc-feature-icon"><i class="fas fa-store"></i></div>
-            <h4>Commercial</h4>
-            <p>Shops, malls, offices & business hubs</p>
+          <div class="macau-feature">
+            <div class="macau-feature-icon"><i class="fas fa-store"></i></div>
+            <h4>Retail</h4>
+            <p>Luxury shopping and duty-free districts</p>
           </div>
-          <div class="nmc-feature">
-            <div class="nmc-feature-icon"><i class="fas fa-tree"></i></div>
-            <h4>Parks & Green</h4>
-            <p>Lush green parks & recreation areas</p>
+          <div class="macau-feature">
+            <div class="macau-feature-icon"><i class="fas fa-tree"></i></div>
+            <h4>Parks and Green</h4>
+            <p>Lush gardens and coastal promenades</p>
           </div>
-          <div class="nmc-feature">
-            <div class="nmc-feature-icon"><i class="fas fa-shield-alt"></i></div>
+          <div class="macau-feature">
+            <div class="macau-feature-icon"><i class="fas fa-shield-alt"></i></div>
             <h4>24/7 Security</h4>
-            <p>Gated community with CCTV & guards</p>
+            <p>Gated communities with CCTV and guards</p>
           </div>
-          <div class="nmc-feature">
-            <div class="nmc-feature-icon"><i class="fas fa-map"></i></div>
-            <h4>Master Plan</h4>
-            <p>Internationally designed master plan</p>
+          <div class="macau-feature">
+            <div class="macau-feature-icon"><i class="fas fa-subway"></i></div>
+            <h4>Transport</h4>
+            <p>Ferry, light rail, and highway connectivity</p>
           </div>
-          <div class="nmc-feature">
-            <div class="nmc-feature-icon"><i class="fas fa-bolt"></i></div>
+          <div class="macau-feature">
+            <div class="macau-feature-icon"><i class="fas fa-bolt"></i></div>
             <h4>Modern Utilities</h4>
-            <p>24/7 electricity, gas & water supply</p>
+            <p>24/7 electricity, gas, and water supply</p>
           </div>
         </div>
       </div>
       <div class="reveal reveal-delay-2">
-        <div class="nmc-map">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54844.54!2d73.85!3d32.55!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391f11d7e1f23f3b%3A0x5b8d3bfbe5e0bfd0!2sNew%20Metro%20City%20Kharian!5e0!3m2!1sen!2s!4v1234567890"
-            allowfullscreen loading="lazy">
-          </iframe>
-          <div class="nmc-map-label">
+        <div class="macau-map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115534.46678297446!2d113.53!3d22.19!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3161a5aee5a4d5b5%3A0x5b8d3bfbe5e0bfd0!2sMacau!5e0!3m2!1sen!2s!4v1234567890" allowfullscreen loading="lazy"></iframe>
+          <div class="macau-map-label">
             <i class="fas fa-map-marker-alt"></i>
-            <span>New Metro City, Kharian – Sarai Alamgir Road, Punjab, Pakistan</span>
+            <span>Macau Special Administrative Region, PRC</span>
           </div>
         </div>
       </div>
@@ -972,14 +1382,14 @@
 <!-- SERVICES -->
 <section id="services">
   <div class="container">
-    <div class="section-tag reveal">What We Do</div>
-    <h2 class="section-title reveal">Our <span class="text-gold">Services</span></h2>
-    <p class="section-subtitle reveal">Comprehensive real estate solutions tailored for buyers, sellers, investors, and overseas Pakistanis.</p>
+    <div class="section-eyebrow reveal">What We Do</div>
+    <h2 class="section-title reveal">Our <span class="accent">Services</span></h2>
+    <p class="section-subtitle reveal">Comprehensive AI-powered real estate solutions tailored for buyers, investors, and corporations in Macau.</p>
     <div class="services-grid">
       <div class="service-card reveal reveal-delay-1">
         <div class="service-icon"><i class="fas fa-home"></i></div>
-        <h3>Property Buying</h3>
-        <p>We help clients find their ideal property in New Metro City with expert guidance and verified listings.</p>
+        <h3>AI Property Search</h3>
+        <p>Our proprietary AI matches you with ideal properties based on your preferences, budget, and lifestyle needs.</p>
       </div>
       <div class="service-card reveal reveal-delay-2">
         <div class="service-icon"><i class="fas fa-tag"></i></div>
@@ -988,70 +1398,70 @@
       </div>
       <div class="service-card reveal reveal-delay-3">
         <div class="service-icon"><i class="fas fa-chart-pie"></i></div>
-        <h3>Investment Consultancy</h3>
-        <p>ROI-focused investment strategies to help you grow your wealth through smart real estate decisions.</p>
+        <h3>Investment Analytics</h3>
+        <p>AI-driven ROI analysis and market forecasting to help you make informed investment decisions.</p>
       </div>
       <div class="service-card reveal reveal-delay-1">
         <div class="service-icon"><i class="fas fa-bullhorn"></i></div>
         <h3>Property Marketing</h3>
-        <p>Digital marketing and lead generation services to maximize property visibility and attract buyers.</p>
+        <p>Digital marketing and lead generation services to maximize property visibility and attract qualified buyers.</p>
       </div>
       <div class="service-card reveal reveal-delay-2">
         <div class="service-icon"><i class="fas fa-file-contract"></i></div>
-        <h3>Documentation Assistance</h3>
+        <h3>Documentation</h3>
         <p>Complete legal support and paperwork assistance ensuring smooth and transparent transactions.</p>
       </div>
       <div class="service-card reveal reveal-delay-3">
         <div class="service-icon"><i class="fas fa-globe"></i></div>
-        <h3>Overseas Client Support</h3>
-        <p>Dedicated services for overseas Pakistanis to invest securely in New Metro City from abroad.</p>
+        <h3>Global Clients</h3>
+        <p>Dedicated services for international investors seeking premium Macau properties from abroad.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHY INVEST -->
+<!-- INVESTMENT -->
 <section id="invest">
   <div class="container">
-    <div class="section-tag reveal">Investment</div>
-    <h2 class="section-title reveal">Why Invest in <span class="text-gold">New Metro City?</span></h2>
-    <p class="section-subtitle reveal">A smart investment destination with high appreciation potential, secure returns, and a fast-growing community.</p>
+    <div class="section-eyebrow reveal">Investment</div>
+    <h2 class="section-title reveal">Why Invest in <span class="accent">Macau?</span></h2>
+    <p class="section-subtitle reveal">A premier investment destination with high appreciation potential, tax advantages, and a thriving economy.</p>
     <div class="invest-grid">
       <div class="invest-card reveal reveal-delay-1">
         <div class="invest-number">01</div>
         <div class="invest-icon"><i class="fas fa-arrow-trend-up"></i></div>
-        <h3>High Appreciation Potential</h3>
-        <p>Property values in New Metro City have shown consistent upward growth, offering excellent capital gains.</p>
+        <h3>High Appreciation</h3>
+        <p>Property values in Macau have shown consistent growth, offering excellent capital gains and rental yields.</p>
       </div>
       <div class="invest-card reveal reveal-delay-2">
         <div class="invest-number">02</div>
         <div class="invest-icon"><i class="fas fa-lock"></i></div>
         <h3>Secure Investment</h3>
-        <p>Fully legal, NOC-approved society with transparent documentation and verified ownership.</p>
+        <p>Fully legal framework with transparent ownership and robust property rights protection.</p>
       </div>
       <div class="invest-card reveal reveal-delay-3">
         <div class="invest-number">03</div>
         <div class="invest-icon"><i class="fas fa-users"></i></div>
-        <h3>Growing Community</h3>
-        <p>Thousands of families already residing, creating a vibrant, safe, and established neighborhood.</p>
+        <h3>Growing Demand</h3>
+        <p>Strong demand from tourists, professionals, and expats creating a vibrant rental market.</p>
       </div>
       <div class="invest-card reveal reveal-delay-1">
         <div class="invest-number">04</div>
         <div class="invest-icon"><i class="fas fa-map-location-dot"></i></div>
         <h3>Prime Location</h3>
-        <p>Strategically located on Kharian – Sarai Alamgir Road with easy highway and motorway access.</p>
+        <p>Strategically located in the Greater Bay Area with easy access to Hong Kong and mainland China.</p>
       </div>
       <div class="invest-card reveal reveal-delay-2">
         <div class="invest-number">05</div>
         <div class="invest-icon"><i class="fas fa-calendar-days"></i></div>
-        <h3>Flexible Payment Plans</h3>
-        <p>Affordable installment plans making it easy for families and investors to own property.</p>
+        <h3>Flexible Finance</h3>
+        <p>Attractive mortgage options and flexible payment plans for local and international buyers.</p>
       </div>
       <div class="invest-card reveal reveal-delay-3">
         <div class="invest-number">06</div>
         <div class="invest-icon"><i class="fas fa-city"></i></div>
-        <h3>Future Development</h3>
-        <p>Ongoing infrastructure upgrades and upcoming commercial zones promise long-term value growth.</p>
+        <h3>Future Growth</h3>
+        <p>Ongoing infrastructure developments and casino expansions promise long-term value growth.</p>
       </div>
     </div>
   </div>
@@ -1060,35 +1470,35 @@
 <!-- TESTIMONIALS -->
 <section id="testimonials">
   <div class="container">
-    <div class="section-tag reveal">Client Reviews</div>
-    <h2 class="section-title reveal">What Our <span class="text-gold">Clients Say</span></h2>
-    <p class="section-subtitle reveal">Real experiences from satisfied property buyers and investors who trusted Amir Realty.</p>
+    <div class="section-eyebrow reveal">Client Reviews</div>
+    <h2 class="section-title reveal">What Our <span class="accent">Clients Say</span></h2>
+    <p class="section-subtitle reveal">Real experiences from satisfied property buyers and investors who trusted Radar AI.</p>
     <div class="testimonials-slider reveal">
       <div class="testimonials-track" id="testimonialsTrack">
         <div class="testimonial-slide">
           <div class="testimonials-grid">
             <div class="testimonial-card">
               <div class="testimonial-stars">★★★★★</div>
-              <p class="testimonial-text">"Amir Realty made my property buying experience completely hassle-free. Extremely professional team with great market knowledge."</p>
+              <p class="testimonial-text">"Radar AI's property matching was incredible. Found my dream penthouse in Taipa within 48 hours. The AI recommendations were spot-on!"</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">K</div>
+                <div><div class="testimonial-name">Kevin Chen</div><div class="testimonial-role">Penthouse Buyer, Taipa</div></div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <p class="testimonial-text">"As an overseas investor, Radar AI's analytics helped me make a confident decision. The ROI projections were remarkably accurate."</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">S</div>
+                <div><div class="testimonial-name">Sarah Wong</div><div class="testimonial-role">Investor, Hong Kong</div></div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <p class="testimonial-text">"The AI-driven market analysis helped me buy at the perfect time. My commercial property has already appreciated significantly!"</p>
               <div class="testimonial-author">
                 <div class="testimonial-avatar">M</div>
-                <div><div class="testimonial-name">Muhammad Asif</div><div class="testimonial-prop">Bought 5 Marla House</div></div>
-              </div>
-            </div>
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <p class="testimonial-text">"As an overseas Pakistani, I was worried about investing from abroad. Amir Realty handled everything perfectly and kept me updated throughout."</p>
-              <div class="testimonial-author">
-                <div class="testimonial-avatar">A</div>
-                <div><div class="testimonial-name">Ahmed Nawaz</div><div class="testimonial-prop">Overseas Investor, UK</div></div>
-              </div>
-            </div>
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <p class="testimonial-text">"Got the best deal on a commercial plot. Their investment advice was spot-on and the ROI has been excellent. Highly recommended!"</p>
-              <div class="testimonial-author">
-                <div class="testimonial-avatar">F</div>
-                <div><div class="testimonial-name">Farhan Ali</div><div class="testimonial-prop">Commercial Plot Investor</div></div>
+                <div><div class="testimonial-name">Michael Tan</div><div class="testimonial-role">Commercial Investor, Singapore</div></div>
               </div>
             </div>
           </div>
@@ -1097,26 +1507,26 @@
           <div class="testimonials-grid">
             <div class="testimonial-card">
               <div class="testimonial-stars">★★★★★</div>
-              <p class="testimonial-text">"Transparent transactions, honest pricing, and a team that genuinely cares. Found our dream home thanks to Amir Realty."</p>
+              <p class="testimonial-text">"Professional team with deep market knowledge. The AI-powered search found options I never knew existed in Coloane."</p>
               <div class="testimonial-author">
-                <div class="testimonial-avatar">Z</div>
-                <div><div class="testimonial-name">Zahid Hussain</div><div class="testimonial-prop">Bought 3 Marla House</div></div>
+                <div class="testimonial-avatar">A</div>
+                <div><div class="testimonial-name">Anna Liu</div><div class="testimonial-role">Villa Buyer, Coloane</div></div>
               </div>
             </div>
             <div class="testimonial-card">
               <div class="testimonial-stars">★★★★★</div>
-              <p class="testimonial-text">"The documentation process was smooth and fast. I appreciated how they guided me through every step with patience and professionalism."</p>
+              <p class="testimonial-text">"The documentation process was smooth and fast. Their AI system kept everything transparent and organized throughout."</p>
               <div class="testimonial-author">
-                <div class="testimonial-avatar">S</div>
-                <div><div class="testimonial-name">Saima Bibi</div><div class="testimonial-prop">Residential Plot Buyer</div></div>
+                <div class="testimonial-avatar">D</div>
+                <div><div class="testimonial-name">David Ho</div><div class="testimonial-role">Apartment Buyer, Cotai</div></div>
               </div>
             </div>
             <div class="testimonial-card">
               <div class="testimonial-stars">★★★★★</div>
-              <p class="testimonial-text">"I sold my property within 2 weeks through Amir Realty at a price above my expectations. Their marketing reach is truly impressive."</p>
+              <p class="testimonial-text">"Sold my investment property within 2 weeks through Radar AI's marketing platform. Their AI pricing model got me above asking price!"</p>
               <div class="testimonial-author">
-                <div class="testimonial-avatar">T</div>
-                <div><div class="testimonial-name">Tariq Mehmood</div><div class="testimonial-prop">Property Seller</div></div>
+                <div class="testimonial-avatar">J</div>
+                <div><div class="testimonial-name">Jason Lam</div><div class="testimonial-role">Property Seller, Macau</div></div>
               </div>
             </div>
           </div>
@@ -1133,32 +1543,32 @@
 <!-- GALLERY -->
 <section id="gallery">
   <div class="container">
-    <div class="section-tag reveal">Portfolio</div>
-    <h2 class="section-title reveal">Photo <span class="text-gold">Gallery</span></h2>
-    <p class="section-subtitle reveal">A visual tour of New Metro City's beautiful homes, landscapes, and development.</p>
+    <div class="section-eyebrow reveal">Portfolio</div>
+    <h2 class="section-title reveal">Photo <span class="accent">Gallery</span></h2>
+    <p class="section-subtitle reveal">A visual tour of Macau's most prestigious properties and landmarks.</p>
     <div class="gallery-grid reveal">
       <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80')">
-        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80" alt="Luxury Villa"/>
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80" alt="Luxury Mansion"/>
         <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
       </div>
       <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80')">
-        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" alt="Modern House"/>
-        <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80')">
-        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80" alt="Commercial Area"/>
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" alt="Modern Mansion"/>
         <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
       </div>
       <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80')">
-        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="Residential Plot"/>
-        <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1200&q=80')">
-        <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&q=80" alt="Aerial View"/>
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="Luxury Estate"/>
         <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
       </div>
       <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80')">
-        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" alt="Park"/>
+        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" alt="Modern Villa"/>
+        <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80')">
+        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80" alt="Residential Mansion"/>
+        <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1200&q=80')">
+        <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80" alt="Aerial Mansion View"/>
         <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
       </div>
     </div>
@@ -1168,12 +1578,9 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <div class="section-tag reveal">Get In Touch</div>
-    <h2 class="section-title reveal">Contact <span class="text-gold">Amir Realty</span></h2>
-    <p class="section-subtitle reveal">Ready to find your dream property? Get in touch with our team today.</p>
     <div class="contact-grid">
       <div class="contact-form reveal">
-        <h3 style="font-size:20px;font-weight:700;color:var(--white);margin-bottom:28px;">Send Us a Message</h3>
+        <h3 style="font-size:22px;font-weight:700;color:var(--white);margin-bottom:32px;letter-spacing:-0.01em;">Send Us a Message</h3>
         <div class="form-row">
           <div>
             <label class="form-label">Full Name</label>
@@ -1181,7 +1588,7 @@
           </div>
           <div>
             <label class="form-label">Phone Number</label>
-            <input type="tel" class="form-input" placeholder="03XX-XXXXXXX"/>
+            <input type="tel" class="form-input" placeholder="+853 XXXX XXXX"/>
           </div>
         </div>
         <div class="form-group">
@@ -1192,11 +1599,11 @@
           <label class="form-label">Property Requirement</label>
           <select class="form-input">
             <option value="">Select property type</option>
-            <option>3 Marla House</option>
-            <option>5 Marla House</option>
-            <option>Residential Plot</option>
+            <option>Luxury Apartment</option>
+            <option>Penthouse</option>
+            <option>Villa</option>
             <option>Commercial Shop</option>
-            <option>Commercial Office</option>
+            <option>Office Space</option>
             <option>Investment Consultation</option>
           </select>
         </div>
@@ -1204,39 +1611,39 @@
           <label class="form-label">Message</label>
           <textarea class="form-input" placeholder="Tell us about your requirements..."></textarea>
         </div>
-        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitForm()">
+        <button class="btn-premium btn-premium-primary" style="width:100%;justify-content:center;" onclick="submitForm()">
           <i class="fas fa-paper-plane"></i> Send Message
         </button>
       </div>
       <div class="contact-info reveal reveal-delay-2">
         <h3 class="contact-info-title">Let's Talk Property</h3>
-        <p class="contact-info-text">Our team of expert consultants is ready to help you find the perfect property or investment opportunity in New Metro City.</p>
+        <p class="contact-info-text">Our AI-powered team of expert consultants is ready to help you find the perfect property or investment opportunity in Macau.</p>
         <div class="contact-detail">
           <div class="contact-detail-icon"><i class="fas fa-phone"></i></div>
           <div>
             <div class="contact-detail-label">Phone / WhatsApp</div>
-            <div class="contact-detail-value">0308-6262091</div>
+            <div class="contact-detail-value">+853 1234 5678</div>
           </div>
         </div>
         <div class="contact-detail">
           <div class="contact-detail-icon"><i class="fas fa-map-marker-alt"></i></div>
           <div>
             <div class="contact-detail-label">Office Location</div>
-            <div class="contact-detail-value">New Metro City, Kharian – Sarai Alamgir, Punjab, Pakistan</div>
+            <div class="contact-detail-value">Macau Peninsula, SAR China</div>
           </div>
         </div>
         <div class="contact-detail">
           <div class="contact-detail-icon"><i class="fas fa-clock"></i></div>
           <div>
             <div class="contact-detail-label">Working Hours</div>
-            <div class="contact-detail-value">Mon – Sat: 9:00 AM – 7:00 PM</div>
+            <div class="contact-detail-value">Mon – Sun: 9:00 AM – 9:00 PM</div>
           </div>
         </div>
-        <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
-          <a href="https://wa.me/923086262091" target="_blank" class="btn-primary" style="flex:1;justify-content:center;min-width:140px;">
+        <div class="contact-btns">
+          <a href="https://wa.me/85312345678" target="_blank" class="btn-premium btn-premium-primary" style="flex:1;justify-content:center;">
             <i class="fab fa-whatsapp"></i> WhatsApp
           </a>
-          <a href="tel:03086262091" class="btn-outline" style="flex:1;justify-content:center;min-width:140px;">
+          <a href="tel:+85312345678" class="btn-premium btn-premium-outline" style="flex:1;justify-content:center;">
             <i class="fas fa-phone"></i> Call Now
           </a>
         </div>
@@ -1249,18 +1656,18 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="#" class="nav-logo" style="margin-bottom:16px;display:inline-flex;">
-        <div class="nav-logo-icon">AR</div>
+      <a href="#" class="nav-logo" style="margin-bottom:8px;display:inline-flex;">
+        <div class="nav-logo-icon">RA</div>
         <div class="nav-logo-text">
-          <span class="nav-logo-name">Amir Realty</span>
-          <span class="nav-logo-sub">New Metro City</span>
+          <span class="nav-logo-name">Radar AI</span>
+          <span class="nav-logo-sub">Macau</span>
         </div>
       </a>
-      <p>Your trusted real estate partner in New Metro City Kharian – Sarai Alamgir. Professional consultancy, verified listings, and investment guidance.</p>
+      <p>Your AI-powered real estate partner in Macau. Professional consultancy, AI-driven analytics, and premium property listings across Macau and Greater China.</p>
       <div class="footer-social">
         <a href="#"><i class="fab fa-facebook-f"></i></a>
         <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="https://wa.me/923086262091" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://wa.me/85312345678" target="_blank"><i class="fab fa-whatsapp"></i></a>
         <a href="#"><i class="fab fa-youtube"></i></a>
         <a href="#"><i class="fab fa-tiktok"></i></a>
       </div>
@@ -1270,7 +1677,7 @@
       <ul>
         <li><a href="#about">About Us</a></li>
         <li><a href="#properties">Properties</a></li>
-        <li><a href="#nmc">New Metro City</a></li>
+        <li><a href="#macau">Macau</a></li>
         <li><a href="#services">Our Services</a></li>
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -1279,35 +1686,35 @@
     <div class="footer-col">
       <h4>Property Types</h4>
       <ul>
-        <li><a href="#properties">3 Marla Houses</a></li>
-        <li><a href="#properties">5 Marla Houses</a></li>
-        <li><a href="#properties">Residential Plots</a></li>
+        <li><a href="#properties">Luxury Apartments</a></li>
+        <li><a href="#properties">Penthouses</a></li>
+        <li><a href="#properties">Villas</a></li>
         <li><a href="#properties">Commercial Shops</a></li>
-        <li><a href="#properties">Offices</a></li>
+        <li><a href="#properties">Office Spaces</a></li>
         <li><a href="#properties">Investment Plots</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Contact</h4>
       <ul>
-        <li><a href="tel:03086262091"><i class="fas fa-phone" style="color:var(--gold);margin-right:6px;"></i>0308-6262091</a></li>
-        <li><a href="https://wa.me/923086262091" target="_blank"><i class="fab fa-whatsapp" style="color:#25D366;margin-right:6px;"></i>WhatsApp Us</a></li>
-        <li><a href="#nmc"><i class="fas fa-map-marker-alt" style="color:var(--gold);margin-right:6px;"></i>New Metro City, Kharian</a></li>
+        <li><a href="tel:+85312345678"><i class="fas fa-phone" style="color:var(--red);margin-right:6px;"></i>+853 1234 5678</a></li>
+        <li><a href="https://wa.me/85312345678" target="_blank"><i class="fab fa-whatsapp" style="color:#25D366;margin-right:6px;"></i>WhatsApp Us</a></li>
+        <li><a href="#macau"><i class="fas fa-map-marker-alt" style="color:var(--red);margin-right:6px;"></i>Macau Peninsula, SAR</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2025 <span>Amir Realty</span>. All rights reserved. New Metro City's Trusted Real Estate Partner.</p>
-    <p>Designed for <span>New Metro City Kharian – Sarai Alamgir, Pakistan</span></p>
+    <p>2025 <span>Radar AI Macau</span>. All rights reserved.</p>
+    <p>Macau Special Administrative Region, PRC</p>
   </div>
 </footer>
 
 <!-- FLOATING BUTTONS -->
 <div class="float-btns">
-  <a href="https://wa.me/923086262091" target="_blank" class="float-btn float-wa" title="WhatsApp">
+  <a href="https://wa.me/85312345678" target="_blank" class="float-btn float-wa" title="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
-  <a href="tel:03086262091" class="float-btn float-call" title="Call Now">
+  <a href="tel:+85312345678" class="float-btn float-call" title="Call Now">
     <i class="fas fa-phone"></i>
   </a>
 </div>
@@ -1319,12 +1726,12 @@
 </div>
 
 <script>
-// ── NAVBAR SCROLL ──
+// NAVBAR SCROLL
 window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
 });
 
-// ── HERO SLIDER ──
+// HERO SLIDER
 let currentSlide = 0;
 const slides = document.querySelectorAll('.hero-slide');
 const dots = document.querySelectorAll('.hero-dot');
@@ -1335,30 +1742,29 @@ function goSlide(n) {
   slides[currentSlide].classList.add('active');
   dots[currentSlide].classList.add('active');
 }
-setInterval(() => goSlide(currentSlide + 1), 5000);
+setInterval(() => goSlide(currentSlide + 1), 5500);
 
-// ── STATS COUNTER ──
+// STATS COUNTER
 function animateCounter(el) {
   const target = parseInt(el.dataset.count);
-  const suffix = target === 100 && el.nextElementSibling.textContent.includes('%') ? '+' : '+';
   const dur = 2000;
   const step = target / (dur / 16);
   let cur = 0;
   const timer = setInterval(() => {
     cur = Math.min(cur + step, target);
-    el.textContent = Math.floor(cur) + (target >= 100 && el.parentElement.querySelector('.stat-label').textContent.includes('%') ? '%' : '+');
+    el.textContent = Math.floor(cur) + '+';
     if (cur >= target) clearInterval(timer);
   }, 16);
 }
 
-// ── PROPERTIES DATA ──
+// PROPERTIES DATA
 const properties = [
-  { type: 'house', badge: 'HOT', badgeClass: 'hot', img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80', price: '28 Lac', name: '3 Marla Modern House', loc: 'Block A, New Metro City', beds: 2, baths: 2, area: '3 Marla', furnished: true },
-  { type: 'house', badge: 'NEW', badgeClass: 'new', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80', price: '55 Lac', name: '5 Marla Luxury House', loc: 'Block B, New Metro City', beds: 3, baths: 3, area: '5 Marla', furnished: false },
-  { type: 'plot', badge: 'SALE', badgeClass: '', img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80', price: '18 Lac', name: 'Residential Plot 5 Marla', loc: 'Phase 2, New Metro City', beds: 0, baths: 0, area: '5 Marla', furnished: false },
-  { type: 'commercial', badge: 'HOT', badgeClass: 'hot', img: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80', price: '45 Lac', name: 'Commercial Shop', loc: 'Main Boulevard, NMC', beds: 0, baths: 1, area: '200 sq.ft', furnished: false },
-  { type: 'house', badge: 'SALE', badgeClass: '', img: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80', price: '32 Lac', name: '3 Marla Family House', loc: 'Block C, New Metro City', beds: 2, baths: 2, area: '3 Marla', furnished: true },
-  { type: 'plot', badge: 'NEW', badgeClass: 'new', img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80', price: '22 Lac', name: 'Prime Residential Plot', loc: 'Phase 1, New Metro City', beds: 0, baths: 0, area: '7 Marla', furnished: false },
+  { type: 'house', badge: 'EXCLUSIVE', badgeClass: '', img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80', price: '12.5M HKD', name: 'Luxury Penthouse, Taipa', loc: 'Taipa, Macau', beds: 4, baths: 3, area: '2,800 sq.ft', furnished: true },
+  { type: 'house', badge: 'NEW', badgeClass: 'new', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80', price: '8.2M HKD', name: 'Modern Apartment, Cotai', loc: 'Cotai Strip, Macau', beds: 3, baths: 2, area: '1,800 sq.ft', furnished: false },
+  { type: 'plot', badge: 'PREMIUM', badgeClass: '', img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80', price: '25M HKD', name: 'Beach Villa, Coloane', loc: 'Coloane, Macau', beds: 5, baths: 4, area: '4,500 sq.ft', furnished: true },
+  { type: 'commercial', badge: 'INVESTMENT', badgeClass: '', img: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80', price: '15M HKD', name: 'Commercial Shop, Peninsula', loc: 'Macau Peninsula', beds: 0, baths: 1, area: '3,000 sq.ft', furnished: false },
+  { type: 'house', badge: 'HOT', badgeClass: 'hot', img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80', price: '6.8M HKD', name: 'Garden Apartment, Taipa', loc: 'Taipa Village, Macau', beds: 2, baths: 2, area: '1,400 sq.ft', furnished: true },
+  { type: 'plot', badge: 'NEW', badgeClass: 'new', img: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80', price: '18M HKD', name: 'Skyline Villa, Peninsula', loc: 'Macau Peninsula', beds: 4, baths: 3, area: '3,200 sq.ft', furnished: false },
 ];
 
 function renderProperties(filter = 'all') {
@@ -1373,7 +1779,7 @@ function renderProperties(filter = 'all') {
           <div class="property-fav" onclick="toggleFav(this)"><i class="far fa-heart"></i></div>
         </div>
         <div class="property-body">
-          <div class="property-price">PKR ${p.price}</div>
+          <div class="property-price">HKD ${p.price}</div>
           <div class="property-name">${p.name}</div>
           <div class="property-loc"><i class="fas fa-map-marker-alt" style="color:var(--gold);font-size:10px;"></i> ${p.loc}</div>
           <div class="property-specs">
@@ -1382,7 +1788,7 @@ function renderProperties(filter = 'all') {
             <span class="property-spec"><i class="fas fa-vector-square"></i> ${p.area}</span>
             ${p.furnished ? `<span class="property-spec"><i class="fas fa-couch"></i> Furnished</span>` : ''}
           </div>
-          <button class="property-details-btn" onclick="contactAbout('${p.name}')">View Details & Contact</button>
+          <button class="property-btn" onclick="contactAbout('${p.name}')">View Details and Contact</button>
         </div>
       </div>
     `).join('');
@@ -1399,51 +1805,49 @@ function toggleFav(el) {
   const icon = el.querySelector('i');
   icon.classList.toggle('far');
   icon.classList.toggle('fas');
-  el.style.color = icon.classList.contains('fas') ? 'var(--gold)' : '';
-  el.style.background = icon.classList.contains('fas') ? 'rgba(212,175,55,0.9)' : '';
+  el.style.background = icon.classList.contains('fas') ? 'rgba(185,28,28,0.9)' : '';
+  el.style.color = icon.classList.contains('fas') ? 'var(--white)' : '';
 }
 
 function contactAbout(name) {
   document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
 }
 
-// ── TESTIMONIALS SLIDER ──
+// TESTIMONIALS SLIDER
 let slideIdx = 0;
 const track = document.getElementById('testimonialsTrack');
 function nextSlide() { slideIdx = (slideIdx + 1) % 2; track.style.transform = `translateX(-${slideIdx * 100}%)`; }
 function prevSlide() { slideIdx = (slideIdx - 1 + 2) % 2; track.style.transform = `translateX(-${slideIdx * 100}%)`; }
-setInterval(nextSlide, 6000);
+setInterval(nextSlide, 7000);
 
-// ── LIGHTBOX ──
+// LIGHTBOX
 function openLightbox(src) {
   document.getElementById('lightboxImg').src = src;
   document.getElementById('lightbox').classList.add('open');
 }
 function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
 
-// ── FORM SUBMIT ──
+// FORM SUBMIT
 function submitForm() {
   const btn = event.target;
   btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-  btn.style.background = '#22c55e';
-  btn.style.color = 'white';
+  btn.style.setProperty('--success-bg', 'linear-gradient(135deg, #059669, #047857)');
   setTimeout(() => {
     btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
     btn.style.background = '';
-    btn.style.color = '';
   }, 3000);
 }
 
-// ── SCROLL REVEAL ──
+// SCROLL REVEAL
 function observeReveal() {
   const els = document.querySelectorAll('.reveal:not(.visible)');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
   els.forEach(el => observer.observe(el));
 }
 
-// ── STATS COUNTER TRIGGER ──
+// STATS COUNTER TRIGGER
 const statsObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -1454,13 +1858,13 @@ const statsObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 statsObserver.observe(document.querySelector('.stats-bar'));
 
-// ── INIT ──
+// INIT
 renderProperties();
 observeReveal();
 
-// ── MOBILE MENU ──
+// MOBILE MENU
 function toggleMenu() {
-  alert('Mobile menu coming soon!');
+  alert('Mobile menu coming soon');
 }
 </script>
 </body>

@@ -1,4 +1,4 @@
-// Scene setup
+// Radar AI - Macau Demo Globe
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -16,8 +16,6 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.05;
 controls.minDistance = 2.8;
 controls.maxDistance = 50;
-
-
 
 // Load real Earth textures from reliable CDN
 const textureLoader = new THREE.TextureLoader();
@@ -46,8 +44,6 @@ scene.add(ambientLight);
 const rimLight = new THREE.DirectionalLight(0xffffff, 1.0);
 rimLight.position.set(-5, 0, -15);
 scene.add(rimLight);
-
-
 
 // Earth
 const earthGeometry = new THREE.SphereGeometry(2, 64, 64);
@@ -123,8 +119,6 @@ const fresnelMaterial = new THREE.ShaderMaterial({
 const fresnelMesh = new THREE.Mesh(fresnelGeometry, fresnelMaterial);
 earth.add(fresnelMesh);
 
-
-
 // Atmosphere glow (shader)
 const atmosphereGeometry = new THREE.SphereGeometry(2.15, 64, 64);
 const atmosphereMaterial = new THREE.ShaderMaterial({
@@ -166,8 +160,6 @@ const atmosphereMaterial = new THREE.ShaderMaterial({
 });
 const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
 earth.add(atmosphere);
-
-
 
 // Camera position - will be animated in from far
 camera.position.set(introEndCameraX, 0, introStartCameraZ);
@@ -301,7 +293,7 @@ uiDiv.style.cssText = `
   letter-spacing: 0.3px;
 `;
 uiDiv.innerHTML = `
-  <div style="font-size: 16px; font-weight: 600; margin-bottom: 6px; color: rgba(40,90,180,0.9);">🌍 Earth</div>
+  <div style="font-size: 16px; font-weight: 600; margin-bottom: 6px; color: rgba(40,90,180,0.9);">🎯 Macau Radar AI</div>
   <div style="color: rgba(40,50,70,0.4); font-size: 11px;">Drag to orbit · Scroll to zoom</div>
   <div id="info" style="margin-top: 10px; font-size: 11px; color: rgba(40,90,180,0.35);"></div>
 `;
@@ -343,10 +335,6 @@ function animate() {
 
   // ── Earth rotation - slow and dramatic ───────────────────────────────
   earth.rotation.y = elapsed * 0.08;
-
-
-
-
 
   // ── Particle drift ───────────────────────────────────────────────────
   const pPos = particleGeo.attributes.position.array;
@@ -394,10 +382,6 @@ function animate() {
   // ── Update atmosphere sun direction ───────────────────────────────────
   const sunDir = new THREE.Vector3().copy(sunLight.position).normalize();
   atmosphereMaterial.uniforms.uSunDirection.value.copy(sunDir);
-
-
-
-
 
   // Update info
   const rotDeg = ((earth.rotation.y * 180 / Math.PI) % 360).toFixed(1);
