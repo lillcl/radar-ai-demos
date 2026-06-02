@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neuroveil | Cinematic Brain Scroll</title>
+    <meta
+      name="description"
+      content="A full-screen GSAP ScrollTrigger cinematic scrollytelling page using brain.mp4 as the moving background."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f1efe7;
+        --ink: #111111;
+        --muted: rgba(17, 17, 17, 0.58);
+        --line: rgba(17, 17, 17, 0.14);
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Outfit", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        scroll-behavior: auto;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        overflow-x: hidden;
+        background:
+          radial-gradient(circle at 50% 48%, rgba(255, 255, 255, 0.92), transparent 42rem),
+          linear-gradient(120deg, rgba(255, 255, 255, 0.6), rgba(222, 218, 204, 0.6)),
+          var(--paper);
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: 30;
+        pointer-events: none;
+        content: "";
+        opacity: 0.07;
+        background-image:
+          linear-gradient(rgba(17, 17, 17, 0.52) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(17, 17, 17, 0.52) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: linear-gradient(to bottom, transparent, #111 12%, #111 88%, transparent);
+      }
+
+      .topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 24;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem clamp(1rem, 3vw, 2.5rem);
+        color: rgba(17, 17, 17, 0.78);
+        mix-blend-mode: multiply;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        color: inherit;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        width: 0.72rem;
+        height: 0.72rem;
+        border: 1px solid rgba(17, 17, 17, 0.72);
+        border-radius: 50%;
+        background: var(--ink);
+        box-shadow: inset 0 0 0 3px var(--paper);
+      }
+
+      .mono {
+        font-family: "Space Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .topbar-center {
+        justify-self: center;
+      }
+
+      .topbar-right {
+        justify-self: end;
+      }
+
+      .cinema-scroll {
+        position: relative;
+        height: 820vh;
+      }
+
+      .cinema-pin {
+        position: sticky;
+        top: 0;
+        height: 100dvh;
+        min-height: 100dvh;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .video-canvas {
+        position: absolute;
+        inset: -18vmax -24vmax;
+        z-index: 1;
+        pointer-events: none;
+        will-change: transform, opacity;
+      }
+
+      .video-canvas video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        min-width: 100%;
+        min-height: 100%;
+        display: block;
+        object-fit: cover;
+        filter: saturate(0.98) contrast(1.08);
+        mix-blend-mode: screen;
+      }
+
+      .video-vignette {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 50% 50%, transparent 0 42%, rgba(241, 239, 231, 0.08) 58%, rgba(241, 239, 231, 0.5) 100%),
+          linear-gradient(90deg, rgba(241, 239, 231, 0.14), transparent 30%, transparent 70%, rgba(241, 239, 231, 0.14));
+      }
+
+      .film-frame {
+        position: absolute;
+        inset: clamp(0.85rem, 2.2vw, 2rem);
+        z-index: 12;
+        border: 1px solid var(--line);
+        pointer-events: none;
+      }
+
+      .film-frame::before,
+      .film-frame::after {
+        position: absolute;
+        left: clamp(1rem, 2vw, 1.5rem);
+        color: rgba(17, 17, 17, 0.43);
+        font-family: "Space Mono", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .film-frame::before {
+        top: clamp(1rem, 2vw, 1.5rem);
+        content: "Full video field";
+      }
+
+      .film-frame::after {
+        bottom: clamp(1rem, 2vw, 1.5rem);
+        content: "Neural viewport";
+      }
+
+      .copy-layer {
+        position: absolute;
+        inset: 0;
+        z-index: 8;
+        pointer-events: none;
+      }
+
+      .hero-copy {
+        position: absolute;
+        left: clamp(1.25rem, 5vw, 5rem);
+        bottom: clamp(4.75rem, 8.5vw, 7.5rem);
+        width: min(41rem, calc(100vw - 2.5rem));
+      }
+
+      .eyebrow {
+        margin: 0 0 1.05rem;
+        color: var(--muted);
+      }
+
+      h1 {
+        max-width: 9.5ch;
+        margin: 0;
+        font-size: clamp(3.85rem, 9.2vw, 8.8rem);
+        font-weight: 700;
+        letter-spacing: 0;
+        line-height: 0.84;
+      }
+
+      .hero-note {
+        max-width: 28rem;
+        margin: clamp(1.35rem, 3vw, 2.6rem) 0 0;
+        color: rgba(17, 17, 17, 0.64);
+        font-size: clamp(1rem, 1.3vw, 1.2rem);
+        line-height: 1.45;
+      }
+
+      .word-group {
+        position: absolute;
+        top: 50%;
+        display: grid;
+        gap: clamp(0.55rem, 1vw, 0.9rem);
+        width: min(38vw, 35rem);
+        opacity: 0;
+        transform: translateY(-50%);
+        will-change: transform, opacity;
+      }
+
+      .word-group.right {
+        right: clamp(1.25rem, 6vw, 6rem);
+      }
+
+      .word-group.left {
+        left: clamp(1.25rem, 6vw, 6rem);
+      }
+
+      .word-group.low {
+        top: auto;
+        bottom: clamp(4.5rem, 9vw, 8rem);
+      }
+
+      .word-line {
+        display: block;
+        overflow: hidden;
+      }
+
+      .word-line span {
+        display: block;
+        color: var(--ink);
+        font-size: clamp(3.5rem, 8.6vw, 8.4rem);
+        font-weight: 700;
+        letter-spacing: 0;
+        line-height: 0.86;
+        transform: translateY(112%) rotate(4deg);
+        transform-origin: left bottom;
+        will-change: transform, opacity;
+      }
+
+      .word-subline {
+        max-width: 26rem;
+        margin-top: 1rem;
+        overflow: hidden;
+      }
+
+      .word-subline span {
+        display: block;
+        color: rgba(17, 17, 17, 0.64);
+        font-size: clamp(1rem, 1.22vw, 1.18rem);
+        line-height: 1.45;
+        transform: translateY(120%);
+      }
+
+      .split-mask {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: top;
+      }
+
+      .split-word {
+        display: inline-block;
+        transform: translateY(115%) rotate(3deg);
+        transform-origin: left bottom;
+        will-change: transform, opacity;
+      }
+
+      .scroll-cue {
+        position: absolute;
+        right: clamp(1.25rem, 5vw, 5rem);
+        bottom: clamp(4.5rem, 7vw, 6rem);
+        z-index: 9;
+        display: flex;
+        gap: 0.85rem;
+        align-items: center;
+        color: rgba(17, 17, 17, 0.54);
+      }
+
+      .cue-line {
+        position: relative;
+        width: 4.5rem;
+        height: 1px;
+        overflow: hidden;
+        background: rgba(17, 17, 17, 0.18);
+      }
+
+      .cue-line::after {
+        position: absolute;
+        inset: 0;
+        content: "";
+        background: var(--ink);
+        transform: translateX(-100%);
+        animation: cue 1.9s var(--ease) infinite;
+      }
+
+      .scroll-meter {
+        position: fixed;
+        right: clamp(1rem, 2.5vw, 2rem);
+        bottom: clamp(1rem, 2.5vw, 2rem);
+        z-index: 24;
+        display: grid;
+        grid-template-columns: auto 4.25rem;
+        gap: 0.85rem;
+        align-items: center;
+        color: rgba(17, 17, 17, 0.52);
+      }
+
+      .meter-track {
+        height: 1px;
+        overflow: hidden;
+        background: rgba(17, 17, 17, 0.16);
+      }
+
+      .meter-fill {
+        width: 100%;
+        height: 100%;
+        background: var(--ink);
+        transform: scaleX(0);
+        transform-origin: left center;
+      }
+
+      .after-scene {
+        display: grid;
+        min-height: 100dvh;
+        padding: clamp(5rem, 10vw, 9rem) clamp(1.25rem, 5vw, 5rem);
+        align-items: center;
+        background: linear-gradient(to bottom, transparent, rgba(241, 239, 231, 0.96) 26%);
+      }
+
+      .after-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(16rem, 0.58fr);
+        gap: clamp(2rem, 9vw, 9rem);
+        align-items: end;
+      }
+
+      .after-grid h2 {
+        max-width: 12ch;
+        margin: 0;
+        font-size: clamp(3.25rem, 8vw, 8rem);
+        font-weight: 700;
+        letter-spacing: 0;
+        line-height: 0.9;
+      }
+
+      .after-grid p {
+        margin: 0;
+        color: rgba(17, 17, 17, 0.64);
+        font-size: clamp(1rem, 1.35vw, 1.22rem);
+        line-height: 1.5;
+      }
+
+      @keyframes cue {
+        0% {
+          transform: translateX(-100%);
+        }
+        48%,
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .topbar {
+          grid-template-columns: 1fr auto;
+        }
+
+        .topbar-center {
+          display: none;
+        }
+
+        .hero-copy {
+          bottom: 7rem;
+        }
+
+        .word-group {
+          top: auto;
+          bottom: 8dvh;
+          left: 1.25rem !important;
+          right: 1.25rem !important;
+          width: calc(100% - 2.5rem);
+          transform: none;
+        }
+
+        .word-line span {
+          font-size: clamp(3rem, 15vw, 5.8rem);
+        }
+
+        .scroll-cue {
+          right: auto;
+          left: 1.25rem;
+          bottom: 2.25rem;
+        }
+
+        .after-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .topbar {
+          padding-top: 0.8rem;
+        }
+
+        .topbar-right {
+          display: none;
+        }
+
+        h1,
+        .after-grid h2 {
+          font-size: clamp(3.45rem, 17vw, 5.3rem);
+        }
+
+        .hero-note {
+          max-width: 20rem;
+        }
+
+        .film-frame {
+          inset: 0.75rem;
+        }
+
+        .scroll-meter {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+        }
+
+        .cinema-scroll {
+          height: auto;
+          min-height: 100dvh;
+        }
+
+        .cinema-pin {
+          position: relative;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar" aria-label="Site header">
+      <a class="brand" href="#top" aria-label="Neuroveil home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Neuroveil
+      </a>
+      <div class="topbar-center mono">Cinematic scroll system</div>
+      <div class="topbar-right mono">Brain film 01</div>
+    </header>
+
+    <main>
+      <section id="top" class="cinema-scroll" aria-label="Cinematic brain video scroll">
+        <div class="cinema-pin">
+          <div class="video-canvas" aria-hidden="true">
+            <video src="brain.mp4" autoplay muted loop playsinline preload="auto"></video>
+          </div>
+          <div class="video-vignette" aria-hidden="true"></div>
+
+          <div class="copy-layer">
+            <div class="hero-copy" data-copy="hero">
+              <p class="eyebrow mono" data-split>Cognitive video interface</p>
+              <h1 data-split>Brain motion directed by scroll.</h1>
+              <p class="hero-note" data-split>
+                One full-screen brain film becomes the page. The scroll moves the camera: center,
+                deep left focus, then a right-side resolve.
+              </p>
+            </div>
+
+            <div class="word-group right" data-word-group="focus" aria-hidden="true">
+              <div class="word-line"><span>Map</span></div>
+              <div class="word-line"><span>Signal</span></div>
+              <div class="word-line"><span>Intent</span></div>
+              <div class="word-subline">
+                <span>The video zooms into the left side and leaves this field open for black type.</span>
+              </div>
+            </div>
+
+            <div class="word-group left low" data-word-group="depth" aria-hidden="true">
+              <div class="word-line"><span>Trace</span></div>
+              <div class="word-line"><span>Layer</span></div>
+              <div class="word-line"><span>Depth</span></div>
+              <div class="word-subline">
+                <span>The camera pulls back slowly, letting the surface breathe before it moves again.</span>
+              </div>
+            </div>
+
+            <div class="word-group right" data-word-group="pulse" aria-hidden="true">
+              <div class="word-line"><span>Read</span></div>
+              <div class="word-line"><span>The</span></div>
+              <div class="word-line"><span>Pulse</span></div>
+              <div class="word-subline">
+                <span>A second pass returns to detail, but the motion holds longer and feels less abrupt.</span>
+              </div>
+            </div>
+
+            <div class="word-group left" data-word-group="resolve" aria-hidden="true">
+              <div class="word-line"><span>Zoom</span></div>
+              <div class="word-line"><span>Out</span></div>
+              <div class="word-line"><span>Think</span></div>
+              <div class="word-subline">
+                <span>The frame pulls back and lands right, with the text entering the blank space.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="scroll-cue mono" aria-hidden="true">
+            <span class="cue-line"></span>
+            Scroll
+          </div>
+
+          <div class="film-frame" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="after-scene" aria-labelledby="after-title">
+        <div class="after-grid">
+          <h2 id="after-title" data-split>Production-grade motion.</h2>
+          <p data-split>
+            The video is not framed as an object anymore. It fills the viewport, while GSAP
+            ScrollTrigger controls the cinematic zoom, side placement, text wrapping, and staggered
+            word reveals.
+          </p>
+        </div>
+      </section>
+
+      <div class="scroll-meter" aria-hidden="true">
+        <span class="mono">Progress</span>
+        <div class="meter-track"><div class="meter-fill"></div></div>
+      </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const videoCanvas = document.querySelector(".video-canvas");
+      const video = document.querySelector("video");
+      const heroCopy = document.querySelector('[data-copy="hero"]');
+      const focusGroup = document.querySelector('[data-word-group="focus"]');
+      const depthGroup = document.querySelector('[data-word-group="depth"]');
+      const pulseGroup = document.querySelector('[data-word-group="pulse"]');
+      const resolveGroup = document.querySelector('[data-word-group="resolve"]');
+      const wordGroups = [focusGroup, depthGroup, pulseGroup, resolveGroup];
+      const meterFill = document.querySelector(".meter-fill");
+
+      function wrapText(el) {
+        const source = el.textContent.trim().replace(/\s+/g, " ");
+        el.setAttribute("aria-label", source);
+        el.innerHTML = source
+          .split(" ")
+          .map((word) => `<span class="split-mask"><span class="split-word">${word}</span></span>`)
+          .join(" ");
+      }
+
+      document.querySelectorAll("[data-split]").forEach(wrapText);
+
+      video.muted = true;
+      video.playsInline = true;
+      video.play().catch(() => {
+        document.addEventListener(
+          "pointerdown",
+          () => {
+            video.play().catch(() => {});
+          },
+          { once: true }
+        );
+      });
+
+      if (!reduceMotion && window.Lenis) {
+        const lenis = new Lenis({
+          duration: 1.55,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          wheelMultiplier: 0.72,
+          touchMultiplier: 1.08
+        });
+
+        lenis.on("scroll", ScrollTrigger.update);
+
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+
+        gsap.ticker.lagSmoothing(0);
+      }
+
+      const isMobile = () => window.matchMedia("(max-width: 900px)").matches;
+
+      function animateWrappedText(scope) {
+        return gsap.to(scope.querySelectorAll(".split-word"), {
+          y: "0%",
+          rotate: 0,
+          duration: 0.85,
+          stagger: 0.035,
+          ease: "power4.out"
+        });
+      }
+
+      function buildScene() {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        gsap.set(videoCanvas, { clearProps: "all" });
+        gsap.set(heroCopy, { clearProps: "all" });
+        gsap.set(".word-group, .word-line span, .word-subline span", { clearProps: "all" });
+        gsap.set(".split-word", { y: "115%", rotate: 3, opacity: 1 });
+        gsap.set(meterFill, { scaleX: 0 });
+
+        if (reduceMotion) {
+          gsap.set(videoCanvas, { x: 0, scale: 1 });
+          gsap.set([heroCopy, ...wordGroups], { autoAlpha: 1 });
+          gsap.set(".word-line span, .word-subline span, .split-word", {
+            y: "0%",
+            rotate: 0,
+            opacity: 1
+          });
+          return;
+        }
+
+        const mobile = isMobile();
+        const leftX = mobile ? "-13vw" : "-30vw";
+        const softLeftX = mobile ? "-6vw" : "-15vw";
+        const rightX = mobile ? "15vw" : "34vw";
+        const midRightX = mobile ? "8vw" : "20vw";
+        const leftZoom = mobile ? 1.36 : 1.66;
+        const pulseZoom = mobile ? 1.18 : 1.34;
+        const rightScale = mobile ? 0.68 : 0.52;
+        const midScale = mobile ? 0.86 : 0.78;
+
+        gsap.set(videoCanvas, { x: 0, scale: 1.08 });
+        gsap.set(wordGroups, { autoAlpha: 0 });
+        gsap.set(".word-line span", { y: "112%", rotate: 4, opacity: 1 });
+        gsap.set(".word-subline span", { y: "120%", opacity: 1 });
+
+        animateWrappedText(heroCopy);
+
+        const tl = gsap.timeline({
+          defaults: { ease: "none" },
+          scrollTrigger: {
+            trigger: ".cinema-scroll",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1.35,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              meterFill.style.transform = `scaleX(${self.progress.toFixed(4)})`;
+            }
+          }
+        });
+
+        const focusWords = focusGroup.querySelectorAll(".word-line span");
+        const focusSubline = focusGroup.querySelector(".word-subline span");
+        const depthWords = depthGroup.querySelectorAll(".word-line span");
+        const depthSubline = depthGroup.querySelector(".word-subline span");
+        const pulseWords = pulseGroup.querySelectorAll(".word-line span");
+        const pulseSubline = pulseGroup.querySelector(".word-subline span");
+        const resolveWords = resolveGroup.querySelectorAll(".word-line span");
+        const resolveSubline = resolveGroup.querySelector(".word-subline span");
+
+        function showGroup(group, words, subline, start, end) {
+          tl.set(group, { autoAlpha: 1 }, start + 0.015)
+            .to(words, { y: "0%", rotate: 0, duration: 0.055, stagger: 0.012, ease: "power4.out" }, start + 0.015)
+            .to(subline, { y: "0%", duration: 0.05, ease: "power3.out" }, start + 0.075)
+            .to([words, subline], { y: "-112%", opacity: 0, duration: 0.045, ease: "power2.in" }, end)
+            .to(group, { autoAlpha: 0, duration: 0.035, ease: "power2.in" }, end + 0.02);
+        }
+
+        tl.to(videoCanvas, { x: 0, y: 0, scale: 1.08, duration: 0.14 }, 0)
+          .to(videoCanvas, { x: 0, y: "-3vh", scale: 1.16, duration: 0.16 }, 0.08)
+          .to(heroCopy, { y: -80, autoAlpha: 0, duration: 0.12, ease: "power2.out" }, 0.13)
+          .to(videoCanvas, { x: leftX, y: "-4vh", scale: leftZoom, duration: 0.16 }, 0.2)
+          .to(videoCanvas, { x: leftX, y: "-4vh", scale: leftZoom, duration: 0.1 }, 0.36)
+          .to(videoCanvas, { x: midRightX, y: "2vh", scale: midScale, duration: 0.16 }, 0.46)
+          .to(videoCanvas, { x: midRightX, y: "2vh", scale: midScale, duration: 0.1 }, 0.62)
+          .to(videoCanvas, { x: softLeftX, y: "-7vh", scale: pulseZoom, duration: 0.16 }, 0.72)
+          .to(videoCanvas, { x: softLeftX, y: "-7vh", scale: pulseZoom, duration: 0.08 }, 0.88)
+          .to(videoCanvas, { x: rightX, y: "3vh", scale: rightScale, duration: 0.14 }, 0.94)
+          .to(videoCanvas, { x: rightX, y: "3vh", scale: rightScale, duration: 0.1 }, 1.08);
+
+        showGroup(focusGroup, focusWords, focusSubline, 0.27, 0.48);
+        showGroup(depthGroup, depthWords, depthSubline, 0.52, 0.75);
+        showGroup(pulseGroup, pulseWords, pulseSubline, 0.79, 0.98);
+        showGroup(resolveGroup, resolveWords, resolveSubline, 1.03, 1.22);
+
+        gsap.to(".after-scene .split-word", {
+          y: "0%",
+          rotate: 0,
+          duration: 0.85,
+          stagger: 0.025,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: ".after-scene",
+            start: "top 72%"
+          }
+        });
+      }
+
+      buildScene();
+
+      window.addEventListener("resize", () => {
+        ScrollTrigger.refresh();
+      });
+
+      window.addEventListener("load", () => {
+        window.scrollTo(0, 0);
+        ScrollTrigger.refresh();
+      });
+    </script>
+  </body>
+</html>
