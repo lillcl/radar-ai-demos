@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>活動 Programs ｜ MIMUNYA 澳門國際模擬聯合國</title>
+  <meta name="description" content="MIMUNYA 年度活動版圖 — 模擬聯合國大會、學術工作坊、領袖訓練營、國際交流計劃，橫跨大灣區。" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { cream:'#faf8f5',warm:'#f5f2ed',navy:{DEFAULT:'#1a2744',light:'#2a3a5c',deep:'#111c34'},forest:{DEFAULT:'#3d6b5e',light:'#4a8070'},gold:{DEFAULT:'#c9a857',light:'#d4b76a'},ink:{body:'#4a4a4a',muted:'#8a8a8a'} },
+          fontFamily: { display:['"Cormorant Garamond"','serif'],sans:['"DM Sans"','"Noto Sans TC"','system-ui','sans-serif'],serif:['"Cormorant Garamond"','"Noto Serif TC"','serif'] },
+          letterSpacing: { 'widest-2':'0.28em' },
+        }
+      }
+    }
+  </script>
+  <style>
+    :root{--bg-cream:#faf8f5;--bg-warm:#f5f2ed;--navy:#1a2744;--navy-light:#2a3a5c;--forest:#3d6b5e;--gold:#c9a857;--text-body:#4a4a4a;--text-muted:#8a8a8a}
+    *{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}html{scroll-behavior:smooth}
+    body{font-family:'DM Sans','Noto Sans TC',system-ui,sans-serif;background:var(--bg-cream);color:var(--text-body)}
+    ::selection{background:#c9a857;color:#1a2744}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.035;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+    .section-number{position:absolute;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:120px;line-height:1;color:var(--navy);opacity:.06;letter-spacing:-.04em;pointer-events:none;user-select:none}
+    @media (min-width:768px){.section-number{font-size:160px}}@media (min-width:1024px){.section-number{font-size:200px}}
+    .overline{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:500;color:var(--text-muted)}
+    .display{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:-.02em;line-height:.95;color:var(--navy)}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}.reveal.is-visible{opacity:1;transform:translateY(0)}
+    .reveal-stagger>*{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+    .reveal-stagger.is-visible>*{opacity:1;transform:translateY(0)}
+    .reveal-stagger.is-visible>*:nth-child(1){transition-delay:0ms}.reveal-stagger.is-visible>*:nth-child(2){transition-delay:100ms}.reveal-stagger.is-visible>*:nth-child(3){transition-delay:200ms}.reveal-stagger.is-visible>*:nth-child(4){transition-delay:300ms}.reveal-stagger.is-visible>*:nth-child(5){transition-delay:400ms}.reveal-stagger.is-visible>*:nth-child(6){transition-delay:500ms}
+    .btn{display:inline-flex;align-items:center;gap:.625rem;padding:.95rem 1.6rem;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;border:1px solid transparent;cursor:pointer;transition:transform .4s cubic-bezier(.16,1,.3,1),background .3s,color .3s,border-color .3s,box-shadow .3s;will-change:transform}
+    .btn:hover{transform:translateY(-1px)}.btn:active{transform:translateY(0) scale(.99)}
+    .btn-primary{background:var(--navy);color:var(--bg-cream);box-shadow:0 10px 30px -15px rgba(26,39,68,.45)}.btn-primary:hover{background:var(--navy-light)}
+    .btn-outline{background:transparent;color:var(--navy);border-color:var(--navy)}.btn-outline:hover{background:var(--navy);color:var(--bg-cream)}
+    .btn-gold{background:var(--gold);color:var(--navy)}.btn-gold:hover{filter:brightness(1.06)}
+    .btn-ghost-light{background:transparent;color:var(--bg-cream);border-color:rgba(250,248,245,.4)}.btn-ghost-light:hover{background:var(--bg-cream);color:var(--navy)}
+    .rule-gold{width:36px;height:1px;background:var(--gold);display:inline-block}
+    .img-reveal{overflow:hidden;position:relative}.img-reveal img{width:100%;height:100%;object-fit:cover;filter:sepia(20%) contrast(1.05) saturate(.95);transition:transform .9s cubic-bezier(.16,1,.3,1),filter .6s}
+    .img-reveal:hover img{transform:scale(1.05);filter:sepia(10%) contrast(1.08) saturate(1)}
+    .magnetic{display:inline-block;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+    .nav-link{position:relative}.nav-link::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+    .nav-link:hover::after,.nav-link.is-active::after{transform:scaleX(1);transform-origin:left}
+    .nav-link.is-active{color:var(--navy)}
+    .chip{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .7rem;font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:500}
+    .activity-num{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:28px;color:var(--gold)}
+    .activity-card{transition:transform .6s cubic-bezier(.16,1,.3,1)}.activity-card:hover{transform:translateY(-4px)}
+    .filter-btn{transition:all .3s cubic-bezier(.16,1,.3,1)}.filter-btn.is-active{background:var(--navy);color:var(--bg-cream);border-color:var(--navy)}
+    .timeline-item{position:relative;padding-left:3.5rem}
+    .timeline-item::before{content:"";position:absolute;left:14px;top:8px;bottom:-8px;width:1px;background:rgba(26,39,68,.12)}
+    .timeline-item:last-child::before{display:none}
+    .timeline-dot{position:absolute;left:8px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--cream);border:1.5px solid var(--navy)}
+    .timeline-dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--gold)}
+    .hero-fade{animation:heroFade 1.6s cubic-bezier(.16,1,.3,1) both}
+    @keyframes heroFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    .hero-fade-2{animation-delay:.2s}.hero-fade-3{animation-delay:.4s}
+    ::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:var(--bg-cream)}::-webkit-scrollbar-thumb{background:rgba(26,39,68,.18)}
+  </style>
+</head>
+<body class="bg-cream text-ink-body antialiased">
+
+  <!-- NAV -->
+  <header id="nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="flex items-center justify-between h-20">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" class="text-navy">
+            <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.2"/>
+            <ellipse cx="24" cy="24" rx="22" ry="8" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <ellipse cx="24" cy="24" rx="8" ry="22" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <circle cx="24" cy="24" r="10" stroke="currentColor" stroke-width="1.2"/>
+            <line x1="24" y1="2" x2="24" y2="46" stroke="currentColor" stroke-width=".6" opacity=".6"/>
+            <line x1="2" y1="24" x2="46" y2="24" stroke="currentColor" stroke-width=".6" opacity=".6"/>
+          </svg>
+          <div class="leading-none"><div class="font-display text-xl font-semibold tracking-tight text-navy">MIMUNYA</div><div class="overline mt-1 hidden sm:block">Macau · est. 2018</div></div>
+        </a>
+        <nav class="hidden lg:flex items-center gap-10">
+          <a href="index.html" class="nav-link text-[13px] tracking-widest-2 uppercase text-navy/80 hover:text-navy transition">首頁 Home</a>
+          <a href="about.html" class="nav-link text-[13px] tracking-widest-2 uppercase text-navy/80 hover:text-navy transition">關於 About</a>
+          <a href="programs.html" class="nav-link is-active text-[13px] tracking-widest-2 uppercase text-navy transition">活動 Programs</a>
+          <a href="news.html" class="nav-link text-[13px] tracking-widest-2 uppercase text-navy/80 hover:text-navy transition">消息 Bulletin</a>
+          <a href="contact.html" class="nav-link text-[13px] tracking-widest-2 uppercase text-navy/80 hover:text-navy transition">聯絡 Engage</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a href="contact.html" class="hidden md:inline-flex btn btn-primary magnetic text-[12px] py-3 px-5">立即加入 <i class="ph ph-arrow-up-right text-base"></i></a>
+          <button id="menuToggle" class="lg:hidden w-11 h-11 rounded-full border border-navy/15 flex items-center justify-center text-navy hover:bg-navy hover:text-cream transition"><i class="ph ph-list text-xl" id="menuIcon"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="mobileMenu" class="fixed inset-0 z-40 lg:hidden pointer-events-none opacity-0 transition-opacity duration-400">
+    <div class="absolute inset-0 bg-navy/95 backdrop-blur-md"></div>
+    <div class="relative h-full flex flex-col justify-center items-center gap-8 text-cream">
+      <a href="index.html" class="mobile-link font-display text-4xl italic">Home</a>
+      <a href="about.html" class="mobile-link font-display text-4xl italic">About</a>
+      <a href="programs.html" class="mobile-link font-display text-4xl italic">Programs</a>
+      <a href="news.html" class="mobile-link font-display text-4xl italic">Bulletin</a>
+      <a href="contact.html" class="mobile-link font-display text-4xl italic">Engage</a>
+      <div class="rule-gold mt-6"></div>
+      <a href="contact.html" class="mobile-link btn btn-gold mt-2">立即加入 <i class="ph ph-arrow-up-right"></i></a>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="relative min-h-[60vh] flex items-end overflow-hidden pb-20 pt-40 lg:pt-48">
+    <span class="section-number top-24 right-4 lg:right-12">02</span>
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 w-full">
+      <div class="grid grid-cols-12 gap-6 items-end">
+        <div class="col-span-12 lg:col-span-9">
+          <div class="hero-fade flex items-center gap-3 mb-6"><span class="rule-gold"></span><span class="overline">Programs · 精彩活動</span></div>
+          <h1 class="hero-fade hero-fade-2 display text-[clamp(3rem,7vw,5.5rem)] text-navy">
+            Programs <span class="italic text-forest">&amp;</span> Events.
+          </h1>
+          <p class="hero-fade hero-fade-3 mt-8 max-w-[58ch] text-[15px] leading-[1.85] text-ink-body">從議場到講台，從香港到澳門 — 2025 年的活動版圖橫跨大灣區。每場活動都是一次真實的國際事務演練：起草決議、協商讓步、危機回應、跨文化溝通。</p>
+        </div>
+        <div class="col-span-12 lg:col-span-3 lg:text-right reveal">
+          <div class="font-display text-7xl text-navy/10 leading-none">2025</div>
+          <div class="overline mt-2">Active Season</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS GRID -->
+  <section class="relative py-24 lg:py-32 overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 reveal">
+        <div>
+          <div class="flex items-center gap-3 mb-4"><span class="rule-gold"></span><span class="overline">Filter · 篩選</span></div>
+          <div class="flex flex-wrap gap-2">
+            <button class="filter-btn is-active chip border border-navy/30 text-navy px-4 py-2" data-filter="all">全部 All</button>
+            <button class="filter-btn chip border border-navy/30 text-navy px-4 py-2" data-filter="2025">2025</button>
+            <button class="filter-btn chip border border-navy/30 text-navy px-4 py-2" data-filter="2024">2024</button>
+            <button class="filter-btn chip border border-navy/30 text-navy px-4 py-2" data-filter="flagship">旗艦 Flagship</button>
+          </div>
+        </div>
+        <div class="text-[12px] tracking-widest-2 uppercase text-ink-muted">6 programs · 6 場活動</div>
+      </div>
+
+      <div class="grid grid-cols-12 gap-6 lg:gap-8 reveal-stagger" id="programsGrid">
+
+        <!-- 01 Flagship -->
+        <a href="#" class="activity-card col-span-12 lg:col-span-7 group" data-year="2025" data-tag="flagship">
+          <div class="img-reveal aspect-[4/3] mb-6"><img src="https://picsum.photos/seed/mimun-hk-conference/1000/750" alt=""/></div>
+          <div class="flex items-baseline justify-between gap-6">
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <span class="activity-num">N° 01</span>
+                <span class="chip bg-navy text-cream">Flagship · 旗艦</span>
+                <span class="chip border border-navy/30 text-navy">2025 · Hong Kong</span>
+              </div>
+              <h3 class="font-display text-3xl lg:text-4xl text-navy leading-tight">模擬聯合國大會<span class="block italic text-forest mt-1 text-2xl">MUN General Assembly</span></h3>
+              <p class="mt-4 text-[15px] leading-[1.8] max-w-[60ch]">為期三天的全議程模擬聯合國會議，設置六個委員會、危機回應小組及新聞中心 — 青年代表將在真實的議事規則下進行表決、磋商與決議起草。</p>
+            </div>
+            <i class="ph ph-arrow-up-right text-2xl text-navy/40 group-hover:text-gold group-hover:rotate-45 transition-all duration-500"></i>
+          </div>
+        </a>
+
+        <!-- 02 -->
+        <a href="#" class="activity-card col-span-12 sm:col-span-6 lg:col-span-5 group" data-year="2025" data-tag="">
+          <div class="img-reveal aspect-[5/4] mb-6"><img src="https://picsum.photos/seed/mimun-macau-workshop/700/560" alt=""/></div>
+          <div class="flex items-baseline justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <span class="activity-num">N° 02</span>
+                <span class="chip border border-navy/30 text-navy">2025 · Macau</span>
+              </div>
+              <h3 class="font-display text-2xl lg:text-3xl text-navy leading-tight">學術工作坊<span class="block italic text-forest mt-1 text-lg">Academic Workshop</span></h3>
+              <p class="mt-3 text-[14px] leading-[1.7] text-ink-body">六週系統性培訓，涵蓋國際關係理論、議事規則、立場文件寫作與公眾演說。</p>
+            </div>
+            <i class="ph ph-arrow-up-right text-2xl text-navy/40 group-hover:text-gold group-hover:rotate-45 transition-all duration-500"></i>
+          </div>
+        </a>
+
+        <!-- 03 -->
+        <a href="#" class="activity-card col-span-12 sm:col-span-6 lg:col-span-5 group" data-year="2025" data-tag="">
+          <div class="img-reveal aspect-[5/4] mb-6"><img src="https://picsum.photos/seed/mimun-gba-exchange/900/560" alt=""/></div>
+          <div class="flex items-baseline justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <span class="activity-num">N° 03</span>
+                <span class="chip border border-navy/30 text-navy">2025 · Greater Bay</span>
+              </div>
+              <h3 class="font-display text-2xl lg:text-3xl text-navy leading-tight">國際交流計劃<span class="block italic text-forest mt-1 text-lg">GBA Exchange Programme</span></h3>
+              <p class="mt-3 text-[14px] leading-[1.7] text-ink-body">串連澳門、香港、廣州、深圳四地青年代表，建立跨城市學習共同體。</p>
+            </div>
+            <i class="ph ph-arrow-up-right text-2xl text-navy/40 group-hover:text-gold group-hover:rotate-45 transition-all duration-500"></i>
+          </div>
+        </a>
+
+        <!-- 04 -->
+        <a href="#" class="activity-card col-span-12 sm:col-span-6 lg:col-span-7 group" data-year="2024" data-tag="flagship">
+          <div class="img-reveal aspect-[16/10] mb-6"><img src="https://picsum.photos/seed/mimun-leadership-bootcamp/1000/625" alt=""/></div>
+          <div class="flex items-baseline justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <span class="activity-num">N° 04</span>
+                <span class="chip bg-navy text-cream">Flagship · 旗艦</span>
+                <span class="chip border border-navy/30 text-navy">2024 · GBA</span>
+              </div>
+              <h3 class="font-display text-3xl text-navy leading-tight">領袖訓練營<span class="block italic text-forest mt-1 text-xl">Leadership Bootcamp</span></h3>
+              <p class="mt-3 text-[14px] leading-[1.7] text-ink-body max-w-[55ch]">三天兩夜的高強度訓練，結合情境演練、團隊任務與導師回饋，培養危機下的決策力。</p>
+            </div>
+            <i class="ph ph-arrow-up-right text-2xl text-navy/40 group-hover:text-gold group-hover:rotate-45 transition-all duration-500"></i>
+          </div>
+        </a>
+
+        <!-- 05 -->
+        <a href="#" class="activity-card col-span-12 sm:col-span-6 lg:col-span-7 group" data-year="2024" data-tag="">
+          <div class="img-reveal aspect-[16/10] mb-6"><img src="https://picsum.photos/seed/mimun-mock-security/1000/625" alt=""/></div>
+          <div class="flex items-baseline justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <span class="activity-num">N° 05</span>
+                <span class="chip border border-navy/30 text-navy">2024 · Macau</span>
+              </div>
+              <h3 class="font-display text-3xl text-navy leading-tight">模擬安全理事會<span class="block italic text-forest mt-1 text-xl">Mock Security Council</span></h3>
+              <p class="mt-3 text-[14px] leading-[1.7] text-ink-body max-w-[55ch]">以聯合國安理會為藍本，模擬國際危機中的快速決策與表決 — 真實的議事規則，零距離的國際觀點。</p>
+            </div>
+            <i class="ph ph-arrow-up-right text-2xl text-navy/40 group-hover:text-gold group-hover:rotate-45 transition-all duration-500"></i>
+          </div>
+        </a>
+
+        <!-- 06 -->
+        <a href="#" class="activity-card col-span-12 sm:col-span-6 lg:col-span-5 group" data-year="2024" data-tag="">
+          <div class="img-reveal aspect-[5/4] mb-6"><img src="https://picsum.photos/seed/mimun-campus-lectures/700/560" alt=""/></div>
+          <div class="flex items-baseline justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <span class="activity-num">N° 06</span>
+                <span class="chip border border-navy/30 text-navy">2024 · Various</span>
+              </div>
+              <h3 class="font-display text-2xl lg:text-3xl text-navy leading-tight">校園講座系列<span class="block italic text-forest mt-1 text-lg">Campus Lecture Series</span></h3>
+              <p class="mt-3 text-[14px] leading-[1.7] text-ink-body">走進澳門與大灣區中學校園，分享國際事務職涯與青年參與故事。</p>
+            </div>
+            <i class="ph ph-arrow-up-right text-2xl text-navy/40 group-hover:text-gold group-hover:rotate-45 transition-all duration-500"></i>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROGRAM -->
+  <section class="relative py-32 lg:py-40 bg-warm overflow-hidden">
+    <span class="section-number top-12 left-4 lg:left-12">03</span>
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-12 gap-6 lg:gap-12 items-center">
+        <div class="col-span-12 lg:col-span-7 order-2 lg:order-1 reveal">
+          <div class="flex items-center gap-3 mb-6"><span class="rule-gold"></span><span class="overline">Now Open · 現正接受報名</span></div>
+          <h2 class="display text-4xl lg:text-6xl text-navy">2025 香港升學體驗日暨<br/><span class="italic text-forest">粵港澳大灣區國際模擬聯合國大會</span></h2>
+          <p class="mt-8 text-[15px] leading-[1.85] max-w-[58ch]">MIMUNYA 與香港大學合辦的年度旗艦活動，為期三天。設置聯合國大會、安全理事會、經濟與社會理事會等六個委員會，並加入新聞中心與危機回應小組。優勝代表將獲推薦參與亞太區青年領袖計劃。</p>
+
+          <div class="mt-10 grid grid-cols-3 gap-6 max-w-xl">
+            <div class="border-t border-navy/15 pt-4">
+              <div class="overline">Date</div>
+              <div class="font-display text-2xl text-navy mt-1">07.2025</div>
+            </div>
+            <div class="border-t border-navy/15 pt-4">
+              <div class="overline">Venue</div>
+              <div class="font-display text-2xl text-navy mt-1">HKU</div>
+            </div>
+            <div class="border-t border-navy/15 pt-4">
+              <div class="overline">Seats</div>
+              <div class="font-display text-2xl text-navy mt-1">240</div>
+            </div>
+          </div>
+
+          <div class="mt-10 flex flex-wrap gap-4">
+            <a href="contact.html" class="btn btn-primary magnetic">立即報名 <i class="ph ph-arrow-up-right"></i></a>
+            <a href="#" class="btn btn-outline magnetic">下載章程 <i class="ph ph-download-simple"></i></a>
+          </div>
+        </div>
+        <div class="col-span-12 lg:col-span-5 order-1 lg:order-2 relative reveal">
+          <div class="relative">
+            <div class="absolute -top-4 -right-4 w-full h-full border-2 border-gold"></div>
+            <div class="img-reveal aspect-[4/5]"><img src="https://picsum.photos/seed/mimun-feature-2025/800/1000" alt=""/></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAST EVENTS TIMELINE -->
+  <section class="relative py-32 lg:py-40 overflow-hidden">
+    <span class="section-number top-12 right-4 lg:right-12">04</span>
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-12 gap-6 mb-20 reveal">
+        <div class="col-span-12 lg:col-span-5">
+          <div class="flex items-center gap-3 mb-6"><span class="rule-gold"></span><span class="overline">Archive · 過往活動</span></div>
+          <h2 class="display text-5xl lg:text-6xl text-navy">Selected <span class="italic text-forest">Past Events.</span></h2>
+        </div>
+        <div class="col-span-12 lg:col-span-6 lg:col-start-7 flex items-end">
+          <p class="text-[15px] leading-[1.85] max-w-[48ch]">自 2018 年以來，我們在澳門、香港與大灣區各地舉辦超過 100 場活動。以下是其中一部分的選輯。</p>
+        </div>
+      </div>
+      <div class="max-w-[820px]">
+        <div class="space-y-10 reveal-stagger">
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="grid grid-cols-12 gap-4 items-baseline">
+              <div class="col-span-2"><div class="font-display text-3xl text-gold">2024</div></div>
+              <div class="col-span-10">
+                <h3 class="font-display text-2xl text-navy mb-2">冬季工作坊 · Winter Workshop</h3>
+                <p class="text-[14px] text-ink-body leading-relaxed">為期三天的領袖培訓工作坊，吸引了來自大灣區近百名青年參加，反應熱烈。</p>
+                <div class="overline mt-2">12.2024 · Macau</div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="grid grid-cols-12 gap-4 items-baseline">
+              <div class="col-span-2"><div class="font-display text-3xl text-gold">2024</div></div>
+              <div class="col-span-10">
+                <h3 class="font-display text-2xl text-navy mb-2">與香港大學建立深度合作關係</h3>
+                <p class="text-[14px] text-ink-body leading-relaxed">MIMUNYA 與香港大學正式簽署合作備忘錄，共同舉辦年度模擬聯合國會議。</p>
+                <div class="overline mt-2">10.2024 · Hong Kong</div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="grid grid-cols-12 gap-4 items-baseline">
+              <div class="col-span-2"><div class="font-display text-3xl text-gold">2023</div></div>
+              <div class="col-span-10">
+                <h3 class="font-display text-2xl text-navy mb-2">大灣區青年外交論壇</h3>
+                <p class="text-[14px] text-ink-body leading-relaxed">匯集四地青年代表，就氣候變遷、區域安全與經濟治理等議題展開深度對話。</p>
+                <div class="overline mt-2">08.2023 · Guangzhou</div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="grid grid-cols-12 gap-4 items-baseline">
+              <div class="col-span-2"><div class="font-display text-3xl text-gold">2022</div></div>
+              <div class="col-span-10">
+                <h3 class="font-display text-2xl text-navy mb-2">線上模擬聯合國峰會</h3>
+                <p class="text-[14px] text-ink-body leading-relaxed">疫情時代的應變方案 — 吸引超過 30 個國家及地區代表參與的線上議事。</p>
+                <div class="overline mt-2">06.2022 · Online</div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="grid grid-cols-12 gap-4 items-baseline">
+              <div class="col-span-2"><div class="font-display text-3xl text-gold">2018</div></div>
+              <div class="col-span-10">
+                <h3 class="font-display text-2xl text-navy mb-2">MIMUNYA 成立 · Founding</h3>
+                <p class="text-[14px] text-ink-body leading-relaxed">由一群對國際事務懷抱熱情的青年學子於澳門創立 — 第一屆模擬聯合國會議同步舉行。</p>
+                <div class="overline mt-2">09.2018 · Macau</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative py-32 lg:py-40 bg-navy text-cream overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-12 gap-6 items-center">
+        <div class="col-span-12 lg:col-span-7 reveal">
+          <div class="flex items-center gap-3 mb-6"><span class="w-9 h-px bg-gold"></span><span class="overline text-cream/60">Join · 立即加入</span></div>
+          <h2 class="display text-5xl lg:text-6xl text-cream">成為 <span class="italic text-gold">下一位代表。</span></h2>
+          <p class="mt-6 max-w-[52ch] text-cream/70 text-[15px] leading-[1.85]">每一場活動都在等待你 — 帶著你的立場、你的觀點、你的決策，進入議場。</p>
+        </div>
+        <div class="col-span-12 lg:col-span-4 lg:col-start-9 flex flex-col items-start lg:items-end gap-3 reveal">
+          <a href="contact.html" class="btn btn-gold magnetic">立即報名 <i class="ph ph-arrow-up-right"></i></a>
+          <a href="news.html" class="btn btn-ghost-light magnetic">閱讀活動紀實 <i class="ph ph-arrow-up-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-navy-deep text-cream relative overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-16 pb-10">
+      <div class="grid grid-cols-12 gap-10 lg:gap-16">
+        <div class="col-span-12 lg:col-span-5">
+          <div class="flex items-center gap-3 mb-6">
+            <svg width="40" height="40" viewBox="0 0 48 48" fill="none" class="text-cream/80">
+              <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.2"/>
+              <ellipse cx="24" cy="24" rx="22" ry="8" stroke="currentColor" stroke-width="1" opacity=".4"/>
+              <ellipse cx="24" cy="24" rx="8" ry="22" stroke="currentColor" stroke-width="1" opacity=".4"/>
+              <circle cx="24" cy="24" r="10" stroke="currentColor" stroke-width="1.2"/>
+            </svg>
+            <div><div class="font-display text-2xl text-cream">MIMUNYA</div><div class="overline text-cream/40 mt-1">Macau International MUN</div></div>
+          </div>
+          <p class="font-display italic text-2xl lg:text-3xl text-cream/80 max-w-[36ch] leading-tight">Connecting the next generation of <span class="text-gold">diplomats</span> from the Greater Bay Area.</p>
+        </div>
+        <div class="col-span-6 lg:col-span-3">
+          <div class="overline text-cream/40 mb-5">Quick Links</div>
+          <ul class="space-y-3 text-sm">
+            <li><a href="index.html" class="text-cream/80 hover:text-gold transition">首頁 Home</a></li>
+            <li><a href="about.html" class="text-cream/80 hover:text-gold transition">關於 About</a></li>
+            <li><a href="programs.html" class="text-cream/80 hover:text-gold transition">活動 Programs</a></li>
+            <li><a href="news.html" class="text-cream/80 hover:text-gold transition">最新消息 Bulletin</a></li>
+            <li><a href="contact.html" class="text-cream/80 hover:text-gold transition">聯絡 Engage</a></li>
+          </ul>
+        </div>
+        <div class="col-span-6 lg:col-span-4">
+          <div class="overline text-cream/40 mb-5">Contact</div>
+          <ul class="space-y-3 text-sm text-cream/80">
+            <li>info@moimun.org</li>
+            <li>澳門特別行政區 · Macau SAR</li>
+          </ul>
+          <div class="mt-6 flex items-center gap-3">
+            <a href="#" class="w-9 h-9 border border-cream/20 rounded-full flex items-center justify-center text-cream/60 hover:border-gold hover:text-gold transition"><i class="ph ph-instagram-logo text-base"></i></a>
+            <a href="#" class="w-9 h-9 border border-cream/20 rounded-full flex items-center justify-center text-cream/60 hover:border-gold hover:text-gold transition"><i class="ph ph-linkedin-logo text-base"></i></a>
+            <a href="#" class="w-9 h-9 border border-cream/20 rounded-full flex items-center justify-center text-cream/60 hover:border-gold hover:text-gold transition"><i class="ph ph-youtube-logo text-base"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-16 pt-8 border-t border-cream/10 flex flex-col sm:flex-row justify-between gap-4 text-xs text-cream/50">
+        <div>© <span id="year">2026</span> 澳門國際模擬聯合國青年協會. All rights reserved.</div>
+        <div class="flex items-center gap-6"><a href="#" class="hover:text-gold transition">Privacy</a><a href="#" class="hover:text-gold transition">Terms</a><span>Built in <span class="text-gold">Macau</span></span></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver((entries) => { entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } }); }, { threshold: .12, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach((el) => io.observe(el));
+    const nav = document.getElementById('nav');
+    function onScroll() { if (window.scrollY > 40) { nav.classList.add('bg-cream/95','backdrop-blur-md','shadow-[0_1px_0_rgba(26,39,68,0.06)]'); } else { nav.classList.remove('bg-cream/95','backdrop-blur-md','shadow-[0_1px_0_rgba(26,39,68,0.06)]'); } }
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    const menuToggle = document.getElementById('menuToggle'), menuIcon = document.getElementById('menuIcon'), mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+    menuToggle.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) { mobileMenu.classList.remove('pointer-events-none','opacity-0'); mobileMenu.classList.add('pointer-events-auto','opacity-100'); menuIcon.classList.replace('ph-list','ph-x'); document.body.style.overflow='hidden'; }
+      else { mobileMenu.classList.add('pointer-events-none','opacity-0'); mobileMenu.classList.remove('pointer-events-auto','opacity-100'); menuIcon.classList.replace('ph-x','ph-list'); document.body.style.overflow=''; }
+    });
+    document.querySelectorAll('.mobile-link').forEach((l) => l.addEventListener('click', () => { menuOpen = false; mobileMenu.classList.add('pointer-events-none','opacity-0'); mobileMenu.classList.remove('pointer-events-auto','opacity-100'); menuIcon.classList.replace('ph-x','ph-list'); document.body.style.overflow=''; }));
+    document.querySelectorAll('.magnetic').forEach((el) => {
+      let rect = null, raf = null, tx = 0, ty = 0, cx = 0, cy = 0;
+      function loop() { cx += (tx - cx) * .18; cy += (ty - cy) * .18; el.style.transform = `translate(${cx}px, ${cy}px)`; if (Math.abs(tx - cx) > .05 || Math.abs(ty - cy) > .05) raf = requestAnimationFrame(loop); else raf = null; }
+      el.addEventListener('mouseenter', () => rect = el.getBoundingClientRect());
+      el.addEventListener('mousemove', (e) => { if (!rect) rect = el.getBoundingClientRect(); tx = (e.clientX - (rect.left + rect.width/2)) * .28; ty = (e.clientY - (rect.top + rect.height/2)) * .28; if (!raf) raf = requestAnimationFrame(loop); });
+      el.addEventListener('mouseleave', () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
+    });
+    // Filter
+    document.querySelectorAll('.filter-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('#programsGrid > a').forEach((card) => {
+          const year = card.dataset.year, tag = card.dataset.tag;
+          const show = f === 'all' || year === f || tag === f;
+          card.style.display = show ? '' : 'none';
+        });
+      });
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>聯絡我們 Engage ｜ MIMUNYA 澳門國際模擬聯合國</title>
+  <meta name="description" content="有任何問題或合作意向？我們期待聽到您的聲音。透過郵件或表單與 MIMUNYA 聯絡。" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { cream:'#faf8f5',warm:'#f5f2ed',navy:{DEFAULT:'#1a2744',light:'#2a3a5c',deep:'#111c34'},forest:{DEFAULT:'#3d6b5e',light:'#4a8070'},gold:{DEFAULT:'#c9a857',light:'#d4b76a'},ink:{body:'#4a4a4a',muted:'#8a8a8a'} },
+          fontFamily: { display:['"Cormorant Garamond"','serif'],sans:['"DM Sans"','"Noto Sans TC"','system-ui','sans-serif'],serif:['"Cormorant Garamond"','"Noto Serif TC"','serif'] },
+          letterSpacing: { 'widest-2':'0.28em' },
+        }
+      }
+    }
+  </script>
+  <style>
+    :root{--bg-cream:#faf8f5;--bg-warm:#f5f2ed;--navy:#1a2744;--navy-light:#2a3a5c;--forest:#3d6b5e;--gold:#c9a857;--text-body:#4a4a4a;--text-muted:#8a8a8a}
+    *{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}html{scroll-behavior:smooth}
+    body{font-family:'DM Sans','Noto Sans TC',system-ui,sans-serif;background:var(--bg-cream);color:var(--text-body)}
+    ::selection{background:#c9a857;color:#1a2744}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.035;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+    .section-number{position:absolute;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:120px;line-height:1;color:var(--navy);opacity:.06;letter-spacing:-.04em;pointer-events:none;user-select:none}
+    @media (min-width:768px){.section-number{font-size:160px}}@media (min-width:1024px){.section-number{font-size:200px}}
+    .overline{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:500;color:var(--text-muted)}
+    .display{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:-.02em;line-height:.95;color:var(--navy)}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}.reveal.is-visible{opacity:1;transform:translateY(0)}
+    .reveal-stagger>*{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+    .reveal-stagger.is-visible>*{opacity:1;transform:translateY(0)}
+    .reveal-stagger.is-visible>*:nth-child(1){transition-delay:0ms}.reveal-stagger.is-visible>*:nth-child(2){transition-delay:120ms}.reveal-stagger.is-visible>*:nth-child(3){transition-delay:240ms}
+    .btn{display:inline-flex;align-items:center;gap:.625rem;padding:.95rem 1.6rem;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;border:1px solid transparent;cursor:pointer;transition:transform .4s cubic-bezier(.16,1,.3,1),background .3s,color .3s,border-color .3s,box-shadow .3s;will-change:transform}
+    .btn:hover{transform:translateY(-1px)}.btn:active{transform:translateY(0) scale(.99)}
+    .btn-primary{background:var(--navy);color:var(--bg-cream);box-shadow:0 10px 30px -15px rgba(26,39,68,.45)}.btn-primary:hover{background:var(--navy-light)}
+    .btn-outline{background:transparent;color:var(--navy);border-color:var(--navy)}.btn-outline:hover{background:var(--navy);color:var(--bg-cream)}
+    .btn-gold{background:var(--gold);color:var(--navy)}.btn-gold:hover{filter:brightness(1.06)}
+    .btn-ghost-light{background:transparent;color:var(--bg-cream);border-color:rgba(250,248,245,.4)}.btn-ghost-light:hover{background:var(--bg-cream);color:var(--navy)}
+    .rule-gold{width:36px;height:1px;background:var(--gold);display:inline-block}
+    .magnetic{display:inline-block;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+    .nav-link{position:relative}.nav-link::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+    .nav-link:hover::after,.nav-link.is-active::after{transform:scaleX(1);transform-origin:left}
+    .nav-link.is-active{color:var(--navy)}
+    .chip{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .7rem;font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:500}
+    .field{position:relative;border-bottom:1px solid rgba(26,39,68,.15);transition:border-color .3s}
+    .field:focus-within{border-color:var(--navy)}
+    .field input,.field textarea,.field select{width:100%;background:transparent;padding:1rem 0 .6rem;font-family:inherit;font-size:15px;color:var(--navy);outline:none;border:0}
+    .field label{position:absolute;left:0;top:1rem;font-size:14px;color:var(--text-muted);pointer-events:none;transition:all .3s cubic-bezier(.16,1,.3,1)}
+    .field input:focus+label,.field input:not(:placeholder-shown)+label,.field textarea:focus+label,.field textarea:not(:placeholder-shown)+label,.field select:focus+label,.field select:not([value=""])+label{top:-.4rem;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--navy)}
+    .field input::placeholder,.field textarea::placeholder{color:transparent}
+    .info-card{transition:background .4s,transform .4s cubic-bezier(.16,1,.3,1)}
+    .info-card:hover{background:var(--warm)}
+    .info-card .icon-wrap{transition:border-color .3s,color .3s,transform .5s cubic-bezier(.16,1,.3,1)}
+    .info-card:hover .icon-wrap{border-color:var(--gold);color:var(--gold);transform:rotate(8deg) scale(1.05)}
+    .hero-fade{animation:heroFade 1.6s cubic-bezier(.16,1,.3,1) both}
+    @keyframes heroFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    .hero-fade-2{animation-delay:.2s}.hero-fade-3{animation-delay:.4s}
+    @keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}.pulse-dot{animation:pulseDot 2.4s ease-in-out infinite}
+    ::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:var(--bg-cream)}::-webkit-scrollbar-thumb{background:rgba(26,39,68,.18)}
+  </style>
+</head>
+<body class="bg-cream text-ink-body antialiased">
+
+  <!-- NAV -->
+  <header id="nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="flex items-center justify-between h-20">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" class="text-navy">
+            <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.2"/>
+            <ellipse cx="24" cy="24" rx="22" ry="8" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <ellipse cx="24" cy="24" rx="8" ry="22" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <circle cx="24" cy="24" r="10" stroke="currentColor" stroke-width="1.2"/>
+            <line x1="24" y1="2" x2="24" y2="46" stroke="currentColor" stroke-width=".6" opacity=".6"/>
+            <line x1="2" y1="24" x2="46" y2="24" stroke="currentColor" stroke-width=".6" opacity=".6"/>
+          </svg>
+          <div class="leading-none"><div class="font-display text-xl font-semibold tracking-tight text-navy">MIMUNYA</div><div class="overline mt-1 hidden sm:block">Macau · est. 2018</div></div>
+        </a>
+        <nav class="hidden lg:flex items-center gap-10">
+          <a href="index.html" class="nav-link text-[13px] tracking-widest-2 uppercase text-navy/80 hover:text-navy transition">首頁 Home</a>
+          <a href="about.html" class="nav-link text-[13px] tracking-widest-2 uppercase text-navy/80 hover:text-navy transition">關於 About</a>
+          <a href="programs.html" class="nav-link text-[13px] tracking-widest-2 uppercase text-navy/80 hover:text-navy transition">活動 Programs</a>
+          <a href="news.html" class="nav-link text-[13px] tracking-widest-2 uppercase text-navy/80 hover:text-navy transition">消息 Bulletin</a>
+          <a href="contact.html" class="nav-link is-active text-[13px] tracking-widest-2 uppercase text-navy transition">聯絡 Engage</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a href="contact.html" class="hidden md:inline-flex btn btn-primary magnetic text-[12px] py-3 px-5">立即加入 <i class="ph ph-arrow-up-right text-base"></i></a>
+          <button id="menuToggle" class="lg:hidden w-11 h-11 rounded-full border border-navy/15 flex items-center justify-center text-navy hover:bg-navy hover:text-cream transition"><i class="ph ph-list text-xl" id="menuIcon"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="mobileMenu" class="fixed inset-0 z-40 lg:hidden pointer-events-none opacity-0 transition-opacity duration-400">
+    <div class="absolute inset-0 bg-navy/95 backdrop-blur-md"></div>
+    <div class="relative h-full flex flex-col justify-center items-center gap-8 text-cream">
+      <a href="index.html" class="mobile-link font-display text-4xl italic">Home</a>
+      <a href="about.html" class="mobile-link font-display text-4xl italic">About</a>
+      <a href="programs.html" class="mobile-link font-display text-4xl italic">Programs</a>
+      <a href="news.html" class="mobile-link font-display text-4xl italic">Bulletin</a>
+      <a href="contact.html" class="mobile-link font-display text-4xl italic">Engage</a>
+      <div class="rule-gold mt-6"></div>
+      <a href="contact.html" class="mobile-link btn btn-gold mt-2">立即加入 <i class="ph ph-arrow-up-right"></i></a>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="relative min-h-[55vh] flex items-end overflow-hidden pb-20 pt-40 lg:pt-48">
+    <span class="section-number top-24 right-4 lg:right-12">05</span>
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 w-full">
+      <div class="grid grid-cols-12 gap-6 items-end">
+        <div class="col-span-12 lg:col-span-9">
+          <div class="hero-fade flex items-center gap-3 mb-6"><span class="rule-gold"></span><span class="overline">Engage · 聯絡我們</span></div>
+          <h1 class="hero-fade hero-fade-2 display text-[clamp(3rem,7vw,5.5rem)] text-navy">
+            與我們 <span class="italic text-forest">聯繫。</span>
+          </h1>
+          <p class="hero-fade hero-fade-3 mt-8 max-w-[58ch] text-[15px] leading-[1.85] text-ink-body">有任何問題或合作意向？我們期待聽到您的聲音。從校園講座到機構合作，從青年報名到媒體採訪 — 每一則訊息都會被認真對待。</p>
+        </div>
+        <div class="col-span-12 lg:col-span-3 lg:text-right reveal">
+          <div class="inline-flex items-center gap-2 text-[11px] tracking-widest-2 uppercase text-ink-muted">
+            <span class="w-1.5 h-1.5 rounded-full bg-gold pulse-dot"></span>
+            Replied within 2-3 days
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT GRID -->
+  <section class="relative py-20 lg:py-28 overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-12 gap-6 lg:gap-12">
+
+        <!-- LEFT: Contact info -->
+        <div class="col-span-12 lg:col-span-5">
+          <div class="lg:sticky lg:top-32">
+            <div class="flex items-center gap-3 mb-8"><span class="rule-gold"></span><span class="overline">Reach out · 聯絡方式</span></div>
+            <h2 class="display text-4xl lg:text-5xl text-navy leading-[1]">Three ways to <span class="italic text-forest">reach us.</span></h2>
+            <p class="mt-6 text-[15px] leading-[1.85] max-w-[42ch]">選擇最適合您的方式 — 我們會盡快回覆，無論是電郵、地址或快速連結。</p>
+
+            <!-- Info cards -->
+            <div class="mt-10 space-y-px bg-navy/10 reveal-stagger">
+              <a href="mailto:info@moimun.org" class="info-card flex items-center gap-5 bg-cream p-5">
+                <div class="icon-wrap w-11 h-11 border border-navy/20 rounded-full flex items-center justify-center text-navy">
+                  <i class="ph ph-envelope-simple text-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <div class="overline">Email</div>
+                  <div class="text-navy text-[15px] mt-0.5">info@moimun.org</div>
+                </div>
+                <i class="ph ph-arrow-up-right text-navy/40"></i>
+              </a>
+              <div class="info-card flex items-center gap-5 bg-cream p-5">
+                <div class="icon-wrap w-11 h-11 border border-navy/20 rounded-full flex items-center justify-center text-navy">
+                  <i class="ph ph-map-pin text-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <div class="overline">Address</div>
+                  <div class="text-navy text-[15px] mt-0.5">澳門特別行政區 · Macau SAR</div>
+                </div>
+              </div>
+              <div class="info-card flex items-center gap-5 bg-cream p-5">
+                <div class="icon-wrap w-11 h-11 border border-navy/20 rounded-full flex items-center justify-center text-navy">
+                  <i class="ph ph-clock text-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <div class="overline">Response Time</div>
+                  <div class="text-navy text-[15px] mt-0.5">一般情況下 2-3 個工作天內回覆</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick links -->
+            <div class="mt-10">
+              <div class="overline mb-3">Quick Links · 快速鏈接</div>
+              <div class="flex flex-wrap gap-2">
+                <a href="news.html" class="chip border border-navy/20 hover:border-navy hover:bg-navy hover:text-cream transition px-4 py-2">最新消息</a>
+                <a href="about.html" class="chip border border-navy/20 hover:border-navy hover:bg-navy hover:text-cream transition px-4 py-2">關於我們</a>
+                <a href="programs.html" class="chip border border-navy/20 hover:border-navy hover:bg-navy hover:text-cream transition px-4 py-2">活動一覽</a>
+                <a href="#" class="chip border border-navy/20 hover:border-navy hover:bg-navy hover:text-cream transition px-4 py-2">加入義工</a>
+              </div>
+            </div>
+
+            <!-- Social -->
+            <div class="mt-10">
+              <div class="overline mb-3">Follow · 追蹤</div>
+              <div class="flex items-center gap-3">
+                <a href="#" aria-label="Instagram" class="w-10 h-10 border border-navy/20 rounded-full flex items-center justify-center text-navy/70 hover:border-gold hover:text-gold hover:-translate-y-0.5 transition-all"><i class="ph ph-instagram-logo text-base"></i></a>
+                <a href="#" aria-label="LinkedIn" class="w-10 h-10 border border-navy/20 rounded-full flex items-center justify-center text-navy/70 hover:border-gold hover:text-gold hover:-translate-y-0.5 transition-all"><i class="ph ph-linkedin-logo text-base"></i></a>
+                <a href="#" aria-label="YouTube" class="w-10 h-10 border border-navy/20 rounded-full flex items-center justify-center text-navy/70 hover:border-gold hover:text-gold hover:-translate-y-0.5 transition-all"><i class="ph ph-youtube-logo text-base"></i></a>
+                <a href="#" aria-label="X" class="w-10 h-10 border border-navy/20 rounded-full flex items-center justify-center text-navy/70 hover:border-gold hover:text-gold hover:-translate-y-0.5 transition-all"><i class="ph ph-x-logo text-base"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Form -->
+        <div class="col-span-12 lg:col-span-7">
+          <div class="relative bg-cream border border-navy/12 p-8 lg:p-14 reveal">
+            <!-- Gold corner -->
+            <div class="absolute top-0 right-0 w-24 h-24 border-t-2 border-r-2 border-gold pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 border-b-2 border-l-2 border-gold pointer-events-none"></div>
+
+            <div class="flex items-baseline justify-between mb-10">
+              <h3 class="font-display text-3xl lg:text-4xl text-navy">Send a <span class="italic text-forest">message.</span></h3>
+              <span class="overline">Form N° 05</span>
+            </div>
+
+            <form id="contactForm" class="space-y-10" novalidate>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
+                <div class="field">
+                  <input type="text" name="name" id="fName" placeholder=" " required autocomplete="name" />
+                  <label for="fName">姓名 Name *</label>
+                </div>
+                <div class="field">
+                  <input type="email" name="email" id="fEmail" placeholder=" " required autocomplete="email" />
+                  <label for="fEmail">電子郵件 Email *</label>
+                </div>
+              </div>
+
+              <div class="field">
+                <select name="subject" id="fSubject" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="partnership">合作咨詢 Partnership</option>
+                  <option value="event">活動查詢 Event Inquiry</option>
+                  <option value="join">參與報名 Join as Delegate</option>
+                  <option value="press">媒體採訪 Press</option>
+                  <option value="other">其他問題 Other</option>
+                </select>
+                <label for="fSubject">主題 Subject *</label>
+              </div>
+
+              <div class="field">
+                <textarea name="message" id="fMessage" rows="5" placeholder=" " required></textarea>
+                <label for="fMessage">訊息內容 Message *</label>
+              </div>
+
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+                <p class="text-[12px] text-ink-muted max-w-[36ch] leading-relaxed">
+                  點擊發送即表示您同意我們的<a href="#" class="underline underline-offset-4 hover:text-navy">隱私政策</a>。
+                </p>
+                <button type="submit" class="btn btn-primary magnetic" id="submitBtn">
+                  <span id="btnText">發送訊息</span>
+                  <i class="ph ph-paper-plane-tilt text-base" id="btnIcon"></i>
+                </button>
+              </div>
+
+              <div id="formError" class="hidden text-sm text-red-600"></div>
+            </form>
+
+            <!-- Success state -->
+            <div id="formSuccess" class="hidden text-center py-8">
+              <div class="w-16 h-16 mx-auto rounded-full border-2 border-gold flex items-center justify-center text-gold mb-6">
+                <i class="ph-fill ph-check-circle text-3xl"></i>
+              </div>
+              <h3 class="font-display text-3xl text-navy">訊息<span class="italic text-forest">已發送。</span></h3>
+              <p class="mt-4 text-[14px] text-ink-body max-w-[40ch] mx-auto">感謝您的來信。我們將於 2-3 個工作天內回覆 — 通常會更快。</p>
+              <button id="resetForm" class="mt-8 btn btn-outline magnetic">
+                <i class="ph ph-arrow-counter-clockwise"></i>
+                再次發送
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="relative py-24 lg:py-32 bg-warm overflow-hidden">
+    <span class="section-number top-12 left-4 lg:left-12">05</span>
+    <div class="max-w-[1100px] mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-12 gap-6 mb-12 reveal">
+        <div class="col-span-12 lg:col-span-7">
+          <div class="flex items-center gap-3 mb-6"><span class="rule-gold"></span><span class="overline">FAQ · 常見問題</span></div>
+          <h2 class="display text-4xl lg:text-5xl text-navy">Quick <span class="italic text-forest">answers.</span></h2>
+        </div>
+        <div class="col-span-12 lg:col-span-5 lg:text-right flex items-end justify-start lg:justify-end">
+          <a href="mailto:info@moimun.org" class="btn btn-outline magnetic">Email instead <i class="ph ph-envelope-simple"></i></a>
+        </div>
+      </div>
+
+      <div class="space-y-px bg-navy/10 reveal-stagger">
+        <details class="group bg-warm">
+          <summary class="flex items-center justify-between gap-6 p-6 lg:p-8 cursor-pointer list-none">
+            <div>
+              <div class="overline mb-1">Participation</div>
+              <h4 class="font-display text-2xl text-navy">我沒有 MUN 經驗，可以參加嗎？</h4>
+            </div>
+            <i class="ph ph-plus text-2xl text-navy/60 group-open:rotate-45 transition-transform duration-500"></i>
+          </summary>
+          <div class="px-6 lg:px-8 pb-8 -mt-2 text-[14px] text-ink-body leading-[1.85] max-w-[60ch]">
+            完全可以。事實上，MIMUNYA 的大部分參加者都是首次接觸 MUN — 我們的工作坊與培訓資源正是為此設計。帶著開放的心、準備好的議題立場，以及願意學習的態度前來即可。
+          </div>
+        </details>
+
+        <details class="group bg-warm">
+          <summary class="flex items-center justify-between gap-6 p-6 lg:p-8 cursor-pointer list-none">
+            <div>
+              <div class="overline mb-1">Logistics</div>
+              <h4 class="font-display text-2xl text-navy">活動費用包含哪些項目？</h4>
+            </div>
+            <i class="ph ph-plus text-2xl text-navy/60 group-open:rotate-45 transition-transform duration-500"></i>
+          </summary>
+          <div class="px-6 lg:px-8 pb-8 -mt-2 text-[14px] text-ink-body leading-[1.85] max-w-[60ch]">
+            費用通常包含會議材料、議場餐飲、紀念品、證書，以及賽後影像紀實。住宿與交通原則上由參加者自理，但來自澳門以外的低收入家庭可申請獎助學金，請於表單註明。
+          </div>
+        </details>
+
+        <details class="group bg-warm">
+          <summary class="flex items-center justify-between gap-6 p-6 lg:p-8 cursor-pointer list-none">
+            <div>
+              <div class="overline mb-1">Partnership</div>
+              <h4 class="font-display text-2xl text-navy">我們學校想成為合作夥伴，流程是？</h4>
+            </div>
+            <i class="ph ph-plus text-2xl text-navy/60 group-open:rotate-45 transition-transform duration-500"></i>
+          </summary>
+          <div class="px-6 lg:px-8 pb-8 -mt-2 text-[14px] text-ink-body leading-[1.85] max-w-[60ch]">
+            請於表單選擇「合作咨詢」，並簡述貴校背景與合作構想。我們的執行總監會於 2-3 個工作天內回覆，雙方確認方向後進入備忘錄簽署階段。
+          </div>
+        </details>
+
+        <details class="group bg-warm">
+          <summary class="flex items-center justify-between gap-6 p-6 lg:p-8 cursor-pointer list-none">
+            <div>
+              <div class="overline mb-1">Media</div>
+              <h4 class="font-display text-2xl text-navy">媒體採訪該聯絡哪位？</h4>
+            </div>
+            <i class="ph ph-plus text-2xl text-navy/60 group-open:rotate-45 transition-transform duration-500"></i>
+          </summary>
+          <div class="px-6 lg:px-8 pb-8 -mt-2 text-[14px] text-ink-body leading-[1.85] max-w-[60ch]">
+            媒體相關請於表單選擇「媒體採訪」，並註明所屬媒體、預計發佈時間與採訪方向。我們將由公關團隊統一協調受訪者與時程。
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-navy text-cream relative overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-24 pb-10">
+      <div class="grid grid-cols-12 gap-10 lg:gap-16">
+        <div class="col-span-12 lg:col-span-5">
+          <div class="flex items-center gap-3 mb-6">
+            <svg width="40" height="40" viewBox="0 0 48 48" fill="none" class="text-cream/80">
+              <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.2"/>
+              <ellipse cx="24" cy="24" rx="22" ry="8" stroke="currentColor" stroke-width="1" opacity=".4"/>
+              <ellipse cx="24" cy="24" rx="8" ry="22" stroke="currentColor" stroke-width="1" opacity=".4"/>
+              <circle cx="24" cy="24" r="10" stroke="currentColor" stroke-width="1.2"/>
+            </svg>
+            <div><div class="font-display text-2xl text-cream">MIMUNYA</div><div class="overline text-cream/40 mt-1">Macau International MUN</div></div>
+          </div>
+          <p class="font-display italic text-2xl lg:text-3xl text-cream/80 max-w-[36ch] leading-tight">Connecting the next generation of <span class="text-gold">diplomats</span> from the Greater Bay Area.</p>
+        </div>
+        <div class="col-span-6 lg:col-span-3">
+          <div class="overline text-cream/40 mb-5">Quick Links</div>
+          <ul class="space-y-3 text-sm">
+            <li><a href="index.html" class="text-cream/80 hover:text-gold transition">首頁 Home</a></li>
+            <li><a href="about.html" class="text-cream/80 hover:text-gold transition">關於 About</a></li>
+            <li><a href="programs.html" class="text-cream/80 hover:text-gold transition">活動 Programs</a></li>
+            <li><a href="news.html" class="text-cream/80 hover:text-gold transition">最新消息 Bulletin</a></li>
+            <li><a href="contact.html" class="text-cream/80 hover:text-gold transition">聯絡 Engage</a></li>
+          </ul>
+        </div>
+        <div class="col-span-6 lg:col-span-4">
+          <div class="overline text-cream/40 mb-5">Contact</div>
+          <ul class="space-y-3 text-sm text-cream/80">
+            <li>info@moimun.org</li>
+            <li>澳門特別行政區 · Macau SAR</li>
+          </ul>
+          <div class="mt-6 flex items-center gap-3">
+            <a href="#" class="w-9 h-9 border border-cream/20 rounded-full flex items-center justify-center text-cream/60 hover:border-gold hover:text-gold transition"><i class="ph ph-instagram-logo text-base"></i></a>
+            <a href="#" class="w-9 h-9 border border-cream/20 rounded-full flex items-center justify-center text-cream/60 hover:border-gold hover:text-gold transition"><i class="ph ph-linkedin-logo text-base"></i></a>
+            <a href="#" class="w-9 h-9 border border-cream/20 rounded-full flex items-center justify-center text-cream/60 hover:border-gold hover:text-gold transition"><i class="ph ph-youtube-logo text-base"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-16 pt-8 border-t border-cream/10 flex flex-col sm:flex-row justify-between gap-4 text-xs text-cream/50">
+        <div>© <span id="year">2026</span> 澳門國際模擬聯合國青年協會. All rights reserved.</div>
+        <div class="flex items-center gap-6"><a href="#" class="hover:text-gold transition">Privacy</a><a href="#" class="hover:text-gold transition">Terms</a><span>Built in <span class="text-gold">Macau</span></span></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver((entries) => { entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } }); }, { threshold: .12, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach((el) => io.observe(el));
+    const nav = document.getElementById('nav');
+    function onScroll() { if (window.scrollY > 40) { nav.classList.add('bg-cream/95','backdrop-blur-md','shadow-[0_1px_0_rgba(26,39,68,0.06)]'); } else { nav.classList.remove('bg-cream/95','backdrop-blur-md','shadow-[0_1px_0_rgba(26,39,68,0.06)]'); } }
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    const menuToggle = document.getElementById('menuToggle'), menuIcon = document.getElementById('menuIcon'), mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+    menuToggle.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) { mobileMenu.classList.remove('pointer-events-none','opacity-0'); mobileMenu.classList.add('pointer-events-auto','opacity-100'); menuIcon.classList.replace('ph-list','ph-x'); document.body.style.overflow='hidden'; }
+      else { mobileMenu.classList.add('pointer-events-none','opacity-0'); mobileMenu.classList.remove('pointer-events-auto','opacity-100'); menuIcon.classList.replace('ph-x','ph-list'); document.body.style.overflow=''; }
+    });
+    document.querySelectorAll('.mobile-link').forEach((l) => l.addEventListener('click', () => { menuOpen = false; mobileMenu.classList.add('pointer-events-none','opacity-0'); mobileMenu.classList.remove('pointer-events-auto','opacity-100'); menuIcon.classList.replace('ph-x','ph-list'); document.body.style.overflow=''; }));
+    document.querySelectorAll('.magnetic').forEach((el) => {
+      let rect = null, raf = null, tx = 0, ty = 0, cx = 0, cy = 0;
+      function loop() { cx += (tx - cx) * .18; cy += (ty - cy) * .18; el.style.transform = `translate(${cx}px, ${cy}px)`; if (Math.abs(tx - cx) > .05 || Math.abs(ty - cy) > .05) raf = requestAnimationFrame(loop); else raf = null; }
+      el.addEventListener('mouseenter', () => rect = el.getBoundingClientRect());
+      el.addEventListener('mousemove', (e) => { if (!rect) rect = el.getBoundingClientRect(); tx = (e.clientX - (rect.left + rect.width/2)) * .28; ty = (e.clientY - (rect.top + rect.height/2)) * .28; if (!raf) raf = requestAnimationFrame(loop); });
+      el.addEventListener('mouseleave', () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
+    });
+    // Form
+    const form = document.getElementById('contactForm');
+    const success = document.getElementById('formSuccess');
+    const errorEl = document.getElementById('formError');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const btnIcon = document.getElementById('btnIcon');
+    const resetFormBtn = document.getElementById('resetForm');
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.classList.add('hidden');
+      const data = new FormData(form);
+      const name = (data.get('name') || '').toString().trim();
+      const email = (data.get('email') || '').toString().trim();
+      const subject = (data.get('subject') || '').toString().trim();
+      const message = (data.get('message') || '').toString().trim();
+      if (!name || !email || !subject || !message) { errorEl.textContent = '請填寫所有必填欄位。'; errorEl.classList.remove('hidden'); return; }
+      if (!emailRe.test(email)) { errorEl.textContent = '請輸入有效的電子郵件地址。'; errorEl.classList.remove('hidden'); return; }
+      submitBtn.disabled = true;
+      btnText.textContent = '發送中';
+      btnIcon.classList.remove('ph-paper-plane-tilt'); btnIcon.classList.add('ph-circle-notch','ph-spin');
+      await new Promise((r) => setTimeout(r, 1500));
+      form.classList.add('hidden'); success.classList.remove('hidden');
+      submitBtn.disabled = false; btnText.textContent = '發送訊息';
+      btnIcon.classList.remove('ph-circle-notch','ph-spin'); btnIcon.classList.add('ph-paper-plane-tilt');
+    });
+    resetFormBtn.addEventListener('click', () => { form.reset(); form.classList.remove('hidden'); success.classList.add('hidden'); });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,2071 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GLOBAL AI PULSE — Live Intelligence</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        overflow: hidden;
+        background: #000;
+        font-family: "Inter", sans-serif;
+        color: #fff;
+        cursor: default;
+      }
+
+      #globe-container {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+
+      /* Top-left branding */
+      .brand {
+        position: fixed;
+        top: 32px;
+        left: 36px;
+        z-index: 100;
+        pointer-events: none;
+      }
+      .brand h1 {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        line-height: 1.25;
+        color: #fff;
+      }
+      .brand h1 em {
+        font-style: italic;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* Bottom-left title */
+      .main-title {
+        position: fixed;
+        bottom: 40px;
+        left: 36px;
+        z-index: 100;
+        pointer-events: none;
+      }
+      .main-title h2 {
+        font-size: 48px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        line-height: 1.1;
+      }
+      .main-title h2 em {
+        font-style: italic;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .main-title .sub {
+        margin-top: 8px;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      /* Bottom-center foreword */
+      .foreword-link {
+        position: fixed;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        font-size: 10px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+      .foreword-link:hover {
+        color: #fff;
+      }
+
+      /* Navigation arrows */
+      .nav-arrow {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 28px;
+        transition: color 0.3s;
+        user-select: none;
+      }
+      .nav-arrow:hover {
+        color: #fff;
+      }
+      .nav-left {
+        left: 20px;
+      }
+      .nav-right {
+        right: 20px;
+      }
+
+      /* Top-right menu icon */
+      .menu-icon {
+        position: fixed;
+        top: 32px;
+        right: 36px;
+        z-index: 100;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .menu-icon span {
+        display: block;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.6);
+        transition: background 0.3s;
+      }
+      .menu-icon span:nth-child(1) {
+        width: 28px;
+      }
+      .menu-icon span:nth-child(2) {
+        width: 20px;
+        margin-left: 8px;
+      }
+      .menu-icon span:nth-child(3) {
+        width: 24px;
+        margin-left: 4px;
+      }
+      .menu-icon:hover span {
+        background: #fff;
+      }
+
+      /* Live feed ticker at top */
+      .live-ticker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 32px;
+        background: rgba(0, 0, 0, 0.7);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+      }
+      .live-dot {
+        width: 6px;
+        height: 6px;
+        background: #ff3b3b;
+        border-radius: 50%;
+        margin: 0 10px 0 16px;
+        animation: pulse-dot 1.5s infinite;
+        flex-shrink: 0;
+      }
+      @keyframes pulse-dot {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+      .live-label {
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #ff3b3b;
+        margin-right: 16px;
+        flex-shrink: 0;
+      }
+      .ticker-track {
+        display: flex;
+        animation: scroll-ticker 360s linear infinite;
+        white-space: nowrap;
+      }
+      @keyframes scroll-ticker {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+      .ticker-item {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.55);
+        margin-right: 48px;
+        flex-shrink: 0;
+      }
+      .ticker-item .country-tag {
+        color: rgba(100, 180, 255, 0.8);
+        margin-right: 8px;
+        font-weight: 600;
+      }
+
+      /* Country info panel */
+      .info-panel {
+        position: fixed;
+        right: 36px;
+        bottom: 40px;
+        width: 380px;
+        max-height: 60vh;
+        background: rgba(8, 8, 16, 0.88);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        z-index: 150;
+        padding: 28px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.4s,
+          transform 0.4s;
+        pointer-events: none;
+        overflow-y: auto;
+      }
+      .info-panel.active {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .info-panel .close-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 18px;
+        transition: color 0.2s;
+      }
+      .info-panel .close-btn:hover {
+        color: #fff;
+      }
+      .info-panel .country-name {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .info-panel .country-region {
+        font-size: 10px;
+        letter-spacing: 3px;
+        color: rgba(255, 255, 255, 0.35);
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+      .info-panel .ai-index {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .ai-index .stat {
+        flex: 1;
+      }
+      .ai-index .stat-val {
+        font-size: 22px;
+        font-weight: 600;
+        color: rgba(100, 180, 255, 0.9);
+      }
+      .ai-index .stat-label {
+        font-size: 9px;
+        letter-spacing: 2px;
+        color: rgba(255, 255, 255, 0.3);
+        text-transform: uppercase;
+        margin-top: 2px;
+      }
+      .info-panel .news-item {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+      .news-item .news-source {
+        font-size: 9px;
+        letter-spacing: 2px;
+        color: rgba(100, 180, 255, 0.6);
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .news-item .news-title {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.45;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 4px;
+      }
+      .news-item .news-time {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.25);
+      }
+
+      /* Hover tooltip */
+      .hover-tooltip {
+        position: fixed;
+        z-index: 300;
+        background: rgba(8, 8, 16, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 10px 16px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.15s;
+        white-space: nowrap;
+      }
+      .hover-tooltip.visible {
+        opacity: 1;
+      }
+      .hover-tooltip .tt-name {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 1px;
+      }
+      .hover-tooltip .tt-count {
+        font-size: 10px;
+        color: rgba(100, 180, 255, 0.7);
+        margin-top: 2px;
+      }
+
+      /* Stats bar at bottom */
+      .stats-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        z-index: 50;
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .stats-bar .fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(
+          90deg,
+          rgba(60, 120, 255, 0.6),
+          rgba(100, 200, 255, 0.4)
+        );
+        transition: width 1s ease;
+      }
+
+      /* Country count */
+      .country-counter {
+        position: fixed;
+        top: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        text-align: center;
+        pointer-events: none;
+        margin-top: 4px;
+      }
+      .country-counter .num {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 2px;
+      }
+      .country-counter .label {
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      /* Scrollbar */
+      .info-panel::-webkit-scrollbar {
+        width: 4px;
+      }
+      .info-panel::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .info-panel::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      @media (max-width: 600px) {
+        .info-panel {
+          left: 12px;
+          right: 12px;
+          width: auto;
+          bottom: 12px;
+        }
+        .main-title h2 {
+          font-size: 28px;
+        }
+        .brand h1 {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="live-ticker">
+      <div class="live-dot"></div>
+      <span class="live-label">Live</span>
+      <div class="ticker-track" id="tickerTrack"></div>
+    </div>
+
+    <div class="brand">
+      <h1>GLOBAL <em>AI</em><br />PULSE</h1>
+    </div>
+
+    <div class="country-counter">
+      <div class="num" id="countryCount">0</div>
+      <div class="label">Countries Tracked</div>
+    </div>
+
+    <div class="menu-icon" id="menuIcon">
+      <span></span><span></span><span></span>
+    </div>
+
+    <div class="nav-arrow nav-left" id="navLeft">‹</div>
+    <div class="nav-arrow nav-right" id="navRight">›</div>
+
+    <div class="main-title">
+      <h2>THE <em>ARTIFICIAL</em><br />INTELLIGENCE</h2>
+      <div class="sub">Real-time global AI news aggregation</div>
+    </div>
+
+    <div class="foreword-link" id="foreword">EXPLORE FEED</div>
+
+    <div class="info-panel" id="infoPanel">
+      <div class="close-btn" id="closePanel">×</div>
+      <div id="panelContent"></div>
+    </div>
+
+    <div class="hover-tooltip" id="tooltip">
+      <div class="tt-name" id="ttName"></div>
+      <div class="tt-count" id="ttCount"></div>
+    </div>
+
+    <div class="stats-bar"><div class="fill" id="statsFill"></div></div>
+
+    <div id="globe-container"></div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+      // ─── COUNTRY DATA WITH COORDINATES & AI NEWS ─────────────────────────
+      const countries = [
+        {
+          name: "United States",
+          code: "US",
+          lat: 38.9,
+          lon: -77.0,
+          region: "North America",
+          aiIndex: 92,
+          news: [
+            {
+              source: "Reuters",
+              title:
+                "OpenAI unveils GPT-5 with real-time reasoning capabilities",
+              time: "2h ago",
+            },
+            {
+              source: "TechCrunch",
+              title: "US Senate passes landmark AI Safety & Innovation Act",
+              time: "4h ago",
+            },
+            {
+              source: "Bloomberg",
+              title: "NVIDIA surpasses $4T market cap driven by AI chip demand",
+              time: "6h ago",
+            },
+            {
+              source: "The Verge",
+              title:
+                "Google DeepMind achieves breakthrough in protein folding prediction",
+              time: "8h ago",
+            },
+          ],
+        },
+        {
+          name: "China",
+          code: "CN",
+          lat: 39.9,
+          lon: 116.4,
+          region: "East Asia",
+          aiIndex: 88,
+          news: [
+            {
+              source: "SCMP",
+              title:
+                "DeepSeek releases open-source reasoning model rivaling GPT-5",
+              time: "1h ago",
+            },
+            {
+              source: "Xinhua",
+              title:
+                "Beijing launches national AI compute infrastructure initiative",
+              time: "5h ago",
+            },
+            {
+              source: "Nikkei Asia",
+              title:
+                "Baidu's autonomous robotaxi fleet expands to 15 Chinese cities",
+              time: "7h ago",
+            },
+            {
+              source: "Reuters",
+              title: "China sets new global standard for AI ethics governance",
+              time: "10h ago",
+            },
+          ],
+        },
+        {
+          name: "United Kingdom",
+          code: "GB",
+          lat: 51.5,
+          lon: -0.12,
+          region: "Europe",
+          aiIndex: 81,
+          news: [
+            {
+              source: "BBC",
+              title:
+                "UK AI Safety Institute releases global risk assessment framework",
+              time: "3h ago",
+            },
+            {
+              source: "FT",
+              title:
+                "London solidifies position as Europe's leading AI startup hub",
+              time: "6h ago",
+            },
+            {
+              source: "The Guardian",
+              title:
+                "NHS deploys AI diagnostic tools across 200 hospitals nationwide",
+              time: "9h ago",
+            },
+          ],
+        },
+        {
+          name: "Germany",
+          code: "DE",
+          lat: 52.5,
+          lon: 13.4,
+          region: "Europe",
+          aiIndex: 76,
+          news: [
+            {
+              source: "DW",
+              title:
+                "Germany allocates €5B for sovereign AI computing infrastructure",
+              time: "2h ago",
+            },
+            {
+              source: "Handelsblatt",
+              title:
+                "SAP integrates generative AI across entire enterprise platform",
+              time: "8h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Berlin emerges as Europe's top destination for AI researchers",
+              time: "12h ago",
+            },
+          ],
+        },
+        {
+          name: "France",
+          code: "FR",
+          lat: 48.85,
+          lon: 2.35,
+          region: "Europe",
+          aiIndex: 75,
+          news: [
+            {
+              source: "Le Monde",
+              title:
+                "Mistral AI raises €2B, becomes Europe's most valuable AI startup",
+              time: "3h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "France leads EU push for balanced AI regulation framework",
+              time: "7h ago",
+            },
+            {
+              source: "AFP",
+              title:
+                "Paris hosts Global AI Summit with 80 nations in attendance",
+              time: "11h ago",
+            },
+          ],
+        },
+        {
+          name: "Canada",
+          code: "CA",
+          lat: 45.4,
+          lon: -75.7,
+          region: "North America",
+          aiIndex: 79,
+          news: [
+            {
+              source: "CBC",
+              title:
+                "Montreal's AI ecosystem attracts record $4B in venture funding",
+              time: "4h ago",
+            },
+            {
+              source: "Globe & Mail",
+              title: "Canada launches national AI workforce reskilling program",
+              time: "9h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Toronto researchers achieve quantum-AI integration milestone",
+              time: "14h ago",
+            },
+          ],
+        },
+        {
+          name: "Japan",
+          code: "JP",
+          lat: 35.7,
+          lon: 139.7,
+          region: "East Asia",
+          aiIndex: 77,
+          news: [
+            {
+              source: "NHK",
+              title:
+                "Japan unveils ¥2 trillion investment in domestic AI chip development",
+              time: "2h ago",
+            },
+            {
+              source: "Nikkei",
+              title:
+                "Toyota deploys AI-powered manufacturing across all global plants",
+              time: "6h ago",
+            },
+            {
+              source: "Kyodo",
+              title:
+                "Japanese humanoid robots enter elder care facilities nationwide",
+              time: "10h ago",
+            },
+          ],
+        },
+        {
+          name: "South Korea",
+          code: "KR",
+          lat: 37.6,
+          lon: 127.0,
+          region: "East Asia",
+          aiIndex: 78,
+          news: [
+            {
+              source: "Yonhap",
+              title:
+                "Samsung announces next-gen AI memory chips for on-device inference",
+              time: "3h ago",
+            },
+            {
+              source: "Korea Herald",
+              title:
+                "Seoul government integrates AI assistants in all public services",
+              time: "8h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Naver launches Korean-optimized multimodal foundation model",
+              time: "12h ago",
+            },
+          ],
+        },
+        {
+          name: "India",
+          code: "IN",
+          lat: 28.6,
+          lon: 77.2,
+          region: "South Asia",
+          aiIndex: 71,
+          news: [
+            {
+              source: "Times of India",
+              title:
+                "India's AI market projected to reach $17B by year-end 2025",
+              time: "1h ago",
+            },
+            {
+              source: "Economic Times",
+              title:
+                "Infosys and TCS deploy AI agents serving 500M rural citizens",
+              time: "5h ago",
+            },
+            {
+              source: "NDTV",
+              title:
+                "IIT consortium develops multilingual AI for 22 official languages",
+              time: "9h ago",
+            },
+          ],
+        },
+        {
+          name: "Australia",
+          code: "AU",
+          lat: -33.9,
+          lon: 151.2,
+          region: "Oceania",
+          aiIndex: 68,
+          news: [
+            {
+              source: "ABC",
+              title:
+                "Australia establishes AI regulatory authority with binding powers",
+              time: "4h ago",
+            },
+            {
+              source: "AFR",
+              title:
+                "CSIRO partners with tech giants on climate-AI research initiative",
+              time: "10h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Australian mining sector saves $3B annually through AI optimization",
+              time: "16h ago",
+            },
+          ],
+        },
+        {
+          name: "Israel",
+          code: "IL",
+          lat: 31.8,
+          lon: 35.2,
+          region: "Middle East",
+          aiIndex: 84,
+          news: [
+            {
+              source: "Haaretz",
+              title:
+                "Israeli AI defense tech companies attract record global investment",
+              time: "2h ago",
+            },
+            {
+              source: "Times of Israel",
+              title: "Tel Aviv ranks #3 globally in AI startups per capita",
+              time: "7h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Mobileye's autonomous driving AI deployed across European fleet",
+              time: "11h ago",
+            },
+          ],
+        },
+        {
+          name: "Singapore",
+          code: "SG",
+          lat: 1.35,
+          lon: 103.8,
+          region: "Southeast Asia",
+          aiIndex: 80,
+          news: [
+            {
+              source: "Straits Times",
+              title:
+                "Singapore launches Asia's first AI governance testing sandbox",
+              time: "3h ago",
+            },
+            {
+              source: "CNA",
+              title:
+                "National AI Strategy 2.0 targets full public sector AI integration",
+              time: "8h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Singapore becomes ASEAN hub for responsible AI development",
+              time: "13h ago",
+            },
+          ],
+        },
+        {
+          name: "UAE",
+          code: "AE",
+          lat: 24.5,
+          lon: 54.4,
+          region: "Middle East",
+          aiIndex: 73,
+          news: [
+            {
+              source: "Gulf News",
+              title:
+                "UAE's Falcon 3 model achieves top benchmark scores globally",
+              time: "2h ago",
+            },
+            {
+              source: "Khaleej Times",
+              title: "Abu Dhabi invests $30B in AI data center infrastructure",
+              time: "6h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Dubai launches world's first fully AI-managed free trade zone",
+              time: "10h ago",
+            },
+          ],
+        },
+        {
+          name: "Saudi Arabia",
+          code: "SA",
+          lat: 24.7,
+          lon: 46.7,
+          region: "Middle East",
+          aiIndex: 65,
+          news: [
+            {
+              source: "Arab News",
+              title:
+                "Saudi Arabia opens largest AI research center in the Middle East",
+              time: "5h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "NEOM integrates autonomous AI systems across smart city infrastructure",
+              time: "9h ago",
+            },
+          ],
+        },
+        {
+          name: "Brazil",
+          code: "BR",
+          lat: -15.8,
+          lon: -47.9,
+          region: "South America",
+          aiIndex: 58,
+          news: [
+            {
+              source: "Folha",
+              title:
+                "Brazil passes comprehensive AI regulation bill in historic vote",
+              time: "4h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "São Paulo's fintech sector leverages AI for financial inclusion",
+              time: "8h ago",
+            },
+            {
+              source: "G1",
+              title:
+                "Brazilian agritech uses AI satellites to monitor Amazon deforestation",
+              time: "14h ago",
+            },
+          ],
+        },
+        {
+          name: "Sweden",
+          code: "SE",
+          lat: 59.3,
+          lon: 18.1,
+          region: "Europe",
+          aiIndex: 74,
+          news: [
+            {
+              source: "SVT",
+              title:
+                "Sweden's AI-powered healthcare system reduces diagnostic wait times by 60%",
+              time: "5h ago",
+            },
+            {
+              source: "Reuters",
+              title: "Spotify deploys next-gen AI music recommendation engine",
+              time: "10h ago",
+            },
+          ],
+        },
+        {
+          name: "Netherlands",
+          code: "NL",
+          lat: 52.4,
+          lon: 4.9,
+          region: "Europe",
+          aiIndex: 73,
+          news: [
+            {
+              source: "NOS",
+              title:
+                "ASML advances AI-driven lithography for next-gen chip manufacturing",
+              time: "3h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Amsterdam's AI startup ecosystem grows 40% year-over-year",
+              time: "9h ago",
+            },
+          ],
+        },
+        {
+          name: "Switzerland",
+          code: "CH",
+          lat: 46.9,
+          lon: 7.4,
+          region: "Europe",
+          aiIndex: 76,
+          news: [
+            {
+              source: "SWI",
+              title:
+                "ETH Zurich team develops energy-efficient neuromorphic AI processor",
+              time: "6h ago",
+            },
+            {
+              source: "Reuters",
+              title: "Geneva hosts international AI arms control negotiations",
+              time: "12h ago",
+            },
+          ],
+        },
+        {
+          name: "Estonia",
+          code: "EE",
+          lat: 59.4,
+          lon: 24.7,
+          region: "Europe",
+          aiIndex: 70,
+          news: [
+            {
+              source: "ERR",
+              title:
+                "Estonia deploys AI across entire e-governance digital infrastructure",
+              time: "4h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Tallinn becomes Baltic hub for AI-powered cybersecurity startups",
+              time: "10h ago",
+            },
+          ],
+        },
+        {
+          name: "Finland",
+          code: "FI",
+          lat: 60.2,
+          lon: 25.0,
+          region: "Europe",
+          aiIndex: 72,
+          news: [
+            {
+              source: "YLE",
+              title:
+                "Finland leads EU in AI literacy with free national education program",
+              time: "5h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Nokia leverages AI for next-generation 6G network optimization",
+              time: "11h ago",
+            },
+          ],
+        },
+        {
+          name: "Russia",
+          code: "RU",
+          lat: 55.8,
+          lon: 37.6,
+          region: "Eastern Europe",
+          aiIndex: 62,
+          news: [
+            {
+              source: "TASS",
+              title:
+                "Yandex releases large language model trained on Russian-language corpus",
+              time: "3h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Russia accelerates domestic AI chip development amid sanctions",
+              time: "8h ago",
+            },
+          ],
+        },
+        {
+          name: "Taiwan",
+          code: "TW",
+          lat: 25.0,
+          lon: 121.5,
+          region: "East Asia",
+          aiIndex: 82,
+          news: [
+            {
+              source: "CNA",
+              title: "TSMC begins mass production of 2nm AI accelerator chips",
+              time: "1h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Taiwan's semiconductor AI ecosystem drives global chip innovation",
+              time: "6h ago",
+            },
+            {
+              source: "Nikkei",
+              title:
+                "MediaTek unveils on-device AI chip for edge computing applications",
+              time: "10h ago",
+            },
+          ],
+        },
+        {
+          name: "Italy",
+          code: "IT",
+          lat: 41.9,
+          lon: 12.5,
+          region: "Europe",
+          aiIndex: 64,
+          news: [
+            {
+              source: "ANSA",
+              title: "Italy hosts G7 AI governance summit in Rome",
+              time: "5h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Italian fashion industry adopts AI for sustainable supply chain management",
+              time: "11h ago",
+            },
+          ],
+        },
+        {
+          name: "Spain",
+          code: "ES",
+          lat: 40.4,
+          lon: -3.7,
+          region: "Europe",
+          aiIndex: 63,
+          news: [
+            {
+              source: "El País",
+              title:
+                "Barcelona becomes Southern Europe's fastest-growing AI hub",
+              time: "4h ago",
+            },
+            {
+              source: "Reuters",
+              title: "Spain launches €1.5B national AI transformation plan",
+              time: "9h ago",
+            },
+          ],
+        },
+        {
+          name: "Poland",
+          code: "PL",
+          lat: 52.2,
+          lon: 21.0,
+          region: "Europe",
+          aiIndex: 60,
+          news: [
+            {
+              source: "PAP",
+              title:
+                "Warsaw attracts major AI research labs from global tech companies",
+              time: "6h ago",
+            },
+            {
+              source: "Reuters",
+              title: "Polish universities launch joint AI research consortium",
+              time: "12h ago",
+            },
+          ],
+        },
+        {
+          name: "Norway",
+          code: "NO",
+          lat: 59.9,
+          lon: 10.8,
+          region: "Europe",
+          aiIndex: 71,
+          news: [
+            {
+              source: "NRK",
+              title: "Norway uses AI to optimize offshore energy production",
+              time: "4h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Norwegian sovereign wealth fund integrates AI risk assessment tools",
+              time: "10h ago",
+            },
+          ],
+        },
+        {
+          name: "Denmark",
+          code: "DK",
+          lat: 55.7,
+          lon: 12.6,
+          region: "Europe",
+          aiIndex: 72,
+          news: [
+            {
+              source: "DR",
+              title: "Denmark pioneers AI-powered green energy grid management",
+              time: "5h ago",
+            },
+            {
+              source: "Reuters",
+              title: "Copenhagen attracts record AI venture capital investment",
+              time: "11h ago",
+            },
+          ],
+        },
+        {
+          name: "Mexico",
+          code: "MX",
+          lat: 19.4,
+          lon: -99.1,
+          region: "North America",
+          aiIndex: 52,
+          news: [
+            {
+              source: "El Universal",
+              title:
+                "Mexico City launches AI-powered public transportation optimization",
+              time: "6h ago",
+            },
+            {
+              source: "Reuters",
+              title: "Mexican tech sector sees 300% growth in AI-related jobs",
+              time: "13h ago",
+            },
+          ],
+        },
+        {
+          name: "Argentina",
+          code: "AR",
+          lat: -34.6,
+          lon: -58.4,
+          region: "South America",
+          aiIndex: 50,
+          news: [
+            {
+              source: "Clarín",
+              title:
+                "Buenos Aires emerges as Latin America's AI talent development center",
+              time: "7h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Argentine startups leverage AI for agricultural technology solutions",
+              time: "14h ago",
+            },
+          ],
+        },
+        {
+          name: "Nigeria",
+          code: "NG",
+          lat: 9.1,
+          lon: 7.5,
+          region: "Africa",
+          aiIndex: 42,
+          news: [
+            {
+              source: "Punch",
+              title:
+                "Lagos becomes Africa's fastest-growing AI startup ecosystem",
+              time: "3h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Nigerian fintech companies deploy AI to bank 50M unbanked citizens",
+              time: "9h ago",
+            },
+          ],
+        },
+        {
+          name: "Kenya",
+          code: "KE",
+          lat: -1.3,
+          lon: 36.8,
+          region: "Africa",
+          aiIndex: 40,
+          news: [
+            {
+              source: "Nation",
+              title:
+                "Nairobi's Silicon Savannah attracts global AI research partnerships",
+              time: "5h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "M-Pesa integrates AI fraud detection serving 50M mobile wallets",
+              time: "11h ago",
+            },
+          ],
+        },
+        {
+          name: "South Africa",
+          code: "ZA",
+          lat: -33.9,
+          lon: 18.4,
+          region: "Africa",
+          aiIndex: 48,
+          news: [
+            {
+              source: "News24",
+              title:
+                "South Africa launches continental AI strategy at African Union summit",
+              time: "4h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Cape Town tech hub develops AI solutions for water resource management",
+              time: "10h ago",
+            },
+          ],
+        },
+        {
+          name: "Egypt",
+          code: "EG",
+          lat: 30.0,
+          lon: 31.2,
+          region: "Africa / Middle East",
+          aiIndex: 45,
+          news: [
+            {
+              source: "Ahram",
+              title:
+                "Egypt opens Africa's largest AI-focused data center in Cairo",
+              time: "6h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Egyptian government deploys AI for Nile water management optimization",
+              time: "12h ago",
+            },
+          ],
+        },
+        {
+          name: "Turkey",
+          code: "TR",
+          lat: 39.9,
+          lon: 32.9,
+          region: "Europe / Asia",
+          aiIndex: 55,
+          news: [
+            {
+              source: "Anadolu",
+              title:
+                "Turkey launches national AI strategy targeting top-20 global ranking",
+              time: "5h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Istanbul's defense tech sector integrates advanced AI systems",
+              time: "11h ago",
+            },
+          ],
+        },
+        {
+          name: "Indonesia",
+          code: "ID",
+          lat: -6.2,
+          lon: 106.8,
+          region: "Southeast Asia",
+          aiIndex: 50,
+          news: [
+            {
+              source: "Kompas",
+              title:
+                "Indonesia partners with global tech firms for AI talent development",
+              time: "4h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Jakarta deploys AI traffic management reducing commute times by 25%",
+              time: "10h ago",
+            },
+          ],
+        },
+        {
+          name: "Vietnam",
+          code: "VN",
+          lat: 21.0,
+          lon: 105.8,
+          region: "Southeast Asia",
+          aiIndex: 48,
+          news: [
+            {
+              source: "VnExpress",
+              title:
+                "FPT launches Vietnam's first homegrown large language model",
+              time: "3h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Vietnam's tech workforce grows 45% driven by AI outsourcing demand",
+              time: "9h ago",
+            },
+          ],
+        },
+        {
+          name: "Thailand",
+          code: "TH",
+          lat: 13.8,
+          lon: 100.5,
+          region: "Southeast Asia",
+          aiIndex: 47,
+          news: [
+            {
+              source: "Bangkok Post",
+              title:
+                "Thailand's Eastern Economic Corridor attracts AI manufacturing",
+              time: "5h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Thai healthcare system pilots AI-assisted diagnostics in rural areas",
+              time: "11h ago",
+            },
+          ],
+        },
+        {
+          name: "Malaysia",
+          code: "MY",
+          lat: 3.1,
+          lon: 101.7,
+          region: "Southeast Asia",
+          aiIndex: 52,
+          news: [
+            {
+              source: "Star",
+              title:
+                "Malaysia announces $2B AI data center investment from global tech giants",
+              time: "2h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Kuala Lumpur positions as ASEAN's AI-driven Islamic finance hub",
+              time: "8h ago",
+            },
+          ],
+        },
+        {
+          name: "Philippines",
+          code: "PH",
+          lat: 14.6,
+          lon: 121.0,
+          region: "Southeast Asia",
+          aiIndex: 43,
+          news: [
+            {
+              source: "Inquirer",
+              title:
+                "Philippines leverages AI to transform BPO industry for next decade",
+              time: "6h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Manila's startup scene embraces AI for disaster preparedness systems",
+              time: "13h ago",
+            },
+          ],
+        },
+        {
+          name: "New Zealand",
+          code: "NZ",
+          lat: -41.3,
+          lon: 174.8,
+          region: "Oceania",
+          aiIndex: 66,
+          news: [
+            {
+              source: "RNZ",
+              title:
+                "New Zealand develops ethical AI framework prioritizing indigenous rights",
+              time: "5h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Auckland's agritech sector uses AI to optimize sustainable farming",
+              time: "12h ago",
+            },
+          ],
+        },
+        {
+          name: "Ireland",
+          code: "IE",
+          lat: 53.3,
+          lon: -6.3,
+          region: "Europe",
+          aiIndex: 72,
+          news: [
+            {
+              source: "RTE",
+              title:
+                "Dublin hosts headquarters for multiple global AI safety research teams",
+              time: "4h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Ireland's data center boom drives European AI compute capacity",
+              time: "10h ago",
+            },
+          ],
+        },
+        {
+          name: "Portugal",
+          code: "PT",
+          lat: 38.7,
+          lon: -9.1,
+          region: "Europe",
+          aiIndex: 60,
+          news: [
+            {
+              source: "Lusa",
+              title:
+                "Lisbon's Web Summit announces dedicated AI conference track expansion",
+              time: "6h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Portugal attracts AI remote workers with digital nomad visa program",
+              time: "12h ago",
+            },
+          ],
+        },
+        {
+          name: "Chile",
+          code: "CL",
+          lat: -33.4,
+          lon: -70.7,
+          region: "South America",
+          aiIndex: 52,
+          news: [
+            {
+              source: "La Tercera",
+              title:
+                "Chile leads Latin America in AI-powered astronomical research",
+              time: "5h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Santiago launches AI-driven smart city initiative across metro area",
+              time: "11h ago",
+            },
+          ],
+        },
+        {
+          name: "Colombia",
+          code: "CO",
+          lat: 4.7,
+          lon: -74.1,
+          region: "South America",
+          aiIndex: 47,
+          news: [
+            {
+              source: "El Tiempo",
+              title:
+                "Medellín transforms into Latin America's emerging AI innovation hub",
+              time: "6h ago",
+            },
+            {
+              source: "Reuters",
+              title:
+                "Colombia deploys AI systems for biodiversity conservation monitoring",
+              time: "13h ago",
+            },
+          ],
+        },
+      ];
+
+      // ─── SCENE SETUP ─────────────────────────────────────────────
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        45,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        2000,
+      );
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.0;
+      document
+        .getElementById("globe-container")
+        .appendChild(renderer.domElement);
+
+      camera.position.set(0, 0.5, 4.2);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.minDistance = 2.2;
+      controls.maxDistance = 8;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.3;
+      controls.enablePan = false;
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0x223355, 0.4);
+      ambientLight.name = "ambientLight1";
+      scene.add(ambientLight);
+
+      const sunLight = new THREE.DirectionalLight(0xffeedd, 1.8);
+      sunLight.name = "sunLight1";
+      sunLight.position.set(5, 3, 5);
+      sunLight.castShadow = true;
+      sunLight.shadow.mapSize.width = 2048;
+      sunLight.shadow.mapSize.height = 2048;
+      scene.add(sunLight);
+
+      const rimLight = new THREE.DirectionalLight(0x4488ff, 0.5);
+      rimLight.name = "rimLight1";
+      rimLight.position.set(-5, 2, -3);
+      scene.add(rimLight);
+
+      // ─── STARFIELD ───────────────────────────────────────────────
+      const starsGeo = new THREE.BufferGeometry();
+      const starVerts = [];
+      const starColors = [];
+      for (let i = 0; i < 18000; i++) {
+        const r = 200 + Math.random() * 800;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        starVerts.push(
+          r * Math.sin(phi) * Math.cos(theta),
+          r * Math.sin(phi) * Math.sin(theta),
+          r * Math.cos(phi),
+        );
+        const c = new THREE.Color();
+        c.setHSL(0.55 + Math.random() * 0.15, 0.3, 0.7 + Math.random() * 0.3);
+        starColors.push(c.r, c.g, c.b);
+      }
+      starsGeo.setAttribute(
+        "position",
+        new THREE.Float32BufferAttribute(starVerts, 3),
+      );
+      starsGeo.setAttribute(
+        "color",
+        new THREE.Float32BufferAttribute(starColors, 3),
+      );
+      const starsMat = new THREE.PointsMaterial({
+        size: 0.4,
+        transparent: true,
+        opacity: 0.8,
+        vertexColors: true,
+        sizeAttenuation: true,
+      });
+      const stars = new THREE.Points(starsGeo, starsMat);
+      stars.name = "starfield1";
+      scene.add(stars);
+
+      // ─── EARTH GLOBE ─────────────────────────────────────────────
+      const textureLoader = new THREE.TextureLoader();
+
+      const dayTex = textureLoader.load(
+        "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg",
+      );
+      const normalTex = textureLoader.load(
+        "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_normal_2048.jpg",
+      );
+      const specTex = textureLoader.load(
+        "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_specular_2048.jpg",
+      );
+
+      const earthGeo = new THREE.SphereGeometry(1, 128, 128);
+      const earthMat = new THREE.MeshPhongMaterial({
+        map: dayTex,
+        normalMap: normalTex,
+        normalScale: new THREE.Vector2(0.6, 0.6),
+        specularMap: specTex,
+        specular: new THREE.Color(0x222244),
+        shininess: 40,
+      });
+      const earth = new THREE.Mesh(earthGeo, earthMat);
+      earth.name = "earth1";
+      earth.castShadow = true;
+      earth.receiveShadow = true;
+      scene.add(earth);
+
+      // Clouds
+      const cloudsTex = textureLoader.load(
+        "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_clouds_1024.png",
+      );
+      const cloudsGeo = new THREE.SphereGeometry(1.006, 64, 64);
+      const cloudsMat = new THREE.MeshPhongMaterial({
+        map: cloudsTex,
+        transparent: true,
+        opacity: 0.28,
+        depthWrite: false,
+      });
+      const clouds = new THREE.Mesh(cloudsGeo, cloudsMat);
+      clouds.name = "clouds1";
+      scene.add(clouds);
+
+      // Atmosphere glow
+      const atmosGeo = new THREE.SphereGeometry(1.025, 64, 64);
+      const atmosMat = new THREE.ShaderMaterial({
+        vertexShader: `
+                varying vec3 vNormal;
+                varying vec3 vPos;
+                void main(){
+                    vNormal = normalize(normalMatrix * normal);
+                    vPos = (modelViewMatrix * vec4(position,1.0)).xyz;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+                }`,
+        fragmentShader: `
+                varying vec3 vNormal;
+                varying vec3 vPos;
+                void main(){
+                    float rim = 1.0 - max(0.0, dot(vNormal, normalize(-vPos)));
+                    float intensity = pow(rim, 3.0) * 0.65;
+                    vec3 col = mix(vec3(0.15,0.35,0.85), vec3(0.4,0.7,1.0), rim);
+                    gl_FragColor = vec4(col, intensity);
+                }`,
+        transparent: true,
+        side: THREE.BackSide,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
+      const atmos = new THREE.Mesh(atmosGeo, atmosMat);
+      atmos.name = "atmosphere1";
+      scene.add(atmos);
+
+      // ─── COUNTRY MARKERS ─────────────────────────────────────────
+      function latLonToVec3(lat, lon, r = 1.02) {
+        const phi = (90 - lat) * (Math.PI / 180);
+        const theta = (lon + 180) * (Math.PI / 180);
+        return new THREE.Vector3(
+          -r * Math.sin(phi) * Math.cos(theta),
+          r * Math.cos(phi),
+          r * Math.sin(phi) * Math.sin(theta),
+        );
+      }
+
+      const markerGroup = new THREE.Group();
+      markerGroup.name = "markerGroup1";
+      scene.add(markerGroup);
+
+      const markers = [];
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2();
+
+      // ─── COUNTRY LABEL SPRITES ───────────────────────────────────
+      function createTextSprite(text) {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const fontSize = 42;
+        ctx.font = `600 ${fontSize}px Inter, Arial, sans-serif`;
+        const metrics = ctx.measureText(text);
+        const textWidth = metrics.width;
+        const padding = 20;
+        canvas.width = textWidth + padding * 2;
+        canvas.height = fontSize + padding * 2;
+
+        // Redraw with correct size
+        ctx.font = `600 ${fontSize}px Inter, Arial, sans-serif`;
+        ctx.fillStyle = "rgba(0,0,0,0.45)";
+        ctx.roundRect(0, 0, canvas.width, canvas.height, 8);
+        ctx.fill();
+        ctx.fillStyle = "#ffffff";
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
+        ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.minFilter = THREE.LinearFilter;
+        const spriteMat = new THREE.SpriteMaterial({
+          map: texture,
+          transparent: true,
+          depthTest: false,
+          depthWrite: false,
+          opacity: 0.9,
+        });
+        const sprite = new THREE.Sprite(spriteMat);
+        const aspect = canvas.width / canvas.height;
+        const scale = 0.08;
+        sprite.scale.set(scale * aspect, scale, 1);
+        return sprite;
+      }
+
+      const labelGroup = new THREE.Group();
+      labelGroup.name = "labelGroup1";
+      scene.add(labelGroup);
+
+      countries.forEach((c, idx) => {
+        const pos = latLonToVec3(c.lat, c.lon);
+
+        // Small dot at the surface (subtle pin)
+        const dotGeo = new THREE.CircleGeometry(0.006, 12);
+        const dotMat = new THREE.MeshBasicMaterial({
+          color: 0x64b4ff,
+          transparent: true,
+          opacity: 0.85,
+          side: THREE.DoubleSide,
+          depthTest: false,
+        });
+        const dot = new THREE.Mesh(dotGeo, dotMat);
+        dot.position.copy(pos);
+        dot.lookAt(0, 0, 0);
+        dot.name = `marker-dot-${idx}`;
+
+        // Country label sprite
+        const labelPos = latLonToVec3(c.lat, c.lon, 1.06);
+        const label = createTextSprite(c.name);
+        label.position.copy(labelPos);
+        label.name = `label-${idx}`;
+        label.userData = { countryIdx: idx, basePos: labelPos.clone() };
+        labelGroup.add(label);
+
+        markerGroup.add(dot);
+
+        markers.push({ dot, data: c, idx, pos, label });
+      });
+
+      // Animate counter
+      let countTarget = countries.length;
+      let countCurrent = 0;
+      const counterEl = document.getElementById("countryCount");
+      function animateCounter() {
+        if (countCurrent < countTarget) {
+          countCurrent++;
+          counterEl.textContent = countCurrent;
+          setTimeout(animateCounter, 40);
+        }
+      }
+      setTimeout(animateCounter, 500);
+
+      // Stats fill
+      setTimeout(() => {
+        document.getElementById("statsFill").style.width = "100%";
+      }, 300);
+
+      // ─── TICKER ──────────────────────────────────────────────────
+      const tickerTrack = document.getElementById("tickerTrack");
+      let tickerItems = [];
+      countries.forEach((c) => {
+        c.news.forEach((n) => {
+          tickerItems.push(
+            `<span class="ticker-item"><span class="country-tag">${c.code}</span>${n.title}</span>`,
+          );
+        });
+      });
+      // Duplicate for seamless scroll
+      const tickerHTML = tickerItems.join("") + tickerItems.join("");
+      tickerTrack.innerHTML = tickerHTML;
+
+      // ─── INFO PANEL ──────────────────────────────────────────────
+      const infoPanel = document.getElementById("infoPanel");
+      const panelContent = document.getElementById("panelContent");
+      document
+        .getElementById("closePanel")
+        .addEventListener("click", () => infoPanel.classList.remove("active"));
+
+      function showCountryPanel(c) {
+        let newsHTML = c.news
+          .map(
+            (n) => `
+                <div class="news-item">
+                    <div class="news-source">${n.source}</div>
+                    <div class="news-title">${n.title}</div>
+                    <div class="news-time">${n.time}</div>
+                </div>
+            `,
+          )
+          .join("");
+
+        panelContent.innerHTML = `
+                <div class="country-name">${c.name}</div>
+                <div class="country-region">${c.region}</div>
+                <div class="ai-index">
+                    <div class="stat">
+                        <div class="stat-val">${c.aiIndex}</div>
+                        <div class="stat-label">AI Index</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-val">${c.news.length}</div>
+                        <div class="stat-label">Stories Today</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-val">${c.news[0].time}</div>
+                        <div class="stat-label">Latest</div>
+                    </div>
+                </div>
+                ${newsHTML}
+            `;
+        infoPanel.classList.add("active");
+      }
+
+      // ─── TOOLTIP ─────────────────────────────────────────────────
+      const tooltip = document.getElementById("tooltip");
+      const ttName = document.getElementById("ttName");
+      const ttCount = document.getElementById("ttCount");
+
+      // ─── INTERACTION ─────────────────────────────────────────────
+      let hoveredMarker = null;
+
+      function onMouseMove(e) {
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const dots = markers.map((m) => m.dot);
+        const intersects = raycaster.intersectObjects(dots);
+
+        if (intersects.length > 0) {
+          const hit = intersects[0].object;
+          const m = markers.find((m) => m.dot === hit);
+          if (m) {
+            hoveredMarker = m;
+            document.body.style.cursor = "pointer";
+            tooltip.classList.add("visible");
+            tooltip.style.left = e.clientX + 16 + "px";
+            tooltip.style.top = e.clientY - 10 + "px";
+            ttName.textContent = m.data.name;
+            ttCount.textContent = `${m.data.news.length} AI stories · Index: ${m.data.aiIndex}`;
+            // Highlight
+            m.dot.material.color.setHex(0xffffff);
+          }
+        } else {
+          if (hoveredMarker) {
+            hoveredMarker.dot.material.color.setHex(0x64b4ff);
+            hoveredMarker = null;
+          }
+          document.body.style.cursor = "default";
+          tooltip.classList.remove("visible");
+        }
+      }
+
+      function onClick(e) {
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const dots = markers.map((m) => m.dot);
+        const intersects = raycaster.intersectObjects(dots);
+
+        if (intersects.length > 0) {
+          const hit = intersects[0].object;
+          const m = markers.find((m) => m.dot === hit);
+          if (m) {
+            showCountryPanel(m.data);
+            // Smooth rotate to country
+            controls.autoRotate = false;
+            setTimeout(() => {
+              controls.autoRotate = true;
+            }, 8000);
+          }
+        }
+      }
+
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("click", onClick);
+
+      // Touch support
+      window.addEventListener("touchend", (e) => {
+        if (e.changedTouches.length > 0) {
+          const t = e.changedTouches[0];
+          onClick({ clientX: t.clientX, clientY: t.clientY });
+        }
+      });
+
+      // Nav arrows: rotate globe
+      let navIdx = 0;
+      document.getElementById("navLeft").addEventListener("click", () => {
+        navIdx = (navIdx - 1 + countries.length) % countries.length;
+        showCountryPanel(countries[navIdx]);
+      });
+      document.getElementById("navRight").addEventListener("click", () => {
+        navIdx = (navIdx + 1) % countries.length;
+        showCountryPanel(countries[navIdx]);
+      });
+
+      // ─── LIVE NEWS FETCHING VIA RSS ──────────────────────────────
+      // We attempt to fetch real AI news via public RSS-to-JSON services
+      async function fetchLiveNews() {
+        const feeds = [
+          {
+            url: "https://api.rss2json.com/v1/api.json?rss_url=https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US:en",
+            region: "Global",
+          },
+        ];
+        try {
+          for (const feed of feeds) {
+            const resp = await fetch(feed.url);
+            if (resp.ok) {
+              const data = await resp.json();
+              if (data.items && data.items.length > 0) {
+                // Add live items to ticker
+                const liveItems = data.items.slice(0, 10).map((item) => {
+                  const title = item.title
+                    .replace(/<[^>]*>/g, "")
+                    .substring(0, 100);
+                  return `<span class="ticker-item"><span class="country-tag">LIVE</span>${title}</span>`;
+                });
+                tickerTrack.innerHTML =
+                  liveItems.join("") + tickerTrack.innerHTML;
+              }
+            }
+          }
+        } catch (e) {
+          console.log("RSS fetch unavailable, using curated data");
+        }
+      }
+      fetchLiveNews();
+      // Refresh every 5 minutes
+      setInterval(fetchLiveNews, 300000);
+
+      // ─── CONNECTION ARCS ─────────────────────────────────────────
+      // Draw subtle arcs between top AI countries
+      const arcPairs = [
+        [0, 1],
+        [0, 3],
+        [0, 6],
+        [1, 7],
+        [4, 3],
+        [8, 11],
+        [0, 21],
+        [1, 21],
+        [0, 10],
+      ];
+      arcPairs.forEach(([a, b], i) => {
+        const pA = latLonToVec3(countries[a].lat, countries[a].lon, 1.01);
+        const pB = latLonToVec3(countries[b].lat, countries[b].lon, 1.01);
+        const mid = pA.clone().add(pB).multiplyScalar(0.5);
+        const dist = pA.distanceTo(pB);
+        mid.normalize().multiplyScalar(1.0 + dist * 0.25);
+
+        const curve = new THREE.QuadraticBezierCurve3(pA, mid, pB);
+        const points = curve.getPoints(48);
+        const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+        const lineMat = new THREE.LineBasicMaterial({
+          color: 0x3366aa,
+          transparent: true,
+          opacity: 0.12,
+        });
+        const line = new THREE.Line(lineGeo, lineMat);
+        line.name = `arc-${i}`;
+        scene.add(line);
+      });
+
+      // ─── ANIMATION LOOP ─────────────────────────────────────────
+      let time = 0;
+
+      // Temp vectors for label visibility
+      const _labelWorldPos = new THREE.Vector3();
+      const _camDir = new THREE.Vector3();
+
+      function animate() {
+        time += 0.01;
+
+        earth.rotation.y += 0.001;
+        clouds.rotation.y += 0.0014;
+        markerGroup.rotation.y = earth.rotation.y;
+        labelGroup.rotation.y = earth.rotation.y;
+
+        // Label visibility (hide labels facing away from camera)
+        markers.forEach((m, i) => {
+          // Label facing check
+          if (m.label) {
+            m.label.getWorldPosition(_labelWorldPos);
+            _camDir.copy(camera.position).normalize();
+            const dot = _labelWorldPos.normalize().dot(_camDir);
+            // Smoothly fade labels based on facing direction
+            const targetOpacity = dot > 0.15 ? 0.9 : 0;
+            m.label.material.opacity +=
+              (targetOpacity - m.label.material.opacity) * 0.1;
+            m.label.material.visible = m.label.material.opacity > 0.01;
+          }
+        });
+
+        // Subtle star twinkle
+        starsMat.opacity = 0.7 + Math.sin(time * 1.5) * 0.1;
+
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      renderer.setAnimationLoop(animate);
+
+      // ─── RESIZE ──────────────────────────────────────────────────
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      // Keyboard shortcuts
+      window.addEventListener("keydown", (e) => {
+        if (e.code === "Space") {
+          e.preventDefault();
+          controls.autoRotate = !controls.autoRotate;
+        }
+        if (e.code === "Escape") {
+          infoPanel.classList.remove("active");
+        }
+      });
+    </script>
+  </body>
+</html>

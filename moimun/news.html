@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>最新消息 Bulletin ｜ MIMUNYA 澳門國際模擬聯合國</title>
+  <meta name="description" content="追蹤 MIMUNYA 的最新動態 — 模擬聯合國活動、國際事務與青年發展。" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { cream:'#faf8f5',warm:'#f5f2ed',navy:{DEFAULT:'#1a2744',light:'#2a3a5c',deep:'#111c34'},forest:{DEFAULT:'#3d6b5e',light:'#4a8070'},gold:{DEFAULT:'#c9a857',light:'#d4b76a'},ink:{body:'#4a4a4a',muted:'#8a8a8a'} },
+          fontFamily: { display:['"Cormorant Garamond"','serif'],sans:['"DM Sans"','"Noto Sans TC"','system-ui','sans-serif'],serif:['"Cormorant Garamond"','"Noto Serif TC"','serif'] },
+          letterSpacing: { 'widest-2':'0.28em' },
+        }
+      }
+    }
+  </script>
+  <style>
+    :root{--bg-cream:#faf8f5;--bg-warm:#f5f2ed;--navy:#1a2744;--navy-light:#2a3a5c;--forest:#3d6b5e;--gold:#c9a857;--text-body:#4a4a4a;--text-muted:#8a8a8a}
+    *{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}html{scroll-behavior:smooth}
+    body{font-family:'DM Sans','Noto Sans TC',system-ui,sans-serif;background:var(--bg-cream);color:var(--text-body)}
+    ::selection{background:#c9a857;color:#1a2744}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.035;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+    .section-number{position:absolute;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:120px;line-height:1;color:var(--navy);opacity:.06;letter-spacing:-.04em;pointer-events:none;user-select:none}
+    @media (min-width:768px){.section-number{font-size:160px}}@media (min-width:1024px){.section-number{font-size:200px}}
+    .overline{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:500;color:var(--text-muted)}
+    .display{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:-.02em;line-height:.95;color:var(--navy)}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}.reveal.is-visible{opacity:1;transform:translateY(0)}
+    .reveal-stagger>*{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+    .reveal-stagger.is-visible>*{opacity:1;transform:translateY(0)}
+    .reveal-stagger.is-visible>*:nth-child(1){transition-delay:0ms}.reveal-stagger.is-visible>*:nth-child(2){transition-delay:80ms}.reveal-stagger.is-visible>*:nth-child(3){transition-delay:160ms}.reveal-stagger.is-visible>*:nth-child(4){transition-delay:240ms}.reveal-stagger.is-visible>*:nth-child(5){transition-delay:320ms}.reveal-stagger.is-visible>*:nth-child(6){transition-delay:400ms}
+    .btn{display:inline-flex;align-items:center;gap:.625rem;padding:.95rem 1.6rem;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;border:1px solid transparent;cursor:pointer;transition:transform .4s cubic-bezier(.16,1,.3,1),background .3s,color .3s,border-color .3s,box-shadow .3s;will-change:transform}
+    .btn:hover{transform:translateY(-1px)}.btn:active{transform:translateY(0) scale(.99)}
+    .btn-primary{background:var(--navy);color:var(--bg-cream);box-shadow:0 10px 30px -15px rgba(26,39,68,.45)}.btn-primary:hover{background:var(--navy-light)}
+    .btn-outline{background:transparent;color:var(--navy);border-color:var(--navy)}.btn-outline:hover{background:var(--navy);color:var(--bg-cream)}
+    .btn-gold{background:var(--gold);color:var(--navy)}.btn-gold:hover{filter:brightness(1.06)}
+    .btn-ghost-light{background:transparent;color:var(--bg-cream);border-color:rgba(250,248,245,.4)}.btn-ghost-light:hover{background:var(--bg-cream);color:var(--navy)}
+    .rule-gold{width:36px;height:1px;background:var(--gold);display:inline-block}
+    .img-reveal{overflow:hidden;position:relative}.img-reveal img{width:100%;height:100%;object-fit:cover;filter:sepia(20%) contrast(1.05) saturate(.95);transition:transform .9s cubic-bezier(.16,1,.3,1),filter .6s}
+    .img-reveal:hover img{transform:scale(1.05);filter:sepia(10%) contrast(1.08) saturate(1)}
+    .magnetic{display:inline-block;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+    .nav-link{position:relative}.nav-link::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+    .nav-link:hover::after,.nav-link.is-active::after{transform:scaleX(1);transform-origin:left}
+    .nav-link.is-active{color:var(--navy)}
+    .chip{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .7rem;font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:500}
+    .news-card{transition:transform .6s cubic-bezier(.16,1,.3,1)}.news-card:hover{transform:translateY(-4px)}
+    .filter-btn{transition:all .3s cubic-bezier(.16,1,.3,1)}.filter-btn.is-active{background:var(--navy);color:var(--bg-cream);border-color:var(--navy)}
+    .featured-card .img-reveal img{transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+    .featured-card:hover .img-reveal img{transform:scale(1.06)}
+    .hero-fade{animation:heroFade 1.6s cubic-bezier(.16,1,.3,1) both}
+    @keyframes heroFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    .hero-fade-2{animation-delay:.2s}.hero-fade-3{animation-delay:.4s}
+    ::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:var(--bg-cream)}::-webkit-scrollbar-thumb{background:rgba(26,39,68,.18)}
+  </style>
+</head>
+<body class="bg-cream text-ink-body antialiased">
+
+  <!-- NAV -->
+  <header id="nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="flex items-center justify-between h-20">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" class="text-navy">
+            <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.2"/>
+            <ellipse cx="24" cy="24" rx="22" ry="8" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <ellipse cx="24" cy="24" rx="8" ry="22" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <circle cx="24" cy="24" r="10" stroke="currentColor" stroke-width="1.2"/>
+            <line x1="24" y1="2" x2="24" y2="46" stroke="currentColor" stroke-width=".6" opacity=".6"/>
+            <line x1="2" y1="24" x2="46" y2="24" stroke="currentColor" stroke-width=".6" opacity=".6"/>
+          </svg>
+          <div class="leading-none"><div class="font-display text-xl font-semibold tracking-tight text-navy">MIMUNYA</div><div class="overline mt-1 hidden sm:block">Macau · est. 2018</div></div>
+        </a>
+        <nav class="hidden lg:flex items-center gap-10">
+          <a href="index.html" class="nav-link text-[13px] tracking-widest-2 uppercase text-navy/80 hover:text-navy transition">首頁 Home</a>
+          <a href="about.html" class="nav-link text-[13px] tracking-widest-2 uppercase text-navy/80 hover:text-navy transition">關於 About</a>
+          <a href="programs.html" class="nav-link text-[13px] tracking-widest-2 uppercase text-navy/80 hover:text-navy transition">活動 Programs</a>
+          <a href="news.html" class="nav-link is-active text-[13px] tracking-widest-2 uppercase text-navy transition">消息 Bulletin</a>
+          <a href="contact.html" class="nav-link text-[13px] tracking-widest-2 uppercase text-navy/80 hover:text-navy transition">聯絡 Engage</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a href="contact.html" class="hidden md:inline-flex btn btn-primary magnetic text-[12px] py-3 px-5">立即加入 <i class="ph ph-arrow-up-right text-base"></i></a>
+          <button id="menuToggle" class="lg:hidden w-11 h-11 rounded-full border border-navy/15 flex items-center justify-center text-navy hover:bg-navy hover:text-cream transition"><i class="ph ph-list text-xl" id="menuIcon"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="mobileMenu" class="fixed inset-0 z-40 lg:hidden pointer-events-none opacity-0 transition-opacity duration-400">
+    <div class="absolute inset-0 bg-navy/95 backdrop-blur-md"></div>
+    <div class="relative h-full flex flex-col justify-center items-center gap-8 text-cream">
+      <a href="index.html" class="mobile-link font-display text-4xl italic">Home</a>
+      <a href="about.html" class="mobile-link font-display text-4xl italic">About</a>
+      <a href="programs.html" class="mobile-link font-display text-4xl italic">Programs</a>
+      <a href="news.html" class="mobile-link font-display text-4xl italic">Bulletin</a>
+      <a href="contact.html" class="mobile-link font-display text-4xl italic">Engage</a>
+      <div class="rule-gold mt-6"></div>
+      <a href="contact.html" class="mobile-link btn btn-gold mt-2">立即加入 <i class="ph ph-arrow-up-right"></i></a>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="relative min-h-[60vh] flex items-end overflow-hidden pb-20 pt-40 lg:pt-48">
+    <span class="section-number top-24 left-4 lg:left-12">03</span>
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 w-full">
+      <div class="grid grid-cols-12 gap-6 items-end">
+        <div class="col-span-12 lg:col-span-9">
+          <div class="hero-fade flex items-center gap-3 mb-6"><span class="rule-gold"></span><span class="overline">Bulletin · 資訊中心</span></div>
+          <h1 class="hero-fade hero-fade-2 display text-[clamp(3rem,7vw,5.5rem)] text-navy">
+            Latest <span class="italic text-forest">Dispatches.</span>
+          </h1>
+          <p class="hero-fade hero-fade-3 mt-8 max-w-[58ch] text-[15px] leading-[1.85] text-ink-body">追蹤 MIMUNYA 的最新動態 — 模擬聯合國活動、國際事務與青年發展。我們記錄每一場辯論、每一次表決、每一份合作的開始。</p>
+        </div>
+        <div class="col-span-12 lg:col-span-3 lg:text-right reveal">
+          <div class="font-display text-7xl text-navy/10 leading-none">N° 12</div>
+          <div class="overline mt-2">Articles · 篇文章</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section class="relative py-16 lg:py-20 overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <a href="#" class="featured-card group block reveal">
+        <div class="grid grid-cols-12 gap-6 lg:gap-10 items-center">
+          <div class="col-span-12 lg:col-span-7">
+            <div class="img-reveal aspect-[16/10]"><img src="https://picsum.photos/seed/mimun-feature-hk-2025/1100/700" alt=""/></div>
+          </div>
+          <div class="col-span-12 lg:col-span-5">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="chip bg-navy text-cream">Featured · 活動通知</span>
+              <span class="w-1 h-1 rounded-full bg-gold"></span>
+              <span class="overline">17.03.2025</span>
+            </div>
+            <h2 class="font-display text-3xl lg:text-4xl text-navy leading-tight group-hover:text-forest transition">2025 香港升學體驗日暨粵港澳大灣區<br/><span class="italic">國際模擬聯合國大會</span></h2>
+            <p class="mt-5 text-[15px] leading-[1.85]">香港升學體驗日暨粵港澳大灣區國際模擬聯合國大會將於今年舉行，歡迎大灣區青年踴躍報名，共同議題辯論、立場協商與政策起草。優勝代表將獲推薦參與亞太區青年領袖計劃。</p>
+            <div class="mt-6 flex items-center gap-3 text-[11px] tracking-widest-2 uppercase text-ink-muted">
+              <span>By 編輯部</span>
+              <span class="w-1 h-1 rounded-full bg-gold"></span>
+              <span>2-3 min read</span>
+            </div>
+            <div class="mt-8 inline-flex items-center gap-2 text-navy group-hover:text-gold transition">
+              <span class="text-[13px] tracking-widest-2 uppercase">閱讀全文</span>
+              <i class="ph ph-arrow-right"></i>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <div class="border-t border-navy/10"></div>
+  </div>
+
+  <!-- FILTER + GRID -->
+  <section class="relative py-20 lg:py-24 overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 reveal">
+        <div>
+          <div class="flex items-center gap-3 mb-4"><span class="rule-gold"></span><span class="overline">All dispatches · 所有文章</span></div>
+          <h3 class="font-display text-3xl lg:text-4xl text-navy">Browse by <span class="italic text-forest">category.</span></h3>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button class="filter-btn is-active chip border border-navy/30 text-navy px-4 py-2" data-filter="all">全部</button>
+          <button class="filter-btn chip border border-navy/30 text-navy px-4 py-2" data-filter="event">活動</button>
+          <button class="filter-btn chip border border-navy/30 text-navy px-4 py-2" data-filter="international">國際</button>
+          <button class="filter-btn chip border border-navy/30 text-navy px-4 py-2" data-filter="partnership">合作</button>
+          <button class="filter-btn chip border border-navy/30 text-navy px-4 py-2" data-filter="youth">青年</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" id="newsGrid">
+        <!-- 01 -->
+        <a href="#" class="news-card group block reveal" data-cat="international">
+          <div class="img-reveal aspect-[4/3] mb-5"><img src="https://picsum.photos/seed/mimun-news-hr-report/800/600" alt=""/></div>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chip border border-forest/40 text-forest">International</span>
+            <span class="overline">12.03.2025</span>
+          </div>
+          <h4 class="font-display text-2xl text-navy leading-snug group-hover:text-forest transition">聯合國人權報告：以色列軍隊對巴勒斯坦人使用性暴力</h4>
+          <p class="text-[14px] text-ink-body mt-3 leading-relaxed">最新調查報告揭示了令人震驚的事實，呼籲國際社會關注並採取行動。</p>
+          <div class="mt-5 inline-flex items-center gap-2 text-[12px] tracking-widest-2 uppercase text-navy group-hover:text-gold transition">閱讀更多 <i class="ph ph-arrow-right text-base"></i></div>
+        </a>
+
+        <!-- 02 -->
+        <a href="#" class="news-card group block reveal" data-cat="international">
+          <div class="img-reveal aspect-[4/3] mb-5"><img src="https://picsum.photos/seed/mimun-news-women-conference/800/600" alt=""/></div>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chip border border-forest/40 text-forest">Global</span>
+            <span class="overline">09.03.2025</span>
+          </div>
+          <h4 class="font-display text-2xl text-navy leading-snug group-hover:text-forest transition">世界最大婦女會議呼籲平等對待</h4>
+          <p class="text-[14px] text-ink-body mt-3 leading-relaxed">會議在全球女性的期待中召開，共同探討性別平等與女性權益保障的未來方向。</p>
+          <div class="mt-5 inline-flex items-center gap-2 text-[12px] tracking-widest-2 uppercase text-navy group-hover:text-gold transition">閱讀更多 <i class="ph ph-arrow-right text-base"></i></div>
+        </a>
+
+        <!-- 03 -->
+        <a href="#" class="news-card group block reveal" data-cat="international">
+          <div class="img-reveal aspect-[4/3] mb-5"><img src="https://picsum.photos/seed/mimun-news-un-envoy/800/600" alt=""/></div>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chip border border-forest/40 text-forest">Regional</span>
+            <span class="overline">09.03.2025</span>
+          </div>
+          <h4 class="font-display text-2xl text-navy leading-snug group-hover:text-forest transition">聯合國特使呼籲塔利班正視現實</h4>
+          <p class="text-[14px] text-ink-body mt-3 leading-relaxed">阿富汗局勢持續緊張，呼籲與國際社會建立建設性對話，尋求外交解決方案。</p>
+          <div class="mt-5 inline-flex items-center gap-2 text-[12px] tracking-widest-2 uppercase text-navy group-hover:text-gold transition">閱讀更多 <i class="ph ph-arrow-right text-base"></i></div>
+        </a>
+
+        <!-- 04 -->
+        <a href="#" class="news-card group block reveal" data-cat="partnership">
+          <div class="img-reveal aspect-[4/3] mb-5"><img src="https://picsum.photos/seed/mimun-news-hku-partnership/800/600" alt=""/></div>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chip border border-navy/30 text-navy">Partnership</span>
+            <span class="overline">28.02.2025</span>
+          </div>
+          <h4 class="font-display text-2xl text-navy leading-snug group-hover:text-forest transition">與香港大學建立深度合作關係</h4>
+          <p class="text-[14px] text-ink-body mt-3 leading-relaxed">MIMUNYA 與香港大學正式簽署合作備忘錄，共同舉辦年度模擬聯合國會議。</p>
+          <div class="mt-5 inline-flex items-center gap-2 text-[12px] tracking-widest-2 uppercase text-navy group-hover:text-gold transition">閱讀更多 <i class="ph ph-arrow-right text-base"></i></div>
+        </a>
+
+        <!-- 05 -->
+        <a href="#" class="news-card group block reveal" data-cat="youth">
+          <div class="img-reveal aspect-[4/3] mb-5"><img src="https://picsum.photos/seed/mimun-news-winter-workshop/800/600" alt=""/></div>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chip border border-navy/30 text-navy">Youth</span>
+            <span class="overline">15.02.2025</span>
+          </div>
+          <h4 class="font-display text-2xl text-navy leading-snug group-hover:text-forest transition">冬季工作坊圓滿結束</h4>
+          <p class="text-[14px] text-ink-body mt-3 leading-relaxed">為期三天的領袖培訓工作坊吸引了來自大灣區近百名青年參加，反應熱烈。</p>
+          <div class="mt-5 inline-flex items-center gap-2 text-[12px] tracking-widest-2 uppercase text-navy group-hover:text-gold transition">閱讀更多 <i class="ph ph-arrow-right text-base"></i></div>
+        </a>
+
+        <!-- 06 hidden until load more -->
+        <a href="#" class="news-card group block hidden-card" data-cat="event" data-extra="true" style="display:none">
+          <div class="img-reveal aspect-[4/3] mb-5"><img src="https://picsum.photos/seed/mimun-news-2024-summit/800/600" alt=""/></div>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chip border border-navy/30 text-navy">Event</span>
+            <span class="overline">18.12.2024</span>
+          </div>
+          <h4 class="font-display text-2xl text-navy leading-snug group-hover:text-forest transition">2024 年度青年外交峰會圓滿落幕</h4>
+          <p class="text-[14px] text-ink-body mt-3 leading-relaxed">三天的密集議程，來自 12 個城市的青年代表共同探討氣候正義與全球治理。</p>
+          <div class="mt-5 inline-flex items-center gap-2 text-[12px] tracking-widest-2 uppercase text-navy group-hover:text-gold transition">閱讀更多 <i class="ph ph-arrow-right text-base"></i></div>
+        </a>
+
+        <a href="#" class="news-card group block hidden-card" data-cat="youth" data-extra="true" style="display:none">
+          <div class="img-reveal aspect-[4/3] mb-5"><img src="https://picsum.photos/seed/mimun-news-2024-fellowship/800/600" alt=""/></div>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chip border border-navy/30 text-navy">Youth</span>
+            <span class="overline">02.11.2024</span>
+          </div>
+          <h4 class="font-display text-2xl text-navy leading-snug group-hover:text-forest transition">首屆青年外交實習計劃啟動</h4>
+          <p class="text-[14px] text-ink-body mt-3 leading-relaxed">與本地智庫及國際組織合作，為傑出青年提供為期六個月的實習與指導。</p>
+          <div class="mt-5 inline-flex items-center gap-2 text-[12px] tracking-widest-2 uppercase text-navy group-hover:text-gold transition">閱讀更多 <i class="ph ph-arrow-right text-base"></i></div>
+        </a>
+
+        <a href="#" class="news-card group block hidden-card" data-cat="partnership" data-extra="true" style="display:none">
+          <div class="img-reveal aspect-[4/3] mb-5"><img src="https://picsum.photos/seed/mimun-news-2024-mou/800/600" alt=""/></div>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chip border border-navy/30 text-navy">Partnership</span>
+            <span class="overline">15.09.2024</span>
+          </div>
+          <h4 class="font-display text-2xl text-navy leading-snug group-hover:text-forest transition">與澳門科技大學簽署學術合作備忘錄</h4>
+          <p class="text-[14px] text-ink-body mt-3 leading-relaxed">未來三年將共同開辦國際關係與外交實務的學分課程。</p>
+          <div class="mt-5 inline-flex items-center gap-2 text-[12px] tracking-widest-2 uppercase text-navy group-hover:text-gold transition">閱讀更多 <i class="ph ph-arrow-right text-base"></i></div>
+        </a>
+      </div>
+
+      <!-- Load more -->
+      <div class="mt-16 flex flex-col items-center gap-4">
+        <button id="loadMore" class="btn btn-outline magnetic">
+          <span id="loadText">載入更多消息</span>
+          <i class="ph ph-arrow-down text-base" id="loadIcon"></i>
+        </button>
+        <div class="overline" id="loadCount">顯示 5 / 8 篇</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUBSCRIBE STRIP -->
+  <section class="relative py-20 bg-warm border-y border-navy/10">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-12 gap-6 items-center">
+        <div class="col-span-12 lg:col-span-7">
+          <div class="overline mb-3">Subscribe · 訂閱</div>
+          <h3 class="font-display text-3xl lg:text-4xl text-navy">Get the bulletin <span class="italic text-forest">in your inbox.</span></h3>
+          <p class="mt-3 text-[14px] text-ink-body">每月一封，記錄 MIMUNYA 與全球青年事務的最新動態。</p>
+        </div>
+        <form class="col-span-12 lg:col-span-5 flex gap-3" onsubmit="event.preventDefault(); this.querySelector('button').textContent='已訂閱 ✓';">
+          <input type="email" required placeholder="your@email.com" class="flex-1 bg-cream border border-navy/15 px-4 py-3 text-sm text-navy focus:border-navy focus:outline-none transition"/>
+          <button type="submit" class="btn btn-primary magnetic whitespace-nowrap">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative py-32 lg:py-40 bg-navy text-cream overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 text-center">
+      <div class="reveal">
+        <div class="flex items-center justify-center gap-3 mb-6"><span class="rule-gold"></span><span class="overline text-cream/60">Engage</span></div>
+        <h2 class="display text-5xl lg:text-7xl text-cream">有想法？<br/><span class="italic text-gold">與我們分享。</span></h2>
+        <p class="mt-8 max-w-[52ch] mx-auto text-cream/70 text-[15px] leading-[1.85]">不論是採訪邀請、投稿建議、活動合作，我們都樂於傾聽。</p>
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a href="contact.html" class="btn btn-gold magnetic">聯絡我們 <i class="ph ph-arrow-up-right"></i></a>
+          <a href="programs.html" class="btn btn-ghost-light magnetic">瀏覽活動 <i class="ph ph-arrow-up-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-navy-deep text-cream relative overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-16 pb-10">
+      <div class="grid grid-cols-12 gap-10 lg:gap-16">
+        <div class="col-span-12 lg:col-span-5">
+          <div class="flex items-center gap-3 mb-6">
+            <svg width="40" height="40" viewBox="0 0 48 48" fill="none" class="text-cream/80">
+              <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.2"/>
+              <ellipse cx="24" cy="24" rx="22" ry="8" stroke="currentColor" stroke-width="1" opacity=".4"/>
+              <ellipse cx="24" cy="24" rx="8" ry="22" stroke="currentColor" stroke-width="1" opacity=".4"/>
+              <circle cx="24" cy="24" r="10" stroke="currentColor" stroke-width="1.2"/>
+            </svg>
+            <div><div class="font-display text-2xl text-cream">MIMUNYA</div><div class="overline text-cream/40 mt-1">Macau International MUN</div></div>
+          </div>
+          <p class="font-display italic text-2xl lg:text-3xl text-cream/80 max-w-[36ch] leading-tight">Connecting the next generation of <span class="text-gold">diplomats</span> from the Greater Bay Area.</p>
+        </div>
+        <div class="col-span-6 lg:col-span-3">
+          <div class="overline text-cream/40 mb-5">Quick Links</div>
+          <ul class="space-y-3 text-sm">
+            <li><a href="index.html" class="text-cream/80 hover:text-gold transition">首頁 Home</a></li>
+            <li><a href="about.html" class="text-cream/80 hover:text-gold transition">關於 About</a></li>
+            <li><a href="programs.html" class="text-cream/80 hover:text-gold transition">活動 Programs</a></li>
+            <li><a href="news.html" class="text-cream/80 hover:text-gold transition">最新消息 Bulletin</a></li>
+            <li><a href="contact.html" class="text-cream/80 hover:text-gold transition">聯絡 Engage</a></li>
+          </ul>
+        </div>
+        <div class="col-span-6 lg:col-span-4">
+          <div class="overline text-cream/40 mb-5">Contact</div>
+          <ul class="space-y-3 text-sm text-cream/80">
+            <li>info@moimun.org</li>
+            <li>澳門特別行政區 · Macau SAR</li>
+          </ul>
+          <div class="mt-6 flex items-center gap-3">
+            <a href="#" class="w-9 h-9 border border-cream/20 rounded-full flex items-center justify-center text-cream/60 hover:border-gold hover:text-gold transition"><i class="ph ph-instagram-logo text-base"></i></a>
+            <a href="#" class="w-9 h-9 border border-cream/20 rounded-full flex items-center justify-center text-cream/60 hover:border-gold hover:text-gold transition"><i class="ph ph-linkedin-logo text-base"></i></a>
+            <a href="#" class="w-9 h-9 border border-cream/20 rounded-full flex items-center justify-center text-cream/60 hover:border-gold hover:text-gold transition"><i class="ph ph-youtube-logo text-base"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-16 pt-8 border-t border-cream/10 flex flex-col sm:flex-row justify-between gap-4 text-xs text-cream/50">
+        <div>© <span id="year">2026</span> 澳門國際模擬聯合國青年協會. All rights reserved.</div>
+        <div class="flex items-center gap-6"><a href="#" class="hover:text-gold transition">Privacy</a><a href="#" class="hover:text-gold transition">Terms</a><span>Built in <span class="text-gold">Macau</span></span></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver((entries) => { entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } }); }, { threshold: .12, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach((el) => io.observe(el));
+    const nav = document.getElementById('nav');
+    function onScroll() { if (window.scrollY > 40) { nav.classList.add('bg-cream/95','backdrop-blur-md','shadow-[0_1px_0_rgba(26,39,68,0.06)]'); } else { nav.classList.remove('bg-cream/95','backdrop-blur-md','shadow-[0_1px_0_rgba(26,39,68,0.06)]'); } }
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    const menuToggle = document.getElementById('menuToggle'), menuIcon = document.getElementById('menuIcon'), mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+    menuToggle.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) { mobileMenu.classList.remove('pointer-events-none','opacity-0'); mobileMenu.classList.add('pointer-events-auto','opacity-100'); menuIcon.classList.replace('ph-list','ph-x'); document.body.style.overflow='hidden'; }
+      else { mobileMenu.classList.add('pointer-events-none','opacity-0'); mobileMenu.classList.remove('pointer-events-auto','opacity-100'); menuIcon.classList.replace('ph-x','ph-list'); document.body.style.overflow=''; }
+    });
+    document.querySelectorAll('.mobile-link').forEach((l) => l.addEventListener('click', () => { menuOpen = false; mobileMenu.classList.add('pointer-events-none','opacity-0'); mobileMenu.classList.remove('pointer-events-auto','opacity-100'); menuIcon.classList.replace('ph-x','ph-list'); document.body.style.overflow=''; }));
+    document.querySelectorAll('.magnetic').forEach((el) => {
+      let rect = null, raf = null, tx = 0, ty = 0, cx = 0, cy = 0;
+      function loop() { cx += (tx - cx) * .18; cy += (ty - cy) * .18; el.style.transform = `translate(${cx}px, ${cy}px)`; if (Math.abs(tx - cx) > .05 || Math.abs(ty - cy) > .05) raf = requestAnimationFrame(loop); else raf = null; }
+      el.addEventListener('mouseenter', () => rect = el.getBoundingClientRect());
+      el.addEventListener('mousemove', (e) => { if (!rect) rect = el.getBoundingClientRect(); tx = (e.clientX - (rect.left + rect.width/2)) * .28; ty = (e.clientY - (rect.top + rect.height/2)) * .28; if (!raf) raf = requestAnimationFrame(loop); });
+      el.addEventListener('mouseleave', () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
+    });
+    // Filter
+    document.querySelectorAll('.filter-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const f = btn.dataset.filter;
+        let visible = 0, total = 0;
+        document.querySelectorAll('#newsGrid > a').forEach((card) => {
+          total++;
+          const show = f === 'all' || card.dataset.cat === f;
+          // Only show extras if they match (and "all" reveals them; we always show first 5 + matching extras)
+          if (card.dataset.extra === 'true') {
+            card.style.display = (f === 'all' || card.dataset.cat === f) ? '' : 'none';
+          } else {
+            card.style.display = show ? '' : 'none';
+          }
+          if (card.style.display !== 'none') visible++;
+        });
+        document.getElementById('loadCount').textContent = `顯示 ${visible} / ${total} 篇`;
+      });
+    });
+    // Load more
+    document.getElementById('loadMore').addEventListener('click', () => {
+      document.querySelectorAll('.hidden-card').forEach((c) => c.style.display = '');
+      const extras = document.querySelectorAll('.hidden-card');
+      const total = document.querySelectorAll('#newsGrid > a').length;
+      const visible = document.querySelectorAll('#newsGrid > a:not([style*="display: none"])').length;
+      document.getElementById('loadCount').textContent = `顯示 ${visible} / ${total} 篇`;
+      document.getElementById('loadMore').style.display = 'none';
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
