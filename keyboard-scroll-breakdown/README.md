@@ -1,0 +1,1 @@
+Apex 87 is a no-build static product launch page using vanilla HTML, inline CSS, GSAP 3.12, ScrollTrigger, Motion, and a local exploded-view keyboard video. To run it, open PowerShell and use `cd C:\Users\User\Documents\GitHub\radar-ai-demos\keyboard-scroll-breakdown && python -m http.server 8000`, then visit `http://localhost:8000`.

@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apex 87 | RGB Mechanical Keyboard</title>
+  <meta name="description" content="Apex 87 RGB mechanical keyboard product launch with exploded-view scroll animation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0c;
+      --surface: #14141a;
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --line: rgba(255, 255, 255, 0.08);
+      --rgb: linear-gradient(90deg, #ff3366, #ffae00, #00e0a4, #00b3ff, #a855f7);
+      --max: 1280px;
+      color-scheme: dark;
+      font-family: Sora, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--bg); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(0, 224, 164, 0.09), transparent 26rem),
+        radial-gradient(circle at 82% 8%, rgba(255, 51, 102, 0.08), transparent 28rem),
+        linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+      background-size: auto, auto, 64px 64px, 64px 64px;
+      opacity: 0.68;
+      z-index: 0;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    :focus-visible {
+      outline: 2px solid transparent;
+      outline-offset: 4px;
+      box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px #00b3ff, 0 0 0 6px #ff3366;
+    }
+    .section {
+      position: relative;
+      z-index: 1;
+      padding: 96px 24px;
+    }
+    .wrap {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 100dvh;
+      display: grid;
+      place-items: stretch;
+      padding: 24px;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(10,10,12,0.96) 0 34%, rgba(10,10,12,0.42) 58%, rgba(10,10,12,0.88) 100%),
+        linear-gradient(180deg, rgba(10,10,12,0.18), rgba(10,10,12,0.92)),
+        url("video/poster.jpg") 56% 50% / cover no-repeat;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.08) 0 1px, transparent 1px 100%) 24px 0 / calc(100% - 48px) 100% no-repeat,
+        radial-gradient(circle at 70% 42%, transparent 0 30%, rgba(10,10,12,0.62) 78%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      align-self: center;
+      text-align: left;
+      transform: translateY(2vh);
+    }
+    .hero-inner::before {
+      content: "FRAME 49 / EXPLODED VIEW";
+      display: block;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+    }
+    .hero-title {
+      margin: 0;
+      font-family: Sora, Inter, sans-serif;
+      font-size: clamp(4rem, 11vw, 10.5rem);
+      line-height: 0.82;
+      letter-spacing: 0;
+      font-weight: 800;
+      text-transform: uppercase;
+      max-width: 7ch;
+    }
+    .hero-title span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .hero-tagline {
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.5vw, 1.3rem);
+      max-width: 32rem;
+    }
+    .chevron {
+      position: absolute;
+      left: 50%;
+      bottom: 34px;
+      z-index: 2;
+      width: 22px;
+      height: 22px;
+      border-right: 1px solid rgba(255,255,255,0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.72);
+      transform: translateX(-50%) rotate(45deg);
+      animation: bounce 1.4s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translate(-50%, 0) rotate(45deg); opacity: 0.45; }
+      50% { transform: translate(-50%, 12px) rotate(45deg); opacity: 1; }
+    }
+
+    .scrub-section {
+      min-height: 600vh;
+      padding: 0;
+      background: var(--bg);
+    }
+    .scrub-stage {
+      position: relative;
+      height: 100dvh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    .video-shell {
+      position: relative;
+      width: min(112vw, 1680px);
+      aspect-ratio: 16 / 9;
+      display: grid;
+      place-items: center;
+      overflow: visible;
+    }
+    .scrub-video,
+    .final-image {
+      width: 100%;
+      display: block;
+      object-fit: contain;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+    .scrub-video {
+      max-height: 100dvh;
+      opacity: 0;
+      filter: saturate(1.16) contrast(1.12);
+    }
+    .scrub-video.is-ready { opacity: 1; }
+    .scrub-stage::before,
+    .scrub-stage::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      height: 18vh;
+      pointer-events: none;
+    }
+    .scrub-stage::before {
+      top: 0;
+      background: linear-gradient(180deg, var(--bg), transparent);
+    }
+    .scrub-stage::after {
+      bottom: 0;
+      background: linear-gradient(0deg, var(--bg), transparent);
+    }
+    .word-layer {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+      padding: 24px;
+      z-index: 3;
+    }
+    .word-line {
+      position: absolute;
+      left: clamp(24px, 7vw, 96px);
+      bottom: clamp(48px, 12vh, 124px);
+      max-width: min(700px, 74vw);
+      text-align: left;
+      font-family: Sora, Inter, sans-serif;
+      font-size: clamp(2.6rem, 7.6vw, 8.4rem);
+      line-height: 0.84;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: var(--text);
+      opacity: 0;
+    }
+    .word-line .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(24px) scale(0.9);
+      margin-right: 0.08em;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.12);
+    }
+    .progress-line {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 0;
+      background: linear-gradient(180deg, #ff3366, #ffae00, #00e0a4, #00b3ff, #a855f7);
+      z-index: 20;
+      opacity: 0;
+      transform-origin: top;
+      pointer-events: none;
+    }
+    .dot-rail {
+      position: fixed;
+      top: 50%;
+      right: 22px;
+      z-index: 20;
+      display: grid;
+      gap: 12px;
+      transform: translateY(-50%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .rail-dot {
+      position: relative;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.22);
+    }
+    .rail-dot.is-active {
+      width: 10px;
+      height: 10px;
+      margin-left: -1px;
+      background: var(--rgb);
+    }
+    .rail-dot span {
+      position: absolute;
+      top: 50%;
+      right: 18px;
+      min-width: 58px;
+      transform: translateY(-50%) translateX(8px);
+      opacity: 0;
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-align: right;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+    .rail-dot.is-active span {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
+    .callout-section { background: var(--bg); }
+    .callout-wrap {
+      position: relative;
+      width: min(100%, var(--max));
+      margin: 0 auto;
+    }
+    .final-image {
+      width: 100%;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .callout-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .callout {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: 1px;
+      height: 1px;
+    }
+    .callout-dot {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: var(--rgb);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.34);
+    }
+    .callout-line {
+      position: absolute;
+      top: 0;
+      width: var(--line-w);
+      height: 1px;
+      background: rgba(255,255,255,0.5);
+      transform: scaleX(0);
+    }
+    .callout.left .callout-line {
+      right: 8px;
+      transform-origin: right;
+    }
+    .callout.right .callout-line {
+      left: 8px;
+      transform-origin: left;
+    }
+    .callout-label {
+      position: absolute;
+      top: -20px;
+      width: min(300px, 28vw);
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: rgba(13,13,17,0.82);
+      backdrop-filter: blur(14px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: clamp(0.82rem, 1.2vw, 0.96rem);
+      line-height: 1.45;
+      opacity: 0;
+      transform: translateX(var(--label-from));
+    }
+    .callout-label strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+    .callout.left .callout-label {
+      right: calc(var(--line-w) + 22px);
+      --label-from: -24px;
+    }
+    .callout.right .callout-label {
+      left: calc(var(--line-w) + 22px);
+      --label-from: 24px;
+    }
+    .callout-mobile {
+      display: none;
+      margin-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+    .callout-mobile details {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+    }
+    .callout-mobile summary {
+      cursor: pointer;
+      font-family: Sora, Inter, sans-serif;
+      font-weight: 700;
+    }
+    .callout-mobile p {
+      color: var(--muted);
+      margin: 8px 0 0;
+      line-height: 1.55;
+    }
+
+    .spec-section { background: var(--surface); }
+    .section-heading {
+      margin: 0 0 48px;
+      font-family: Sora, Inter, sans-serif;
+      font-size: clamp(2.7rem, 7vw, 6.5rem);
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+    .spec-table {
+      border-bottom: 1px solid var(--line);
+    }
+    .spec-row {
+      display: grid;
+      grid-template-columns: minmax(130px, 0.8fr) 2fr;
+      gap: 24px;
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+      opacity: 0;
+      transform: translateX(-22px);
+    }
+    .spec-name {
+      color: var(--muted);
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .spec-value {
+      font-family: Sora, Inter, sans-serif;
+      font-size: clamp(1.35rem, 2.6vw, 2.35rem);
+      line-height: 1.1;
+    }
+
+    .cta {
+      min-height: 60vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+    .cta h2 {
+      margin: 0 0 28px;
+      font-family: Sora, Inter, sans-serif;
+      font-size: clamp(3rem, 9vw, 8.25rem);
+      line-height: 0.9;
+      letter-spacing: 0;
+      background: var(--rgb);
+      background-size: 180% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .reserve-button {
+      position: relative;
+      display: inline-grid;
+      place-items: center;
+      min-width: 178px;
+      min-height: 50px;
+      padding: 0 24px;
+      border: 0;
+      border-radius: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 700 0.95rem/1 Sora, sans-serif;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .reserve-button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      background: conic-gradient(from 0deg, #ff3366, #ffae00, #00e0a4, #00b3ff, #a855f7, #ff3366);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      transform-origin: center;
+    }
+    .reserve-button:hover::before { animation: rotateBorder 4s linear infinite; }
+    .reserve-button:active { transform: translateY(1px); }
+    @keyframes rotateBorder { to { transform: rotate(360deg); } }
+
+    .footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--line);
+      padding: 48px 24px;
+      background: #0d0d11;
+    }
+    .footer-grid {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr repeat(3, 1fr);
+      gap: 32px;
+    }
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: Sora, Inter, sans-serif;
+      font-weight: 700;
+    }
+    .logo-square {
+      width: 18px;
+      height: 18px;
+      background: var(--rgb);
+    }
+    .footer small,
+    .footer a {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.9;
+    }
+    .footer strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 767px) {
+      .section { padding: 64px 20px; }
+      .hero-title { font-size: clamp(3.8rem, 20vw, 7rem); }
+      .hero-inner { text-align: center; transform: none; }
+      .hero-title { max-width: none; }
+      .hero-tagline { margin-left: auto; margin-right: auto; }
+      .scrub-section {
+        min-height: auto;
+        padding: 64px 0;
+      }
+      .scrub-stage {
+        height: auto;
+        min-height: auto;
+        padding: 0 0 24px;
+      }
+      .video-shell {
+        width: 100%;
+        aspect-ratio: auto;
+      }
+      .scrub-video {
+        max-height: none;
+        width: 100%;
+      }
+      .word-layer,
+      .progress-line,
+      .dot-rail,
+      .callout-layer { display: none; }
+      .callout-mobile { display: block; }
+      .final-image { border: 1px solid var(--line); }
+      .spec-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        transform: translateY(12px);
+      }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <h1 id="hero-title" class="hero-title" aria-label="Apex 87">
+          <span>A</span><span>p</span><span>e</span><span>x</span><span>&nbsp;</span><span>8</span><span>7</span>
+        </h1>
+        <p class="hero-tagline">Engineered layer by layer.</p>
+      </div>
+      <span class="chevron" aria-hidden="true"></span>
+    </section>
+
+    <section id="scrub" class="scrub-section" aria-label="Exploded view animation">
+      <div class="scrub-stage">
+        <div class="video-shell">
+          <video class="scrub-video" muted playsinline preload="metadata" poster="video/poster.jpg" aria-label="Apex 87 exploded mechanical keyboard animation"></video>
+          <div class="word-layer" aria-hidden="true">
+            <p class="word-line" data-start="0.10" data-end="0.27">Lift the caps</p>
+            <p class="word-line" data-start="0.31" data-end="0.47">Expose the signal</p>
+            <p class="word-line" data-start="0.51" data-end="0.68">Break into layers</p>
+            <p class="word-line" data-start="0.74" data-end="0.91">Settle into precision</p>
+          </div>
+        </div>
+      </div>
+      <div class="progress-line" aria-hidden="true"></div>
+      <div class="dot-rail" aria-hidden="true"></div>
+    </section>
+
+    <section class="section callout-section" aria-labelledby="callout-title">
+      <div class="callout-wrap">
+        <img class="final-image" src="video/poster.jpg" alt="Final exploded view of the Apex 87 keyboard">
+        <h2 id="callout-title" class="sr-only">Exploded keyboard layers</h2>
+        <div class="callout-layer">
+          <div class="callout left" style="--x: 52%; --y: 24%; --line-w: 210px">
+            <span class="callout-dot"></span><span class="callout-line"></span>
+            <p class="callout-label"><strong>PBT double-shot keycaps.</strong> Fade-resistant. Legend won't wear off.</p>
+          </div>
+          <div class="callout right" style="--x: 54%; --y: 42%; --line-w: 235px">
+            <span class="callout-dot"></span><span class="callout-line"></span>
+            <p class="callout-label"><strong>Hot-swap MX switches.</strong> Swap any switch without soldering.</p>
+          </div>
+          <div class="callout left" style="--x: 50%; --y: 61%; --line-w: 245px">
+            <span class="callout-dot"></span><span class="callout-line"></span>
+            <p class="callout-label"><strong>Per-key RGB.</strong> 16.8 million colors. No software required.</p>
+          </div>
+          <div class="callout right" style="--x: 51%; --y: 78%; --line-w: 255px">
+            <span class="callout-dot"></span><span class="callout-line"></span>
+            <p class="callout-label"><strong>CNC aluminium chassis.</strong> 1.4 kg. Built like a tool.</p>
+          </div>
+        </div>
+        <div class="callout-mobile" aria-label="Apex 87 layer details">
+          <details open><summary>PBT double-shot keycaps.</summary><p>Fade-resistant. Legend won't wear off.</p></details>
+          <details><summary>Hot-swap MX switches.</summary><p>Swap any switch without soldering.</p></details>
+          <details><summary>Per-key RGB.</summary><p>16.8 million colors. No software required.</p></details>
+          <details><summary>CNC aluminium chassis.</summary><p>1.4 kg. Built like a tool.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section spec-section" aria-labelledby="spec-title">
+      <div class="wrap">
+        <h2 id="spec-title" class="section-heading">The numbers.</h2>
+        <div class="spec-table">
+          <div class="spec-row"><div class="spec-name">Layout</div><div class="spec-value">87-key TKL, compact function row</div></div>
+          <div class="spec-row"><div class="spec-name">Switches</div><div class="spec-value">Hot-swap MX-compatible sockets</div></div>
+          <div class="spec-row"><div class="spec-name">Backlight</div><div class="spec-value">Per-key RGB, 16.8 million colors</div></div>
+          <div class="spec-row"><div class="spec-name">Polling</div><div class="spec-value">1000 Hz wired response</div></div>
+          <div class="spec-row"><div class="spec-name">Connection</div><div class="spec-value">Detachable USB-C</div></div>
+          <div class="spec-row"><div class="spec-name">Materials</div><div class="spec-value">PBT keycaps, aluminium chassis</div></div>
+          <div class="spec-row"><div class="spec-name">Weight</div><div class="spec-value">1.4 kg assembled</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta" aria-labelledby="cta-title">
+      <div>
+        <h2 id="cta-title">Feel the layers.</h2>
+        <button class="reserve-button" type="button">Reserve yours</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="logo-row"><span class="logo-square"></span><span>Apex 87</span></div>
+        <small>Copyright 2026 Apex Input Labs. All rights reserved.</small>
+      </div>
+      <nav aria-label="Product links">
+        <strong>Product</strong>
+        <a href="#">Switch guide</a>
+        <a href="#">Firmware</a>
+        <a href="#">Accessories</a>
+      </nav>
+      <nav aria-label="Support links">
+        <strong>Support</strong>
+        <a href="#">Shipping</a>
+        <a href="#">Warranty</a>
+        <a href="#">Repairs</a>
+      </nav>
+      <nav aria-label="Company links">
+        <strong>Company</strong>
+        <a href="#">Journal</a>
+        <a href="#">Retailers</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
