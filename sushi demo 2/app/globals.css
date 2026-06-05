@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+:root {
+  --sumi: #080706;
+  --charcoal: #11100d;
+  --ink: #17130e;
+  --paper: #f6efe2;
+  --muted: #a99676;
+  --gold: #c8a45d;
+  --gold-bright: #e7cf91;
+  --amber: #b97331;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--sumi);
+  color: var(--paper);
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 76% 10%, rgba(186, 119, 45, 0.14), transparent 34rem),
+    radial-gradient(circle at 8% 34%, rgba(200, 164, 93, 0.1), transparent 28rem),
+    linear-gradient(180deg, #080706 0%, #0d0a08 44%, #120f0a 100%);
+  font-family: var(--font-sans), "Avenir Next", "Segoe UI", sans-serif;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.38) 1px, transparent 1px);
+  background-size: 3px 3px;
+  mix-blend-mode: soft-light;
+}
+
+::selection {
+  background: rgba(231, 207, 145, 0.28);
+  color: var(--paper);
+}
+
+.font-display {
+  font-family: var(--font-display), "Georgia", serif;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(42px);
+  filter: blur(10px);
+}
+
+.hairline {
+  background: linear-gradient(90deg, transparent, rgba(231, 207, 145, 0.72), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

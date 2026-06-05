@@ -5,11 +5,13 @@ import { animate as motionAnimate } from "https://cdn.jsdelivr.net/npm/motion@12
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const isMobile = window.matchMedia("(max-width: 767px)").matches;
-  const video = document.querySelector(".scrub-video");
+  const frameEl = document.querySelector(".scrub-frame");
   const scrubSection = document.querySelector("#scrub");
   const progressLine = document.querySelector(".progress-line");
   const dotRail = document.querySelector(".dot-rail");
   const wordLines = gsap.utils.toArray(".word-line");
+  const totalFrames = 49;
+  const framePath = (index) => `video/frames/frame_${String(index).padStart(4, "0")}.jpg`;
   const railLabels = {
     0: "Idle",
     2: "Lift",
@@ -18,11 +20,11 @@ import { animate as motionAnimate } from "https://cdn.jsdelivr.net/npm/motion@12
     8: "Settle",
     10: "Done"
   };
-  let videoLoaded = false;
   let rafId = 0;
-  let pendingTime = 0;
+  let pendingFrame = 1;
+  let currentFrame = 1;
   let lastScrubProgress = 0;
-  let activeWordIndex = -1;
+  const frameCache = new Map();
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -50,42 +52,28 @@ import { animate as motionAnimate } from "https://cdn.jsdelivr.net/npm/motion@12
     });
   }
 
-  function loadVideo() {
-    if (videoLoaded || !video) return;
-    videoLoaded = true;
-    const onMetadata = () => {
-      video.pause();
-      video.classList.add("is-ready");
-      if (isMobile || prefersReduced) {
-        video.currentTime = 0;
-        video.loop = true;
-        video.play().catch(() => {});
-      } else {
-        requestFrameTime(lastScrubProgress);
-      }
-      ScrollTrigger.refresh();
-    };
-    video.addEventListener("loadedmetadata", onMetadata, { once: true });
-    video.preload = "auto";
-    const assignSrc = (src) => {
-      video.src = src;
-      video.load();
-      if (video.readyState >= 1) {
-        video.removeEventListener("loadedmetadata", onMetadata);
-        onMetadata();
-      }
-    };
-
-    fetch("video/explode.mp4")
-      .then((response) => {
-        if (!response.ok) throw new Error("Video request failed");
-        return response.blob();
-      })
-      .then((blob) => assignSrc(URL.createObjectURL(blob)))
-      .catch(() => assignSrc("video/explode.mp4"));
+  function preloadFrame(index) {
+    const clamped = gsap.utils.clamp(1, totalFrames, index);
+    if (frameCache.has(clamped)) return;
+    const img = new Image();
+    img.decoding = "async";
+    img.src = framePath(clamped);
+    frameCache.set(clamped, img);
   }
 
-  function initLazyVideo() {
+  function preloadAround(index, radius = 4) {
+    for (let i = index - radius; i <= index + radius; i += 1) preloadFrame(i);
+  }
+
+  function loadFrames() {
+    if (!frameEl) return;
+    frameEl.classList.add("is-ready");
+    preloadAround(1, 8);
+    requestFrameTime(lastScrubProgress);
+    ScrollTrigger.refresh();
+  }
+
+  function initLazyFrames() {
     const isNearScrub = () => {
       const rect = scrubSection.getBoundingClientRect();
       const margin = window.innerHeight * 0.3;
@@ -93,17 +81,17 @@ import { animate as motionAnimate } from "https://cdn.jsdelivr.net/npm/motion@12
     };
 
     if (isNearScrub()) {
-      loadVideo();
+      loadFrames();
       return;
     }
 
     if (!("IntersectionObserver" in window)) {
-      loadVideo();
+      loadFrames();
       return;
     }
     const observer = new IntersectionObserver((entries) => {
       if (entries.some((entry) => entry.isIntersecting)) {
-        loadVideo();
+        loadFrames();
         observer.disconnect();
       }
     }, { rootMargin: "30% 0px" });
@@ -111,62 +99,19 @@ import { animate as motionAnimate } from "https://cdn.jsdelivr.net/npm/motion@12
   }
 
   function requestFrameTime(progress) {
-    if (!video || !video.duration) return;
-    pendingTime = gsap.utils.clamp(0, Math.max(0, video.duration - 0.04), progress * video.duration);
+    pendingFrame = Math.round(gsap.utils.clamp(0, 1, progress) * (totalFrames - 1)) + 1;
+    preloadAround(pendingFrame);
     if (rafId) return;
     rafId = requestAnimationFrame(() => {
       rafId = 0;
-      if (Math.abs(video.currentTime - pendingTime) > 0.025) video.currentTime = pendingTime;
+      if (!frameEl || pendingFrame === currentFrame) return;
+      currentFrame = pendingFrame;
+      frameEl.src = framePath(currentFrame);
     });
   }
 
-  function setCamera(progress) {
-    const ease = gsap.parseEase("power2.inOut")(progress);
-    const scale = gsap.utils.interpolate(1.08, 1.52, ease);
-    const x = gsap.utils.interpolate(-13, 12, ease);
-    const y = gsap.utils.interpolate(4, -2.6, progress);
-    const rotate = gsap.utils.interpolate(-0.7, 0.45, ease);
-    video.style.transform = `translate3d(${x}vw, ${y}vh, 0) scale(${scale}) rotate(${rotate}deg)`;
-  }
-
-  function hideWordLine(line) {
-    if (!line) return;
-    gsap.killTweensOf([line, line.querySelectorAll(".word")]);
-    gsap.to(line.querySelectorAll(".word"), {
-      opacity: 0,
-      y: -12,
-      duration: 0.22,
-      ease: "power2.out"
-    });
-    gsap.to(line, { opacity: 0, duration: 0.2, ease: "power2.out" });
-  }
-
-  function showWordLine(line) {
-    if (!line) return;
-    const words = line.querySelectorAll(".word");
-    gsap.killTweensOf([line, words]);
-    gsap.set(words, { opacity: 0, y: 24, scale: 0.9 });
-    gsap.set(line, { opacity: 1 });
-    gsap.to(words, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.5,
-      ease: "power4.out",
-      stagger: 0.06
-    });
-  }
-
-  function updateWords(progress) {
-    const nextIndex = wordLines.findIndex((line) => {
-      const start = Number(line.dataset.start);
-      const end = Number(line.dataset.end);
-      return progress >= start && progress <= end;
-    });
-    if (nextIndex === activeWordIndex) return;
-    hideWordLine(wordLines[activeWordIndex]);
-    activeWordIndex = nextIndex;
-    if (activeWordIndex >= 0) showWordLine(wordLines[activeWordIndex]);
+  function setCamera(state) {
+    frameEl.style.transform = `translate3d(${state.x}vw, ${state.y}vh, 0) scale(${state.scale}) rotate(${state.rotate}deg)`;
   }
 
   function setRail(progress) {
@@ -187,40 +132,67 @@ import { animate as motionAnimate } from "https://cdn.jsdelivr.net/npm/motion@12
 
   // scrubTimeline
   function initScrubTimeline() {
-    if (!video || !scrubSection) return;
+    if (!frameEl || !scrubSection) return;
 
     if (isMobile || prefersReduced) {
-      loadVideo();
+      loadFrames();
       gsap.set(".word-line .word", { opacity: 0 });
       return;
     }
 
+    gsap.set(wordLines, { autoAlpha: 0 });
+    gsap.set(".word-line .word", { opacity: 0, y: 24, scale: 0.92 });
+
+    const state = { frame: 0, scale: 1.02, x: -18, y: 5, rotate: -0.8 };
+    const applyState = () => {
+      requestFrameTime(state.frame);
+      setCamera(state);
+    };
+    const revealWords = (line, at) => {
+      const words = line.querySelectorAll(".word");
+      timeline.set(wordLines, { autoAlpha: 0 }, at);
+      timeline.set(line, { autoAlpha: 1 }, at);
+      timeline.fromTo(words,
+        { opacity: 0, y: 24, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power4.out", stagger: 0.06 },
+        at + 0.04
+      );
+      timeline.to(words, { opacity: 0, y: -14, duration: 0.32, ease: "power2.in", stagger: 0.015 }, at + 1.22);
+      timeline.to(line, { autoAlpha: 0, duration: 0.22, ease: "power2.out" }, at + 1.42);
+    };
+
     const timeline = gsap.timeline({
-      defaults: { ease: "power2.inOut" },
+      defaults: { ease: "none" },
       scrollTrigger: {
         trigger: scrubSection,
         start: "top top",
-        end: "+=500%",
+        end: "+=1200%",
         pin: ".scrub-stage",
-        scrub: true,
+        scrub: 1.45,
+        anticipatePin: 1,
         invalidateOnRefresh: true,
         onEnter: () => gsap.set([progressLine, dotRail], { autoAlpha: 1 }),
         onEnterBack: () => gsap.set([progressLine, dotRail], { autoAlpha: 1 }),
-        onLeave: () => gsap.set([progressLine, dotRail], { autoAlpha: 0 }),
-        onLeaveBack: () => gsap.set([progressLine, dotRail], { autoAlpha: 0 }),
+        onLeave: () => gsap.set([progressLine, dotRail, wordLines], { autoAlpha: 0 }),
+        onLeaveBack: () => gsap.set([progressLine, dotRail, wordLines], { autoAlpha: 0 }),
         onUpdate: (self) => {
           const progress = self.progress;
           lastScrubProgress = progress;
-          requestFrameTime(progress);
-          setCamera(progress);
-          updateWords(progress);
           progressLine.style.height = `${progress * 100}vh`;
           setRail(progress);
         }
       }
     });
 
-    timeline.to({}, { duration: 1 });
+    timeline
+      .to(state, { frame: 0.12, scale: 1.1, x: -17, y: 5.2, rotate: -0.7, duration: 1.2, onUpdate: applyState }, 0)
+      .to(state, { frame: 0.24, scale: 1.24, x: -9, y: 2.5, rotate: -0.35, duration: 1.4, ease: "power2.inOut", onUpdate: applyState }, 1.2)
+      .to(state, { frame: 0.43, scale: 1.38, x: -1.5, y: 0.4, rotate: 0, duration: 1.7, ease: "power2.inOut", onUpdate: applyState }, 2.6)
+      .to(state, { frame: 0.64, scale: 1.48, x: 7.5, y: -1.2, rotate: 0.28, duration: 1.9, ease: "power2.inOut", onUpdate: applyState }, 4.3)
+      .to(state, { frame: 0.84, scale: 1.6, x: 14, y: -2.2, rotate: 0.48, duration: 1.7, ease: "power2.inOut", onUpdate: applyState }, 6.2)
+      .to(state, { frame: 1, scale: 1.42, x: 0, y: 0, rotate: 0, duration: 1.6, ease: "power2.inOut", onUpdate: applyState }, 7.9);
+
+    wordLines.forEach((line, index) => revealWords(line, 0.8 + index * 1.65));
   }
 
   // callouts
@@ -304,7 +276,7 @@ import { animate as motionAnimate } from "https://cdn.jsdelivr.net/npm/motion@12
   splitWords();
   buildRail();
   initHero();
-  initLazyVideo();
+  initLazyFrames();
   initScrubTimeline();
   initCallouts();
   initSpecRows();

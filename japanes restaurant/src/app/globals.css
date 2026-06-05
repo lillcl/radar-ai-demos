@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  background: #080706;
+  color: #f6efe2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #080706;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(200, 161, 90, 0.16), transparent 30rem),
+    linear-gradient(180deg, #080706 0%, #11100d 52%, #080706 100%);
+  color: #f6efe2;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 5px 5px;
+  mix-blend-mode: overlay;
+}
+
+::selection {
+  background: rgba(200, 161, 90, 0.34);
+  color: #fffaf0;
+}
+
+.story-copy {
+  opacity: 0;
+  transform: translate3d(0, 50px, 0);
+  will-change: transform, opacity;
+}
+
+.cinematic-layer {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes camera-pull-fallback {
+  from {
+    transform: scale(1.38) translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: scale(0.86) translate3d(0, -10%, 0);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  html:not([data-omakase-ready="true"]) .camera-media {
+    animation: camera-pull-fallback linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0% 100%;
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
+}

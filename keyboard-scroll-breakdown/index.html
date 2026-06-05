@@ -149,7 +149,7 @@
     }
 
     .scrub-section {
-      min-height: 600vh;
+      min-height: 1300vh;
       padding: 0;
       background: var(--bg);
     }
@@ -168,7 +168,7 @@
       place-items: center;
       overflow: visible;
     }
-    .scrub-video,
+    .scrub-frame,
     .final-image {
       width: 100%;
       display: block;
@@ -176,12 +176,12 @@
       transform-origin: 50% 50%;
       will-change: transform;
     }
-    .scrub-video {
+    .scrub-frame {
       max-height: 100dvh;
       opacity: 0;
       filter: saturate(1.16) contrast(1.12);
     }
-    .scrub-video.is-ready { opacity: 1; }
+    .scrub-frame.is-ready { opacity: 1; }
     .scrub-stage::before,
     .scrub-stage::after {
       content: "";
@@ -213,23 +213,38 @@
       position: absolute;
       left: clamp(24px, 7vw, 96px);
       bottom: clamp(48px, 12vh, 124px);
-      max-width: min(700px, 74vw);
+      max-width: min(520px, 68vw);
       text-align: left;
       font-family: Sora, Inter, sans-serif;
-      font-size: clamp(2.6rem, 7.6vw, 8.4rem);
-      line-height: 0.84;
+      font-size: clamp(1.8rem, 4.6vw, 5.2rem);
+      line-height: 0.92;
       font-weight: 800;
       letter-spacing: 0;
       text-transform: uppercase;
       color: var(--text);
       opacity: 0;
     }
+    .word-line::before {
+      content: "APEX 87 / LAYER SYSTEM";
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      margin-bottom: 14px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.22);
+      color: var(--muted);
+      font-family: "JetBrains Mono", monospace;
+      font-size: clamp(0.68rem, 0.9vw, 0.82rem);
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      line-height: 1;
+    }
     .word-line .word {
       display: inline-block;
       opacity: 0;
       transform: translateY(24px) scale(0.9);
       margin-right: 0.08em;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.12);
+      text-shadow: 0 1px 0 rgba(255,255,255,0.1);
     }
     .progress-line {
       position: fixed;
@@ -284,7 +299,11 @@
       transform: translateY(-50%) translateX(0);
     }
 
-    .callout-section { background: var(--bg); }
+    .callout-section {
+      padding-top: 0;
+      background: var(--bg);
+      margin-top: -1px;
+    }
     .callout-wrap {
       position: relative;
       width: min(100%, var(--max));
@@ -517,7 +536,7 @@
         width: 100%;
         aspect-ratio: auto;
       }
-      .scrub-video {
+      .scrub-frame {
         max-height: none;
         width: 100%;
       }
@@ -559,7 +578,7 @@
     <section id="scrub" class="scrub-section" aria-label="Exploded view animation">
       <div class="scrub-stage">
         <div class="video-shell">
-          <video class="scrub-video" muted playsinline preload="metadata" poster="video/poster.jpg" aria-label="Apex 87 exploded mechanical keyboard animation"></video>
+          <img class="scrub-frame" src="video/frames/frame_0001.jpg" alt="Apex 87 exploded mechanical keyboard animation">
           <div class="word-layer" aria-hidden="true">
             <p class="word-line" data-start="0.10" data-end="0.27">Lift the caps</p>
             <p class="word-line" data-start="0.31" data-end="0.47">Expose the signal</p>
