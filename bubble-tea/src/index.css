@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Geist:wght@100..900&display=swap');
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Blink UI Theme CSS
+   REQUIRED for @blinkdotnew/ui components to render correctly.
+   BlinkUIProvider adds .theme-{name} + .dark/.light to <html>,
+   activating the matching CSS variable set below.
+   ───────────────────────────────────────────────────────────────────────────── */
+@import '@blinkdotnew/ui/styles';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  /* Full viewport chain so AppShell / Sidebar h-full + flex-1 SidebarContent work */
+  html {
+    height: 100%;
+  }
+
+  #root {
+    min-height: 100%;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body {
+    min-height: 100%;
+    min-height: 100dvh;
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    letter-spacing: var(--tracking-normal);
+  }
+}
+
+/* ── App palette (unlayered, after utilities) ─────────────────────────────────
+   Overrides @blinkdotnew/ui theme colors. @layer base loses specificity to UI themes.
+   Dark mode uses :root.dark + .theme-*.dark to match BlinkUIProvider.
+   ⚠️ AGENT MUST REPLACE placeholder values with a custom palette.
+   ──────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* ⚠️ AGENT MUST REPLACE: these are NEUTRAL GRAYSCALE scaffolding (NOT a theme) so components render before you style. Define a real, product-specific palette before writing components. */
+  /* HOW: edit THESE values in this UNLAYERED :root in place. Do NOT add a second :root or an `@layer base { :root }` block — unlayered styles win the cascade, so a layered palette is silently ignored. */
+  /* RULES: (1) Pick exactly ONE palette below (or your own) and use BOTH its values — never mix
+   *        primary from one row with accent from another (that produces incoherent "AI slop").
+   *        (2) Replace --background too — never leave a washed/tinted default.
+   *        (3) NEVER use hsl(221 83% 53%) / #3B82F6 ("AI blue"), nor green-500 / purple-500. */
+
+  /*
+   * EXAMPLE PALETTES (pick ONE row; use BOTH its values together):
+   *
+   * Modern SaaS (Business/Enterprise):
+   * --primary: 220 10% 20%;        (Charcoal #2D3748)
+   * --accent: 220 10% 30%;         (Lighter charcoal #4A5568)
+   *
+   * Bold Tech (Startups/Developer Tools):
+   * --primary: 348 83% 47%;        (Crimson #DA1E37)
+   * --accent: 348 83% 57%;         (Lighter crimson #F0213E)
+   *
+   * Quantum Rose (Creative/Design):
+   * --primary: 330 81% 50%;        (Pink #E6067A)
+   * --accent: 330 81% 70%;         (Lighter pink #F472B6)
+   *
+   * Rich Forest (Calm/Professional):
+   * --primary: 151 55% 25%;        (Pine #1C6340)
+   * --accent: 151 55% 35%;         (Lighter pine #288C5A)
+   *
+   * Sunset Warmth (Friendly/Welcoming):
+   * --primary: 24 95% 53%;         (Orange #F97316)
+   * --accent: 24 95% 63%;          (Lighter orange #FB923C)
+   */
+
+  /* Colors - REPLACE ALL VALUES BELOW with your custom palette */
+  /* Neutral defaults so an un-customized build still looks clean (not washed-blue) — but you MUST replace these. */
+  --background: 36 22% 95%; /* Editorial Light background */
+  --foreground: 24 12% 14%; /* Ink text */
+  --card: 36 22% 97%;
+  --card-foreground: 24 12% 14%;
+  --popover: 36 22% 98%;
+  --popover-foreground: 24 12% 14%;
+  /* ⚠️ NEUTRAL SCAFFOLDING (grayscale, NOT a theme) — replace with your real brand colour */
+  --primary: 28 60% 42%; /* Dark Bronze */
+  --primary-foreground: 36 22% 96%;
+  --secondary: 36 14% 90%;
+  --secondary-foreground: 24 12% 14%;
+  --muted: 36 14% 92%;
+  --muted-foreground: 26 8% 38%;
+  /* ⚠️ NEUTRAL SCAFFOLDING — replace with your accent */
+  --accent: 36 40% 55%; /* Champagne */
+  --accent-foreground: 24 12% 14%;
+  --destructive: 0 84.2365% 60.1961%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 32 14% 86%;
+  --input: 32 14% 86%;
+  /* ⚠️ NEUTRAL SCAFFOLDING — replace (usually matches primary) */
+  --ring: 28 60% 42%;
+
+  /* Charts - ⚠️ PLACEHOLDER: Replace with your custom chart colors */
+  --chart-1: 28 60% 42%;
+  --chart-2: 36 40% 55%;
+  --chart-3: 24 12% 14%;
+  --chart-4: 30 12% 92%;
+  --chart-5: 28 60% 52%;
+
+  /* Sidebar - ⚠️ PLACEHOLDER: Replace with your custom sidebar colors */
+  --sidebar: 36 22% 96%;
+  --sidebar-foreground: 24 12% 14%;
+  --sidebar-primary: 28 60% 42%;
+  --sidebar-primary-foreground: 36 22% 96%;
+  --sidebar-accent: 32 14% 86%;
+  --sidebar-accent-foreground: 24 12% 14%;
+  --sidebar-border: 32 14% 86%;
+  --sidebar-ring: 28 60% 42%;
+
+  /* Fonts */
+  --font-sans: 'Geist', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* Shadows */
+  --shadow-2xs: 0px 4px 8px -1px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0px 4px 8px -1px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0px 4px 8px -1px hsl(0 0% 0% / 0.10), 0px 1px 2px -2px hsl(0 0% 0% / 0.10);
+  --shadow: 0px 4px 8px -1px hsl(0 0% 0% / 0.10), 0px 1px 2px -2px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0px 4px 8px -1px hsl(0 0% 0% / 0.10), 0px 2px 4px -2px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0px 4px 8px -1px hsl(0 0% 0% / 0.10), 0px 4px 6px -2px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.10), 0px 8px 10px -2px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.25);
+
+  /* Misc */
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+  --radius: 0.5rem;
+}
+
+:root.dark,
+.theme-linear.dark,
+.theme-glass.dark,
+.theme-midnight.dark,
+.theme-minimal.dark {
+  /* ⚠️ AGENT MUST REPLACE: Dark mode colors - replace with your custom dark palette */
+  --background: 30 6% 6%; /* Dark Warm background */
+  --foreground: 36 14% 94%; /* Creamy white text */
+  --card: 30 6% 9%;
+  --card-foreground: 36 14% 94%;
+  --popover: 30 6% 10%;
+  --popover-foreground: 36 14% 94%;
+  /* ⚠️ PLACEHOLDER: Replace with your custom dark mode primary color */
+  --primary: 28 60% 55%; /* Warm Bronze */
+  --primary-foreground: 30 6% 6%;
+  --secondary: 30 6% 12%;
+  --secondary-foreground: 32 8% 64%;
+  --muted: 30 6% 12%;
+  --muted-foreground: 32 8% 64%;
+  --accent: 36 30% 70%; /* Platinum/Champagne */
+  --accent-foreground: 36 14% 94%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 36 14% 94%;
+  --border: 30 6% 16%;
+  --input: 30 6% 16%;
+  --ring: 28 60% 55%;
+
+  /* ⚠️ PLACEHOLDER: Replace with your custom dark mode chart colors */
+  --chart-1: 348 83% 65%;
+  --chart-2: 24 95% 63%;
+  --chart-3: 47 96% 65%;
+  --chart-4: 151 55% 55%;
+  --chart-5: 262 52% 65%;
+
+  /* ⚠️ PLACEHOLDER: Replace with your custom dark mode sidebar colors */
+  --sidebar: 30 6% 8%;
+  --sidebar-foreground: 36 14% 94%;
+  --sidebar-primary: 28 60% 55%;
+  --sidebar-primary-foreground: 30 6% 6%;
+  --sidebar-accent: 30 6% 16%;
+  --sidebar-accent-foreground: 36 14% 94%;
+  --sidebar-border: 30 6% 16%;
+  --sidebar-ring: 28 60% 55%;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
