@@ -1,4 +1,4 @@
-import { animate as motionAnimate } from "https://cdn.jsdelivr.net/npm/motion@12.23.24/+esm";
+import { animate as motionAnimate } from "./vendor/motion.js";
 
 (function () {
   "use strict";

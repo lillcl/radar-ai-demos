@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node ../../scripts/fix-static-paths.mjs out",
     "start": "next start",
     "lint": "next lint"
   },

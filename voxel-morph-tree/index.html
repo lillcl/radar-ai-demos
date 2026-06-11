@@ -397,17 +397,6 @@
       }
     </style>
 
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://cdn.jsdelivr.net/npm/three@0.183.2/build/three.module.js",
-          "three/webgpu": "https://cdn.jsdelivr.net/npm/three@0.183.2/build/three.webgpu.js",
-          "three/tsl": "https://cdn.jsdelivr.net/npm/three@0.183.2/build/three.tsl.js",
-          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.183.0/examples/jsm/"
-        }
-      }
-    </script>
-
     <!-- Runtime patches: prototype-level interception for editor / thumbnails -->
   </head>
   <body>
@@ -819,7 +808,7 @@
         window.parent.postMessage({ type: "preview-error", message: msg }, "*");
       });
     </script>
-    <script type="module" src="./scene.js"></script>
+    <script src="./scene.bundle.js"></script>
     <!-- __PREVIEW_BODY__ -->
   </body>
 </html>
