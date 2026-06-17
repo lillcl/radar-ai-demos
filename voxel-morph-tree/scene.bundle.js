@@ -11378,7 +11378,7 @@ function getLengthFromType(type) {
   console.error("THREE.TSL: Unsupported type:", type);
 }
 function getValueType(value) {
-  if (value === void 0 || value === null) return null;
+  if (value === void 0 || value === null) return "float";
   const typeOf = typeof value;
   if (value.isNode === true) {
     return "node";

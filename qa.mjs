@@ -59,25 +59,25 @@ await mkdir(OUT, { recursive: true });
   record('Brand visible', !!logoText && /Radar AI/.test(logoText), logoText?.trim().slice(0, 60));
 }
 
-// ---- 3. All 21 demo cards rendered ----------------------------------
+// ---- 3. All 25 demo cards rendered ----------------------------------
 {
   const cardCount = await page.locator('.card').count();
-  record('21 demo cards rendered', cardCount === 21, `count ${cardCount}`);
+  record('25 demo cards rendered', cardCount === 25, `count ${cardCount}`);
 
   const visibleCards = await page.locator('.card:not(.hidden)').count();
-  record('All 21 visible by default', visibleCards === 21, `visible ${visibleCards}`);
+  record('All 25 visible by default', visibleCards === 25, `visible ${visibleCards}`);
 
   // Every card must have a working <a class="card-link">
   const cardsWithLinks = await page.locator('.card:has(.card-link)').count();
-  record('All cards have a link', cardsWithLinks === 21, `${cardsWithLinks}/21`);
+  record('All cards have a link', cardsWithLinks === 25, `${cardsWithLinks}/25`);
 }
 
 // ---- 4. Hero stats present -----------------------------------------
 {
   const total = await page.locator('#stat-total').textContent();
-  record('Hero stat shows 21', total === '21', `"${total}"`);
+  record('Hero stat shows 25', total === '25', `"${total}"`);
   const visible = await page.locator('#visible-count').textContent();
-  record('Status pill count', visible === '21', `"${visible}"`);
+  record('Status pill count', visible === '25', `"${visible}"`);
 }
 
 // ---- 5. Filter buttons ----------------------------------------------
@@ -90,7 +90,7 @@ await mkdir(OUT, { recursive: true });
   }
 
   // Click each filter and verify card count matches expected
-  const expectations = { all: 21, scrollytelling: 10, '3d': 2, brand: 4, editorial: 5 };
+  const expectations = { all: 25, scrollytelling: 10, '3d': 2, brand: 4, editorial: 9 };
   for (const [cat, expected] of Object.entries(expectations)) {
     await page.locator(`.filter[data-filter="${cat}"]`).click();
     await page.waitForTimeout(120);
@@ -120,7 +120,7 @@ await mkdir(OUT, { recursive: true });
   await page.locator('#reset').click();
   await page.waitForTimeout(200);
   const restored = await page.locator('.card:not(.hidden)').count();
-  record('Reset restores all 21', restored === 21, `${restored}`);
+  record('Reset restores all 25', restored === 25, `${restored}`);
 }
 
 // ---- 7. Section meta counts update ---------------------------------
@@ -129,12 +129,14 @@ await mkdir(OUT, { recursive: true });
   record('Scrollytelling meta count', /10/.test(metaScroll || ''), metaScroll);
   const metaBrand = await page.locator('#meta-brand').textContent();
   record('Brand meta count', /4/.test(metaBrand || ''), metaBrand);
+  const metaEditorial = await page.locator('#meta-editorial').textContent();
+  record('Editorial meta count', /9/.test(metaEditorial || ''), metaEditorial);
 }
 
 // ---- 8. Notes badge on flagged demos -------------------------------
 {
   const noteCount = await page.locator('.card-status.note').count();
-  record('Two cards flagged with Notes', noteCount === 2, `${noteCount}`);
+  record('One card flagged with Notes', noteCount === 1, `${noteCount}`);
   const titles = await page.locator('.card-status.note').evaluateAll(els =>
     els.map(e => e.closest('.card')?.querySelector('.card-title')?.textContent)
   );

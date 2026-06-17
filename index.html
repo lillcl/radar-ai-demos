@@ -618,7 +618,7 @@
       <div class="hero-meta">
         <span class="status-pill">
           <span class="ring" aria-hidden="true"></span>
-          <span><span id="visible-count">21</span> demos · <span id="ready-count">19</span> live · <span id="note-count">2</span> with notes</span>
+          <span><span id="visible-count">25</span> demos · <span id="ready-count">24</span> live · <span id="note-count">1</span> with notes</span>
         </span>
         <span class="pair eyebrow"><span class="lbl">Stack</span> <span class="val">HTML · Three.js · GSAP · Next.js · React</span></span>
         <span class="pair eyebrow"><span class="lbl">Updated</span> <span class="val num">2026.06.17</span></span>
@@ -635,11 +635,11 @@
 
       <div class="hero-stats">
         <div class="stat">
-          <span class="val num" id="stat-total">21</span>
+          <span class="val num" id="stat-total">25</span>
           <span class="lbl">Demos</span>
         </div>
         <div class="stat">
-          <span class="val num" id="stat-ready">19</span>
+          <span class="val num" id="stat-ready">24</span>
           <span class="lbl">Live pages</span>
         </div>
         <div class="stat">
@@ -661,11 +661,11 @@
           <input id="search" type="search" placeholder="Search demos by name, stack, or technique…" autocomplete="off" />
         </div>
         <div class="filters" role="tablist" aria-label="Filter demos by category">
-          <button class="filter active" data-filter="all" role="tab">All <span class="count" id="count-all">21</span></button>
+          <button class="filter active" data-filter="all" role="tab">All <span class="count" id="count-all">25</span></button>
           <button class="filter" data-filter="scrollytelling" role="tab">Scrollytelling <span class="count" id="count-scrollytelling">10</span></button>
           <button class="filter" data-filter="3d" role="tab">3D / WebGL <span class="count" id="count-3d">2</span></button>
           <button class="filter" data-filter="brand" role="tab">Brand <span class="count" id="count-brand">4</span></button>
-          <button class="filter" data-filter="editorial" role="tab">Editorial <span class="count" id="count-editorial">5</span></button>
+          <button class="filter" data-filter="editorial" role="tab">Editorial <span class="count" id="count-editorial">9</span></button>
         </div>
       </div>
     </section>
@@ -849,7 +849,6 @@
         href: './voxel-morph-tree/index.html',
         stack: 'Three.js',
         mark: 'VT',
-        note: 'Pre-existing shader error in the demo itself: "Uniform null not declared". The page loads, but the WebGL scene errors out — fix is in scene.js, not the index.',
       },
 
       // ---- 3D / WebGL (2) ----
@@ -924,12 +923,44 @@
         mark: 'SU',
       },
       {
-        title: 'Moimun',
-        desc: 'Multi-page foundation site — about, programs, news, contact, and a homepage with strong typographic identity.',
+        title: 'Moimun — Home',
+        desc: 'Multi-page foundation site — homepage with strong typographic identity and editorial photography.',
         category: 'editorial',
         href: './moimun/index.html',
         stack: 'HTML · multi-page',
         mark: 'MO',
+      },
+      {
+        title: 'Moimun — About',
+        desc: 'The foundation\'s mission, team, and history — a long-form editorial page in the Moimun multi-page site.',
+        category: 'editorial',
+        href: './moimun/about.html',
+        stack: 'HTML · multi-page',
+        mark: 'MA',
+      },
+      {
+        title: 'Moimun — Programs',
+        desc: 'Flagship programs, fellowships, and residencies — laid out as a structured editorial index.',
+        category: 'editorial',
+        href: './moimun/programs.html',
+        stack: 'HTML · multi-page',
+        mark: 'MP',
+      },
+      {
+        title: 'Moimun — News',
+        desc: 'News and updates — a chronological feed of articles, press mentions, and announcements.',
+        category: 'editorial',
+        href: './moimun/news.html',
+        stack: 'HTML · multi-page',
+        mark: 'MN',
+      },
+      {
+        title: 'Moimun — Contact',
+        desc: 'Get in touch — office locations, contact form, and a directory of regional representatives.',
+        category: 'editorial',
+        href: './moimun/contact.html',
+        stack: 'HTML · multi-page',
+        mark: 'MC',
       },
       {
         title: 'Logistics',
