@@ -1,0 +1,15 @@
+{
+  "name": "radar-ai-demos",
+  "version": "1.0.0",
+  "description": "A gallery of spatial, interactive, and generative web demos.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "node serve.mjs",
+    "build:demos": "node scripts/build-vite-demos.mjs",
+    "qa": "node qa.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.0"
+  }
+}
