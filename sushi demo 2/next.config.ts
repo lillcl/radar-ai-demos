@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: "export",
   basePath: "",
-  assetPrefix: "./",
   outputFileTracingRoot: path.join(__dirname),
   images: { unoptimized: true },
 };
