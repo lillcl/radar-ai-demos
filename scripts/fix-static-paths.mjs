@@ -30,24 +30,62 @@ async function* walk(dir) {
 
 let total = 0;
 let htmlHits = 0;
+let cssHits = 0;
+let jsHits = 0;
 for await (const file of walk(root)) {
-  if (extname(file) !== ".html") continue;
-  const before = await readFile(file, "utf8");
-  const after = before
-    // /_next/... -> ./_next/...
-    .replaceAll('"/_next/', '"./_next/')
-    // href="/path"  ->  href="./path"
-    .replaceAll('href="/', 'href="./')
-    // src="/path"   ->  src="./path"
-    .replaceAll('src="/', 'src="./')
-    // /assets/... -> ./assets/...
-    .replaceAll('"/assets/', '"./assets/')
-    // /public/... -> ./public/...
-    .replaceAll('"/public/', '"./public/');
-  if (after !== before) {
-    await writeFile(file, after, "utf8");
-    htmlHits++;
+  const ext = extname(file);
+  if (ext === ".html") {
+    const before = await readFile(file, "utf8");
+    const after = before
+      // /_next/... -> ./_next/...
+      .replaceAll('"/_next/', '"./_next/')
+      // href="/path"  ->  href="./path"
+      .replaceAll('href="/', 'href="./')
+      // src="/path"   ->  src="./path"
+      .replaceAll('src="/', 'src="./')
+      // /assets/... -> ./assets/...
+      .replaceAll('"/assets/', '"./assets/')
+      // /media/... -> ./media/...
+      .replaceAll('"/media/', '"./media/')
+      // /frames/... -> ./frames/...
+      .replaceAll('"/frames/', '"./frames/')
+      // /public/... -> ./public/...
+      .replaceAll('"/public/', '"./public/');
+    if (after !== before) {
+      await writeFile(file, after, "utf8");
+      htmlHits++;
+    }
+  } else if (ext === ".css") {
+    const before = await readFile(file, "utf8");
+    const after = before
+      // Next.js CSS often uses absolute paths for fonts/assets
+      // url(/_next/static/media/...) -> url(../media/...)
+      .replaceAll('url(/_next/static/media/', 'url(../media/')
+      .replaceAll('url("/_next/static/media/', 'url("../media/')
+      .replaceAll("url('/_next/static/media/", "url('../media/");
+    if (after !== before) {
+      await writeFile(file, after, "utf8");
+      cssHits++;
+    }
+  } else if (ext === ".js") {
+    const before = await readFile(file, "utf8");
+    const after = before
+      // Next.js JS often uses absolute paths for chunks and assets
+      .replaceAll('"/_next/', '"./_next/')
+      .replaceAll("'/_next/", "'./_next/")
+      .replaceAll('"/assets/', '"./assets/')
+      .replaceAll("'/assets/", "'./assets/")
+      .replaceAll('"/media/', '"./media/')
+      .replaceAll("'/media/", "'./media/")
+      .replaceAll('"/frames/', '"./frames/')
+      .replaceAll("'/frames/", "'./frames/")
+      .replaceAll('"/public/', '"./public/')
+      .replaceAll("'/public/", "'./public/");
+    if (after !== before) {
+      await writeFile(file, after, "utf8");
+      jsHits++;
+    }
   }
   total++;
 }
-console.log(`rewrote ${htmlHits}/${total} html files under ${root}`);
+console.log(`rewrote ${htmlHits} html, ${cssHits} css, and ${jsHits} js files (of ${total} total) under ${root}`);
