@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0807">
+  <meta name="description" content="Ten After Dark — an interactive cocktail menu.">
+  <title>Ten After Dark — Interactive Cocktail Menu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Manrope:wght@400;500;600&family=Prata&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <main class="experience">
+    <header class="topbar">
+      <a class="wordmark" href="#" aria-label="Ten After Dark home">
+        <span class="wordmark-mark">X</span>
+        <span>Ten After Dark</span>
+      </a>
+      <div class="service-note">
+        <span class="live-dot" aria-hidden="true"></span>
+        Macau · Pouring until 02:00
+      </div>
+      <button class="menu-button" type="button" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
+    </header>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div class="intro">
+        <p class="eyebrow">The midnight selection · No. 01—10</p>
+        <h1 id="page-title"><span>Choose your</span><em>nightcap.</em></h1>
+        <p class="instruction">
+          <span class="cursor-glyph" aria-hidden="true"></span>
+          Point to a pour
+        </p>
+      </div>
+
+      <div class="scene-scroll" aria-label="Interactive lineup of ten cocktails">
+        <div class="scene" id="cocktail-scene">
+          <img class="scene-image" src="./assets/cocktail-lineup.png" alt="Ten cocktails arranged across a dark marble bar">
+          <div class="scene-shade" aria-hidden="true"></div>
+          <div class="scene-glow" aria-hidden="true"></div>
+
+          <button class="cocktail" data-id="golden-hour" style="--x:2.612;--y:40.268;--w:11.285;--h:37.348" aria-label="Golden Hour, cognac sour"></button>
+          <button class="cocktail" data-id="ruby-fizz" style="--x:14.368;--y:31.630;--w:7.524;--h:48.175" aria-label="Ruby Fizz, vodka berry highball"></button>
+          <button class="cocktail" data-id="olive-theory" style="--x:22.048;--y:36.740;--w:10.763;--h:38.078" aria-label="Olive Theory, dry gin martini"></button>
+          <button class="cocktail" data-id="brass-tacks" style="--x:30.617;--y:53.406;--w:8.098;--h:25.669" aria-label="Brass Tacks, smoked old fashioned"></button>
+          <button class="cocktail" data-id="violet-hour" style="--x:38.192;--y:28.102;--w:8.986;--h:48.054" aria-label="Violet Hour, botanical gin cooler"></button>
+          <button class="cocktail" data-id="sun-room" style="--x:49.582;--y:25.304;--w:8.882;--h:51.460" aria-label="Sun Room, tropical rum collins"></button>
+          <button class="cocktail" data-id="night-shift" style="--x:58.830;--y:41.363;--w:9.979;--h:36.253" aria-label="Night Shift, espresso martini"></button>
+          <button class="cocktail" data-id="garden-after-rain" style="--x:69.279;--y:33.455;--w:8.098;--h:46.350" aria-label="Garden After Rain, cucumber mint highball"></button>
+          <button class="cocktail" data-id="last-light" style="--x:77.429;--y:35.158;--w:8.464;--h:40.511" aria-label="Last Light, orange aperitivo spritz"></button>
+          <button class="cocktail" data-id="red-letter" style="--x:87.618;--y:48.175;--w:9.927;--h:31.630" aria-label="Red Letter, cherry whisky smash"></button>
+
+          <div class="scene-caption" aria-hidden="true">
+            <span>10 signatures</span>
+            <span>Macau after dark</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="detail-card" id="detail-card" aria-live="polite">
+        <div class="detail-index" id="detail-index">01</div>
+        <div class="detail-copy">
+          <p class="detail-kicker" id="detail-base">Cognac · Citrus</p>
+          <h2 id="detail-name">Golden Hour</h2>
+          <p class="detail-zh" id="detail-zh">金色時刻</p>
+          <p class="detail-description" id="detail-description">Silken citrus, warm spice and a bright, lingering finish.</p>
+          <div class="tags" id="detail-tags"></div>
+        </div>
+        <div class="detail-meters">
+          <div>
+            <span>Strength</span>
+            <div class="meter" id="strength-meter" aria-label="Strength 3 out of 5"></div>
+          </div>
+          <div>
+            <span>Sweetness</span>
+            <div class="meter" id="sweetness-meter" aria-label="Sweetness 2 out of 5"></div>
+          </div>
+        </div>
+      </aside>
+
+      <nav class="lineup" aria-label="Choose a cocktail">
+        <span class="lineup-label">The lineup</span>
+        <div class="lineup-buttons" id="lineup-buttons"></div>
+      </nav>
+    </section>
+  </main>
+  <script src="./assets/vendor/gsap.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
