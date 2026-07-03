@@ -31,6 +31,15 @@ const ui = {
 };
 
 let activeId = null;
+let glowX;
+let glowY;
+let glowOpacity;
+
+if (canAnimate) {
+  glowX = gsap.quickTo(sceneGlow, "x", { duration: .22, ease: "power2.out" });
+  glowY = gsap.quickTo(sceneGlow, "y", { duration: .22, ease: "power2.out" });
+  glowOpacity = gsap.quickTo(sceneGlow, "opacity", { duration: .2, ease: "power2.out" });
+}
 
 hotspots.forEach((hotspot) => {
   const cocktail = cocktails.find((item) => item.id === hotspot.dataset.id);
@@ -40,7 +49,7 @@ hotspots.forEach((hotspot) => {
   layer.alt = "";
   layer.setAttribute("aria-hidden", "true");
   hotspot.appendChild(layer);
-  hotspot.addEventListener("pointerenter", () => selectCocktail(cocktail.id));
+  hotspot.addEventListener("mouseenter", () => selectCocktail(cocktail.id));
   hotspot.addEventListener("focus", () => selectCocktail(cocktail.id));
   hotspot.addEventListener("click", () => selectCocktail(cocktail.id, true));
 });
@@ -63,12 +72,14 @@ scene.addEventListener("pointermove", (event) => {
   const bounds = scene.getBoundingClientRect();
   const x = event.clientX - bounds.left;
   const y = event.clientY - bounds.top;
-  gsap.to(sceneGlow, { x, y, opacity: activeId ? .8 : .36, duration: .45, ease: "power2.out", overwrite: true });
+  glowX(x);
+  glowY(y);
+  glowOpacity(activeId ? .8 : .36);
 });
 
-scene.addEventListener("pointerleave", (event) => {
-  if (canAnimate) gsap.to(sceneGlow, { opacity: 0, duration: .35, overwrite: true });
-  if (event.pointerType !== "touch" && !scene.contains(document.activeElement)) clearSelection();
+scene.addEventListener("mouseleave", () => {
+  if (canAnimate) glowOpacity(0);
+  if (!scene.contains(document.activeElement)) clearSelection();
 });
 
 scene.addEventListener("focusout", (event) => {
@@ -79,8 +90,12 @@ function selectCocktail(id, shouldCenter = false) {
   const cocktail = cocktails.find((item) => item.id === id);
   const hotspot = hotspots.find((item) => item.dataset.id === id);
   if (!cocktail || !hotspot) return;
+  if (activeId === id) return;
 
   const previous = hotspots.find((item) => item.dataset.id === activeId);
+  const previousLayer = previous?.querySelector(".cocktail-layer");
+  const activeLayer = hotspot.querySelector(".cocktail-layer");
+  const isFirstSelection = !activeId;
   activeId = id;
   scene.dataset.active = "true";
   hotspots.forEach((item) => item.classList.toggle("is-active", item === hotspot));
@@ -93,25 +108,32 @@ function selectCocktail(id, shouldCenter = false) {
   updateDetails(cocktail);
 
   if (canAnimate) {
-    if (previous && previous !== hotspot) {
-      gsap.to(previous, { autoAlpha: 0, y: 0, scale: 1, duration: .24, ease: "power2.in", overwrite: true });
+    if (previousLayer) {
+      gsap.to(previousLayer, { autoAlpha: 0, y: 0, scale: 1, duration: .16, ease: "power2.out", overwrite: true });
     }
-    gsap.to(sceneImage, { filter: "saturate(.58) contrast(1.08) brightness(.42)", duration: .5, ease: "power2.out", overwrite: true });
-    gsap.fromTo(hotspot,
-      { autoAlpha: .2, y: 4, scale: .985, filter: "brightness(1) saturate(1)" },
-      { autoAlpha: 1, y: -18, scale: 1.065, filter: "brightness(1.24) saturate(1.15) drop-shadow(0 18px 18px rgba(216,174,104,.28))", duration: .58, ease: "back.out(1.45)", overwrite: true }
+    if (isFirstSelection) {
+      gsap.to(sceneImage, { filter: "saturate(.58) contrast(1.08) brightness(.42)", duration: .32, ease: "power2.out", overwrite: true });
+    }
+    gsap.fromTo(activeLayer,
+      { autoAlpha: .35, y: 3, scale: .995, filter: "brightness(1.06) saturate(1)" },
+      { autoAlpha: 1, y: -15, scale: 1.05, filter: "brightness(1.2) saturate(1.12) drop-shadow(0 16px 16px rgba(216,174,104,.25))", duration: .3, ease: "power3.out", overwrite: true }
     );
-    gsap.killTweensOf(card);
-    gsap.set(card, { visibility: "visible" });
-    gsap.fromTo(card,
-      { autoAlpha: 0, y: 18, scale: .985 },
-      { autoAlpha: 1, y: 0, scale: 1, duration: .42, ease: "power3.out", overwrite: true }
-    );
-    gsap.fromTo(".detail-copy > *, .detail-meters", { y: 8, opacity: 0 }, { y: 0, opacity: 1, duration: .34, stagger: .035, ease: "power2.out", delay: .08, overwrite: true });
+    const detailParts = document.querySelectorAll(".detail-copy > *, .detail-meters");
+    gsap.killTweensOf([card, ...detailParts]);
+    if (isFirstSelection) {
+      gsap.set(card, { visibility: "visible" });
+      gsap.fromTo(card,
+        { autoAlpha: 0, y: 10, scale: .99 },
+        { autoAlpha: 1, y: 0, scale: 1, duration: .24, ease: "power2.out", overwrite: true }
+      );
+    } else {
+      gsap.set(card, { autoAlpha: 1, y: 0, scale: 1, visibility: "visible" });
+    }
+    gsap.fromTo(detailParts, { y: 5, opacity: .25 }, { y: 0, opacity: 1, duration: .18, stagger: .012, ease: "power2.out", overwrite: true });
   } else {
     sceneImage.style.filter = "saturate(.58) contrast(1.08) brightness(.42)";
-    hotspot.style.opacity = "1";
-    hotspot.style.transform = "translateY(-12px) scale(1.04)";
+    activeLayer.style.opacity = "1";
+    activeLayer.style.transform = "translateY(-12px) scale(1.04)";
     card.style.opacity = "1";
     card.style.visibility = "visible";
   }
@@ -123,6 +145,7 @@ function selectCocktail(id, shouldCenter = false) {
 
 function clearSelection() {
   const previous = hotspots.find((item) => item.dataset.id === activeId);
+  const previousLayer = previous?.querySelector(".cocktail-layer");
   activeId = null;
   delete scene.dataset.active;
   hotspots.forEach((item) => item.classList.remove("is-active"));
@@ -133,11 +156,15 @@ function clearSelection() {
 
   if (canAnimate) {
     gsap.to(sceneImage, { filter: "saturate(.92) contrast(1.05) brightness(.88)", duration: .45, ease: "power2.out", overwrite: true });
-    if (previous) gsap.to(previous, { autoAlpha: 0, y: 0, scale: 1, duration: .3, ease: "power2.out", overwrite: true });
+    if (previousLayer) gsap.to(previousLayer, { autoAlpha: 0, y: 0, scale: 1, duration: .2, ease: "power2.out", overwrite: true });
     gsap.to(card, { autoAlpha: 0, y: 12, duration: .24, ease: "power2.in", overwrite: true, onComplete: () => gsap.set(card, { visibility: "hidden" }) });
   } else {
     sceneImage.style.filter = "";
-    hotspots.forEach((item) => { item.style.opacity = ""; item.style.transform = ""; });
+    hotspots.forEach((item) => {
+      const layer = item.querySelector(".cocktail-layer");
+      layer.style.opacity = "";
+      layer.style.transform = "";
+    });
     card.style.opacity = "";
     card.style.visibility = "";
   }

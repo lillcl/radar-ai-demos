@@ -268,9 +268,7 @@ h1 em { color: var(--brass); font-weight: 400; }
   outline: 0;
   background: transparent;
   cursor: crosshair;
-  opacity: 0;
-  transform-origin: center 88%;
-  will-change: transform, opacity, filter;
+  opacity: 1;
 }
 
 .cocktail-layer {
@@ -278,8 +276,11 @@ h1 em { color: var(--brass); font-weight: 400; }
   height: 100%;
   display: block;
   object-fit: fill;
+  opacity: 0;
+  transform-origin: center 88%;
   pointer-events: none;
   user-select: none;
+  will-change: transform, opacity, filter;
 }
 
 .cocktail:focus-visible {
