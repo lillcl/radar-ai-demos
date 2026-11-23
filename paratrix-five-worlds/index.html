@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080c13" />
+  <meta name="description" content="Five procedural Three.js scene studies inspired by the visual compositions of Paratrix.xyz. Fully editable code, without embedded Spline scenes." />
+  <title>Five Worlds — Paratrix Procedural Scene Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+:root{color-scheme:dark;--bg:#080c13;--surface:#0e141e;--ink:#eef3fa;--sub:#96a6bb;--sub2:#677993;--line:rgba(169,202,242,.15);--accent:#a1dcff;--accent-rgb:115,185,255;--mono:'DM Mono',ui-monospace,SFMono-Regular,monospace;--sans:'Space Grotesk',Inter,Arial,sans-serif}
+body[data-scene="nirvana"]{--accent:#d7b6ff;--accent-rgb:177,137,255}
+body[data-scene="unchained"]{--accent:#91e4c6;--accent-rgb:103,232,187}
+body[data-scene="flow"]{--accent:#ffa6c5;--accent-rgb:255,116,182}
+body[data-scene="interface"]{--accent:#a6d2ff;--accent-rgb:92,155,255}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:4px}button:disabled{cursor:not-allowed;opacity:.45}::selection{background:var(--accent);color:#070c13}.site-shell{max-width:1920px;margin:auto;overflow:hidden}.topbar{height:84px;padding:0 clamp(24px,5vw,98px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:#0a0e15;position:relative;z-index:4}.brand{display:flex;align-items:center;gap:8px;white-space:nowrap;font-size:18px;letter-spacing:-.07em}.brand-symbol{color:var(--accent);font-size:27px;line-height:1;margin-right:10px;animation:brandRotate 24s linear infinite}.brand strong{font-weight:700}.brand-slash{color:#445268;margin:0 4px}.brand-light{font:10px var(--mono);letter-spacing:.08em;color:#9aa8b9}.nav-center,.nav-actions,.outline-link,.mono-nav,.section-index,.intro-cta,.hero-bottom,.eyebrow,.showroom-head,.scene-upper,.scene-series,.scene-lower,.scene-annotation,.stage-tools,.tab-top,.scene-tab small,.detail-lines,.detail-cta,.honesty,.control-panel,.atlas-kind,.atlas-index,footer,.reference-dialog,.atlas-title .eyebrow{font-family:var(--mono)}.nav-center{display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.09em;color:#879ab0}.status-pulse,.online i{width:6px;height:6px;background:#9fecbb;border-radius:50%;box-shadow:0 0 12px #9fecbb}.nav-actions{display:flex;gap:34px;align-items:center;font-size:10px;letter-spacing:.08em}.mono-nav{color:#71849e}.outline-link{border:1px solid #3c4b5f;padding:13px 15px;color:#c5d2e3;transition:border-color .2s,background .2s}.outline-link:hover{border-color:var(--accent);background:rgba(var(--accent-rgb),.08)}.outline-link span{margin-left:28px}
+.hero-intro{height:min(780px,calc(100svh - 84px));min-height:620px;background:radial-gradient(ellipse at 72% 35%,#152133 0%,transparent 40%),linear-gradient(132deg,#0c121d,#080b12 72%);position:relative;isolation:isolate;border-bottom:1px solid var(--line)}.hero-intro:before{position:absolute;inset:0;content:'';pointer-events:none;background-image:linear-gradient(rgba(178,205,245,.023) 1px,transparent 1px),linear-gradient(90deg,rgba(178,205,245,.023) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(90deg,transparent,#000 54%,#000 88%,transparent)}.intro-copy{position:absolute;z-index:1;left:clamp(24px,8vw,150px);top:clamp(93px,14vh,151px);max-width:min(650px,60%)}.section-index,.eyebrow{font-size:10px;letter-spacing:.12em;color:var(--accent);display:flex;align-items:center;gap:14px}.rule,.line{width:27px;height:1px;background:var(--accent)}.intro-copy h1{margin:48px 0 22px;font-size:clamp(70px,8.9vw,150px);letter-spacing:-.09em;line-height:.95;font-weight:500;white-space:nowrap}.intro-copy h1 em{font-style:normal;color:#8ba1bd}.intro-copy>p{font-size:15px;line-height:1.9;color:#9daec3;max-width:410px}.intro-cta{margin-top:38px;display:flex;align-items:center;gap:27px}.intro-cta>span{font-size:9px;color:#6c7d92;letter-spacing:.06em}.cta{padding:17px 20px;background:#e4effb;color:#0b1521;font-size:10px;letter-spacing:.06em;white-space:nowrap;transition:transform .2s,background .2s}.cta:hover{transform:translateY(-3px);background:#fff}.cta span{margin-left:34px}.hero-ornament{position:absolute;right:clamp(-130px,4vw,100px);top:10%;width:min(58vw,820px);aspect-ratio:1;pointer-events:none;filter:drop-shadow(0 0 40px rgba(87,132,223,.08));animation:float 9s ease-in-out infinite}.hero-ornament:before{content:'';position:absolute;inset:10%;border-radius:50%;background:radial-gradient(circle,rgba(83,126,218,.18),transparent 69%);filter:blur(35px)}.orbit{position:absolute;left:15%;top:25%;width:68%;height:48%;border:1px solid rgba(161,219,255,.46);border-radius:50%;box-shadow:inset 0 0 17px rgba(110,166,240,.10),0 0 18px rgba(110,166,240,.08)}.orbit-1{transform:rotate(-40deg)}.orbit-2{transform:rotate(60deg) scaleX(.85);border-color:rgba(193,161,255,.37)}.orbit-3{transform:rotate(110deg) scaleX(.7);border-color:rgba(161,219,255,.28)}.orbit-center{position:absolute;left:48%;top:46%;width:6%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#d4ecff,#6b83cd 60%,transparent);box-shadow:0 0 60px 20px rgba(84,139,223,.27)}.ring-info{position:absolute;font:9px var(--mono);letter-spacing:.1em;color:#607894}.ring-info-top{right:11%;top:22%}.ring-info-bottom{bottom:24%;left:22%}.hero-bottom{position:absolute;bottom:32px;left:clamp(24px,8vw,150px);right:clamp(24px,8vw,150px);display:flex;justify-content:space-between;font-size:10px;letter-spacing:.08em;color:#68798f}.arrow-down{margin-left:20px;color:#c7e4fb}
+.showroom{padding:84px clamp(24px,5vw,98px) 0;background:#0b111b;scroll-margin-top:0}.showroom-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;gap:16px;font-size:10px;color:#8699b2;letter-spacing:.09em}.showroom-head .eyebrow{font-size:10px}.head-side{display:flex;gap:17px;align-items:center}.engine-indicator{color:#8796ae}.engine-online{color:#a2eebd}.engine-offline{color:#d4aa8e}.head-divider{height:15px;width:1px;background:#2e3b50}.scene-window{height:clamp(550px,61vw,810px);max-height:810px;position:relative;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at 70% 48%,rgba(var(--accent-rgb),.12),transparent 46%),linear-gradient(120deg,#0e1726,#070b12 78%);border:1px solid #2d3b51;transition:background .65s}.window-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(142,177,211,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(142,177,211,.045) 1px,transparent 1px);background-size:51px 51px;mask-image:linear-gradient(90deg,transparent 15%,#000 80%);pointer-events:none}.window-glow{position:absolute;right:10%;top:8%;height:80%;width:65%;background:radial-gradient(ellipse at center,rgba(var(--accent-rgb),.14),transparent 63%);filter:blur(43px);pointer-events:none;transition:background .6s}.window-noise{position:absolute;inset:0;pointer-events:none;opacity:.22;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.63' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");mix-blend-mode:screen}.scene-window:after{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,rgba(6,11,19,.82) 0%,rgba(8,13,20,.52) 28%,transparent 57%),linear-gradient(0deg,rgba(4,8,14,.47),transparent 20%,transparent 82%,rgba(4,8,14,.38))}.scene-window canvas{position:absolute;inset:0;display:block;width:100%;height:100%;z-index:1;touch-action:pan-y;cursor:grab}.scene-window canvas:active{cursor:grabbing}.scene-overlay{position:absolute;inset:0;z-index:3;pointer-events:none}.scene-upper,.scene-lower{position:absolute;left:clamp(24px,5vw,82px);right:clamp(24px,5vw,82px);display:flex;justify-content:space-between;color:#899cb6;letter-spacing:.12em;font-size:10px}.scene-upper{top:42px}.tiny-cross{font-size:27px;line-height:0;color:var(--accent);font-family:var(--sans)}.scene-lower{bottom:32px;align-items:center}.scene-lower b{color:var(--accent);font-weight:400;margin:0 8px}.scene-pager{display:flex;gap:10px;align-items:baseline;font-size:11px}.scene-pager strong{font-size:28px;color:#f4f8ff;font-weight:500}.pager-track{color:#5e7690}.scene-text{position:absolute;left:clamp(24px,5vw,82px);top:31%;max-width:400px}.scene-series{font-size:10px;letter-spacing:.14em;color:var(--accent)}.scene-text h2{font-size:clamp(55px,7.7vw,116px);font-weight:500;letter-spacing:-.085em;line-height:.97;margin:25px 0 25px;white-space:nowrap}.scene-text h2 span{color:var(--accent)}.scene-text p{font-size:14px;line-height:1.78;color:#a6b4c6;max-width:300px}.scene-annotation{position:absolute;z-index:3;font-size:9px;letter-spacing:.08em;color:#91acc5;pointer-events:none}.annotation-top{right:14%;top:24%}.annotation-bottom{right:9%;bottom:27%}.scene-annotation:before{content:'';width:5px;height:5px;border-radius:50%;display:inline-block;margin-right:10px;background:var(--accent);box-shadow:0 0 0 5px rgba(var(--accent-rgb),.09)}.stage-tools{position:absolute;z-index:5;right:clamp(22px,5vw,82px);bottom:74px;display:flex;gap:9px}.stage-tools button{width:42px;height:42px;border:1px solid #506079;color:#e2eeff;background:rgba(13,22,34,.72);backdrop-filter:blur(10px);transition:background .2s,border-color .2s}.stage-tools button:hover{background:rgba(var(--accent-rgb),.15);border-color:var(--accent)}.corner-mark{position:absolute;z-index:4;width:18px;height:18px;pointer-events:none}.corner-top{left:9px;top:9px;border-top:1px solid var(--accent);border-left:1px solid var(--accent)}.corner-bottom{right:9px;bottom:9px;border-right:1px solid var(--accent);border-bottom:1px solid var(--accent)}
+/* Self-contained non-WebGL preview displayed if CDN or WebGL is unavailable */
+.fallback-art{position:absolute;z-index:0;right:7%;top:11%;width:62%;height:80%;pointer-events:none;filter:drop-shadow(0 0 35px rgba(var(--accent-rgb),.25));animation:float 8s ease-in-out infinite}.fallback-art:before{content:'';position:absolute;inset:18%;background:radial-gradient(circle,rgba(var(--accent-rgb),.22),transparent 67%);filter:blur(40px)}.fallback-orbit{position:absolute;inset:23% 15%;border:3px solid rgba(var(--accent-rgb),.62);border-radius:50%;transform:rotate(-34deg);box-shadow:0 0 25px rgba(var(--accent-rgb),.20),inset 0 0 35px rgba(var(--accent-rgb),.11)}.fallback-o2{inset:13% 35%;transform:rotate(48deg);border-color:rgba(203,193,250,.48)}.fallback-o3{inset:20% 24%;transform:rotate(106deg);border-width:1px}.fallback-core{position:absolute;left:44%;top:40%;width:13%;aspect-ratio:1;border:1px solid #effaff;border-radius:50%;background:radial-gradient(circle at 28% 26%,#fff,#84b5ed 32%,#2e467a 70%,#0e1931);box-shadow:0 0 45px rgba(var(--accent-rgb),.55)}.fallback-stripe{position:absolute;left:46%;top:7%;width:10%;height:86%;border:2px solid rgba(var(--accent-rgb),.45);border-radius:55% 40% 55% 45%;transform:rotate(34deg)}.webgl-ready .fallback-art{display:none}body[data-scene="nirvana"] .fallback-orbit{border-style:double;border-width:8px}body[data-scene="unchained"] .fallback-orbit{border-style:dashed}body[data-scene="flow"] .fallback-orbit{border-width:6px;border-radius:35% 65% 25% 75%}body[data-scene="interface"] .fallback-orbit{border-radius:16px;transform:rotate(-13deg)}
+.scene-selector{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:#263349;border:1px solid #263349;border-top:none}.scene-tab{text-align:left;min-height:148px;border:0;background:#101722;color:#dce6f3;padding:22px clamp(14px,1.8vw,28px);display:flex;flex-direction:column;gap:13px;transition:background .25s;position:relative;overflow:hidden}.scene-tab:hover{background:#1a2638}.scene-tab.active{background:linear-gradient(145deg,rgba(var(--accent-rgb),.16),#142031 70%)}.scene-tab.active:before{content:'';position:absolute;left:0;top:0;height:2px;width:100%;background:var(--accent)}.tab-top{display:flex;justify-content:space-between;color:#8294aa;font-size:10px}.scene-tab.active .tab-top{color:var(--accent)}.scene-tab strong{font-size:clamp(13px,1.4vw,19px);letter-spacing:-.035em;font-weight:500}.scene-tab small{font-size:9px;letter-spacing:.045em;color:#7c8ba1}.mini-glyph{width:28px;height:20px;position:relative}.mini-glyph:before,.mini-glyph:after{content:'';position:absolute;border:1px solid #96b8d3;border-radius:50%;width:23px;height:13px;left:1px;top:3px;transform:rotate(-45deg)}.mini-glyph:after{transform:rotate(45deg)}.glyph-nirvana:before{border-color:#cab5e8;transform:rotate(22deg)}.glyph-nirvana:after{border-color:#d2b3e8;transform:rotate(-22deg)}.glyph-unchained:before,.glyph-unchained:after{width:14px;height:13px;border:2px solid #9ee3c3}.glyph-unchained:after{left:12px}.glyph-flow:before,.glyph-flow:after{border-color:#f7abc9;transform:rotate(-70deg)}.glyph-interface:before,.glyph-interface:after{border-radius:2px;transform:rotate(-13deg)}
+.analysis-section{padding:clamp(88px,10vw,165px) clamp(24px,8vw,151px);display:grid;grid-template-columns:minmax(0,1fr) minmax(350px,.85fr);gap:clamp(60px,13vw,230px);border-bottom:1px solid var(--line);background:linear-gradient(175deg,#0b111b,#090e16 75%)}.analysis-copy h2{white-space:pre-line;font-size:clamp(41px,4.2vw,65px);letter-spacing:-.06em;line-height:1.1;font-weight:500;margin:28px 0}.analysis-copy>p:not(.honesty){font-size:15px;line-height:1.9;color:#99abc0;max-width:440px}.detail-lines{max-width:520px;margin-top:50px;border-top:1px solid var(--line)}.detail-lines>div{padding:19px 0;display:flex;gap:20px;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}.detail-lines span{font-size:10px;color:#70859b;letter-spacing:.08em}.detail-lines strong{font:400 11px var(--mono);color:#ced9e6;text-align:right}.detail-cta{display:flex;gap:32px;align-items:center;margin-top:41px;flex-wrap:wrap}.link-button{border:1px solid #526a83;color:#d2e9f9;background:transparent;padding:17px 19px;font:10px var(--mono);letter-spacing:.09em;transition:background .2s}.link-button:hover{background:rgba(var(--accent-rgb),.1)}.link-button span{margin-left:20px}.link-secondary{font-size:10px;color:#93a7bd;letter-spacing:.09em}.honesty{font-size:10px;max-width:440px;line-height:1.7;color:#64758b;margin-top:22px;letter-spacing:0}.control-panel{align-self:start;border:1px solid #2c3c50;background:#101823;padding:clamp(24px,3vw,42px);color:#cbd9eb;box-shadow:0 20px 70px rgba(0,0,0,.1)}.control-top{display:flex;justify-content:space-between;gap:15px;font-size:11px;letter-spacing:.09em;margin-bottom:43px}.online{display:flex;align-items:center;gap:8px;color:#91cda9;font-size:9px}.param{margin:26px 0}.param label{font:12px var(--sans);display:flex;justify-content:space-between;gap:14px;color:#c9d3e1;margin-bottom:15px}.param output{font:11px var(--mono);color:var(--accent)}.param input[type=range]{width:100%;accent-color:var(--accent);height:4px;cursor:pointer}.param select{border:1px solid #334862;border-radius:0;background:#162233;padding:14px;color:#dce6f3;width:100%;font-size:12px}.control-buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:35px}.control-buttons button,.capture{font:10px var(--mono);letter-spacing:.04em;border:1px solid #435773;padding:14px 12px;background:transparent;color:#d1e1f2;display:flex;justify-content:space-between;align-items:center;gap:10px}.control-buttons button:hover,.capture:hover{border-color:var(--accent);background:rgba(var(--accent-rgb),.08)}.control-buttons button span,.capture span{font-size:16px;color:var(--accent)}.capture{margin-top:10px;width:100%}.control-note{display:flex;gap:12px;align-items:flex-start;margin-top:28px;border-top:1px solid var(--line);padding-top:18px;color:#71839a;font:10px/1.65 var(--mono)}.control-note span{color:#a6c5df;font-size:15px}.control-note p{margin:0}.control-note code{color:#b8d9ef}
+.atlas{padding:clamp(85px,10vw,158px) clamp(24px,8vw,150px) clamp(105px,12vw,180px);background:#0b1018}.atlas-title{display:flex;gap:40px;justify-content:space-between;align-items:end;margin-bottom:46px}.atlas-title h2{font-size:clamp(52px,6vw,95px);font-weight:500;letter-spacing:-.075em;line-height:1;margin:20px 0 0}.atlas-title h2 span{color:var(--accent)}.atlas-title>p{max-width:315px;font-size:13px;color:#8496ac;line-height:1.75}.atlas-list{border-top:1px solid #39485c}.atlas-row{width:100%;background:transparent;border:0;border-bottom:1px solid #2b394b;display:grid;grid-template-columns:50px 92px 1fr 195px 24px;align-items:center;text-align:left;gap:22px;padding:24px 8px;color:#e6edf7;transition:background .25s,padding .25s}.atlas-row:hover{background:#131d2b;padding-inline:18px}.atlas-index{font-size:11px;color:#70839a}.atlas-icon{display:grid;place-items:center;width:78px;height:67px;background:radial-gradient(circle at 65% 30%,rgba(129,160,218,.22),#111b29 75%);position:relative;overflow:hidden}.atlas-icon:before,.atlas-icon:after{content:'';width:40px;height:20px;border:2px solid #98d0ed;position:absolute;border-radius:50%;transform:rotate(-38deg);box-shadow:0 0 12px #80bfed55}.atlas-icon:after{transform:rotate(45deg)}.icon-nirvana:before,.icon-nirvana:after{border-color:#cba3fd}.icon-unchained:before,.icon-unchained:after{width:22px;height:23px;transform:rotate(-18deg);border-color:#97e3c6}.icon-unchained:before{left:16px}.icon-unchained:after{right:14px}.icon-flow:before,.icon-flow:after{border-color:#f1a4c7;border-radius:30% 70%;height:36px}.icon-interface:before,.icon-interface:after{border-radius:5px;transform:rotate(-18deg)}.atlas-name{font-size:clamp(24px,2.6vw,38px);letter-spacing:-.055em;display:flex;flex-direction:column;font-weight:500;gap:8px}.atlas-name small{font-size:12px;font-weight:400;color:#7589a3;letter-spacing:0}.atlas-kind{font-size:10px;letter-spacing:.06em;color:#8496a9}.atlas-arrow{font-size:22px;color:#9cb9d0}.atlas-row:hover .atlas-arrow{color:var(--accent)}footer{padding:30px clamp(24px,5vw,98px);display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid #2c3749;font-size:9px;letter-spacing:.08em;color:#73859d}footer a{color:#c6d6e7}
+.reference-dialog{padding:0;border:1px solid #4a5c73;background:#0a111c;color:#f0f6ff;width:min(1180px,95vw);height:min(820px,92vh);max-width:none;max-height:none;box-shadow:0 40px 120px #000a}.reference-dialog::backdrop{background:rgba(1,3,7,.9)}.reference-top,.reference-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 26px}.reference-top h3{font:500 21px var(--sans);letter-spacing:-.035em;margin:8px 0 0}.reference-top button{background:none;border:1px solid #5b708a;color:#dceaff;height:36px;width:36px}.reference-body{height:calc(100% - 158px);background:#070c13}.reference-body iframe{width:100%;height:100%;border:0}.reference-bottom{font-size:10px;color:#8497af}.reference-bottom a{color:#d0e8fa}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(3deg)}}@keyframes brandRotate{to{transform:rotate(360deg)}}
+@media(max-width:1130px){.nav-center,.mono-nav{display:none}.intro-copy h1{font-size:clamp(72px,10vw,122px)}.intro-copy{max-width:70%}.scene-window{height:670px}.scene-text h2{font-size:clamp(58px,8vw,90px)}.analysis-section{grid-template-columns:1fr 1fr;gap:40px}.atlas-row{grid-template-columns:33px 85px 1fr 140px 22px;gap:15px}}
+@media(max-width:780px){.topbar{height:70px}.brand-light{font-size:9px}.nav-actions .outline-link{padding:10px}.outline-link span{margin-left:6px}.hero-intro{min-height:670px;height:760px}.hero-ornament{top:34%;right:-25%;width:96vw;opacity:.76}.intro-copy{top:90px;max-width:90%}.intro-copy h1{font-size:clamp(62px,12vw,98px)}.intro-copy>p{max-width:360px}.hero-bottom{bottom:24px}.showroom{padding:67px 20px 0}.scene-window{height:690px}.scene-window:after{background:linear-gradient(180deg,rgba(7,12,21,.62),transparent 42%,rgba(5,8,14,.4) 85%),linear-gradient(90deg,rgba(6,10,17,.35),transparent 65%)}.scene-text{top:22%;left:28px}.scene-text h2{font-size:clamp(48px,10vw,76px)}.scene-text p{max-width:295px}.scene-upper,.scene-lower{left:28px;right:28px}.annotation-top{top:56%;right:8%}.annotation-bottom{bottom:23%;right:11%}.stage-tools{bottom:72px;right:25px}.scene-selector{grid-template-columns:repeat(5,minmax(128px,1fr));overflow-x:auto}.scene-tab{min-height:125px}.analysis-section{grid-template-columns:1fr;padding:90px 30px;gap:58px}.control-panel{max-width:650px}.atlas{padding:95px 30px}.atlas-row{grid-template-columns:30px 70px 1fr 22px}.atlas-kind{display:none}.atlas-icon{width:66px}.atlas-title>p{max-width:200px}footer{flex-wrap:wrap}}
+@media(max-width:520px){.topbar{padding:0 18px}.brand{font-size:16px}.brand-symbol{font-size:22px;margin-right:4px}.brand-light{display:none}.nav-actions .outline-link{font-size:8px}.hero-intro{min-height:650px;height:730px}.intro-copy{left:26px;top:90px}.intro-copy h1{font-size:clamp(57px,13.4vw,76px);white-space:normal;margin:31px 0 24px}.intro-copy p{font-size:13px;max-width:310px}.intro-cta{flex-direction:column;align-items:flex-start;gap:17px}.hero-ornament{right:-36%;top:46%;width:115vw}.hero-bottom{left:25px;right:25px;font-size:8px}.hero-bottom span:first-child{max-width:150px}.showroom-head{font-size:8px}.showroom-head .eyebrow{font-size:8px}.head-side>span:last-child,.head-divider{display:none}.scene-window{height:600px}.scene-upper,.scene-lower{font-size:8px;left:20px;right:20px}.scene-upper{top:28px}.scene-lower{bottom:21px}.scene-text{top:20%;left:20px;right:20px}.scene-text h2{font-size:clamp(44px,11vw,64px);white-space:normal;margin:20px 0}.scene-text p{font-size:12px;max-width:245px}.fallback-art{right:-27%;width:100%;top:25%;height:55%}.scene-annotation{font-size:8px}.annotation-top{top:57%}.annotation-bottom{bottom:27%}.stage-tools{right:18px;bottom:58px}.stage-tools button{width:35px;height:35px}.scene-tab{min-height:112px}.analysis-section{padding:86px 22px}.analysis-copy h2{font-size:43px}.detail-lines span{font-size:9px}.detail-lines strong{font-size:10px}.control-panel{padding:22px}.control-top{font-size:9px}.online{font-size:8px}.control-buttons button{font-size:9px;padding:12px 9px}.atlas{padding:82px 20px}.atlas-title{flex-direction:column;align-items:flex-start;gap:12px}.atlas-title>p{max-width:320px}.atlas-title h2{font-size:56px}.atlas-row{grid-template-columns:22px 53px 1fr 18px;gap:10px;padding:19px 2px}.atlas-icon{height:56px;width:53px}.atlas-icon:before,.atlas-icon:after{width:28px}.atlas-name{font-size:21px}.atlas-name small{font-size:10px}footer{font-size:8px;padding:28px 20px}.reference-bottom{font-size:9px}.reference-bottom span{max-width:190px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.brand-symbol,.hero-ornament,.fallback-art{animation:none}*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+</style>
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
+</head>
+<body data-scene="twist">
+  <div class="site-shell">
+    <header class="topbar">
+      <a href="#stage" class="brand" aria-label="Paratrix scene lab home">
+        <span class="brand-symbol" aria-hidden="true">✳</span><strong>PARATRIX</strong><span class="brand-slash">/</span><span class="brand-light">SCENE LAB</span>
+      </a>
+      <div class="nav-center"><span class="status-pulse"></span><span>PROCEDURAL / FREE SDK</span></div>
+      <div class="nav-actions"><span class="mono-nav">THREE.JS · FIVE WORLDS</span><a href="#atlas" class="outline-link">EXPLORE SCENES <span aria-hidden="true">↗</span></a></div>
+    </header>
+
+    <section class="hero-intro" aria-labelledby="hero-heading">
+      <div class="intro-copy"><div class="section-index"><span class="rule"></span> CODE-ONLY RECONSTRUCTION / 2026</div>
+        <h1 id="hero-heading">Five worlds.<br/><em>One engine.</em></h1>
+        <p>Five original procedural Three.js studies, each exploring a different composition from Paratrix.xyz. Geometry, motion, camera and materials: all generated in code.</p>
+        <div class="intro-cta"><a href="#stage" class="cta">ENTER THE SCENES <span>↘</span></a><span>NO SPLINE EMBEDS IN THE RENDERER</span></div>
+      </div>
+      <div class="hero-ornament" aria-hidden="true"><div class="orbit orbit-1"></div><div class="orbit orbit-2"></div><div class="orbit orbit-3"></div><div class="orbit-center"></div><span class="ring-info ring-info-top">R / 005</span><span class="ring-info ring-info-bottom">CODE STUDY</span></div>
+      <div class="hero-bottom"><span>INDEPENDENT RECONSTRUCTION</span><span>SCROLL TO EXPLORE <span class="arrow-down">↓</span></span></div>
+    </section>
+
+    <main>
+      <section class="showroom" id="stage" aria-label="Interactive 3D scenes">
+        <div class="showroom-head"><div class="eyebrow"><span class="line"></span> THE EXPERIENCE / <span id="currentChapter">01</span> OF 05</div><div class="head-side"><span class="engine-indicator" id="engineStatus">INITIALIZING 3D</span><span class="head-divider"></span><span>INTERACTIVE SCENE</span></div></div>
+        <div class="scene-window" id="sceneWindow">
+          <div class="window-grid" aria-hidden="true"></div>
+          <div class="window-glow" aria-hidden="true"></div>
+          <div class="window-noise" aria-hidden="true"></div>
+          <canvas id="world" role="img" aria-label="Interactive procedural 3D artwork; drag to rotate and scroll over the canvas to zoom"></canvas>
+          <div class="fallback-art" id="fallbackArt" aria-hidden="true"><div class="fallback-orbit fallback-o1"></div><div class="fallback-orbit fallback-o2"></div><div class="fallback-orbit fallback-o3"></div><div class="fallback-core"></div><div class="fallback-stripe"></div></div>
+          <div class="scene-overlay">
+            <div class="scene-upper"><span id="sceneTag">DATA NETWORK / 001</span><span class="tiny-cross" aria-hidden="true">✳</span></div>
+            <div class="scene-text"><div class="scene-series">PARATRIX STUDY — <span id="sceneLabel">WORLD 01</span></div><h2 id="sceneTitle">Twist<span>.</span></h2><p id="sceneDescription">An intertwined, metallic network of flowing ribbons and distributed data.</p></div>
+            <div class="scene-lower"><span>DRAG TO ORBIT <b>·</b> SCROLL TO ZOOM</span><span class="scene-pager"><strong id="sceneNumber">01</strong><span class="pager-track">/</span>05</span></div>
+          </div>
+          <div class="stage-tools" aria-label="Scene navigation"><button id="prevScene" aria-label="Previous scene" title="Previous scene">←</button><button id="nextScene" aria-label="Next scene" title="Next scene">→</button></div>
+          <div class="scene-annotation annotation-top" id="annotationA">NODE SYSTEM / ACTIVE</div>
+          <div class="scene-annotation annotation-bottom" id="annotationB">REAL WORLD DATA / 300+</div>
+          <div class="corner-mark corner-top" aria-hidden="true"></div><div class="corner-mark corner-bottom" aria-hidden="true"></div>
+        </div>
+        <div class="scene-selector" id="sceneSelector" aria-label="Choose scene">
+          <button type="button" class="scene-tab active" data-scene="twist" aria-pressed="true"><span class="tab-top"><span>01 /</span><span class="mini-glyph glyph-twist" aria-hidden="true"></span></span><strong>Twist</strong><small>DATA SCENARIO MAP</small></button>
+          <button type="button" class="scene-tab" data-scene="nirvana" aria-pressed="false"><span class="tab-top"><span>02 /</span><span class="mini-glyph glyph-nirvana" aria-hidden="true"></span></span><strong>Abstract Nirvana</strong><small>THE MISSION</small></button>
+          <button type="button" class="scene-tab" data-scene="unchained" aria-pressed="false"><span class="tab-top"><span>03 /</span><span class="mini-glyph glyph-unchained" aria-hidden="true"></span></span><strong>Unchained</strong><small>WORLD WIDE CHAIN</small></button>
+          <button type="button" class="scene-tab" data-scene="flow" aria-pressed="false"><span class="tab-top"><span>04 /</span><span class="mini-glyph glyph-flow" aria-hidden="true"></span></span><strong>Flow</strong><small>PROJECT ECOSYSTEM</small></button>
+          <button type="button" class="scene-tab" data-scene="interface" aria-pressed="false"><span class="tab-top"><span>05 /</span><span class="mini-glyph glyph-interface" aria-hidden="true"></span></span><strong>Interface II</strong><small>CONTACT / TERMINAL</small></button>
+        </div>
+      </section>
+
+      <section class="analysis-section" id="lab" aria-label="Scene information and controls">
+        <div class="analysis-copy"><div class="eyebrow">THE COMPOSITION / <span id="detailNumber">01</span></div><h2 id="detailTitle">Organic complexity.<br/>Computational control.</h2><p id="detailText">Interwoven procedural surfaces, orbital geometry and luminous data points express an abstract network of industrial information.</p><div class="detail-lines"><div><span>GEOMETRY</span><strong id="detailGeometry">Braided ribbon meshes</strong></div><div><span>MATERIALS</span><strong id="detailMaterials">Metal / emissive accents</strong></div><div><span>MOTION</span><strong id="detailMotion">Orbital idle rotation</strong></div></div><div class="detail-cta"><button class="link-button" id="referenceBtn">VIEW ORIGINAL SPLINE <span>↗</span></button><a href="https://paratrix.xyz/" target="_blank" rel="noopener noreferrer" class="link-secondary">PARATRIX.XYZ ↗</a></div><p class="honesty">Reconstructed visual studies, not extracted Spline files. Use the reference viewer to compare and refine the visual geometry.</p></div>
+        <aside class="control-panel" aria-label="Live 3D controls"><div class="control-top"><span>LIVE PARAMETERS</span><span class="online"><i></i> ENGINE CONTROL</span></div>
+          <div class="param"><label for="speed">Animation speed <output id="speedVal">1.00×</output></label><input id="speed" type="range" min="0" max="2.5" step="0.05" value="1" /></div>
+          <div class="param"><label for="glow">Glow / exposure <output id="glowVal">1.00</output></label><input id="glow" type="range" min="0.5" max="1.8" step="0.05" value="1" /></div>
+          <div class="param"><label for="density">Particle density <output id="densityVal">100%</output></label><input id="density" type="range" min="0" max="100" step="5" value="100" /></div>
+          <div class="param"><label for="detail">Detail level <output id="detailVal">High</output></label><select id="detail"><option value="high">High / Desktop</option><option value="medium">Medium / Balanced</option><option value="low">Low / Mobile</option></select></div>
+          <div class="control-buttons"><button type="button" id="pause">PAUSE MOTION <span>Ⅱ</span></button><button type="button" id="reset">RESET CAMERA <span>↺</span></button></div><button type="button" id="capture" class="capture">CAPTURE SCREENSHOT <span>↗</span></button>
+          <div class="control-note"><span>ⓘ</span><p>All geometries are defined in <code>src/scenes.js</code>. The 3D renderer uses free Three.js modules.</p></div>
+        </aside>
+      </section>
+
+      <section id="atlas" class="atlas"><div class="atlas-title"><div><div class="eyebrow">05 / PROCEDURAL STUDIES</div><h2>The scene atlas<span>.</span></h2></div><p>Five independently generated objects. Five motion systems. One reusable rendering engine.</p></div>
+        <div class="atlas-list">
+          <button class="atlas-row" data-scene="twist"><span class="atlas-index">01</span><span class="atlas-icon icon-twist"><i></i></span><span class="atlas-name">Twist <small>Data as structure</small></span><span class="atlas-kind">BRAIDED / NETWORK</span><span class="atlas-arrow">↗</span></button>
+          <button class="atlas-row" data-scene="nirvana"><span class="atlas-index">02</span><span class="atlas-icon icon-nirvana"><i></i></span><span class="atlas-name">Abstract Nirvana <small>The physical and the digital</small></span><span class="atlas-kind">GLASS / SCULPTURE</span><span class="atlas-arrow">↗</span></button>
+          <button class="atlas-row" data-scene="unchained"><span class="atlas-index">03</span><span class="atlas-icon icon-unchained"><i></i></span><span class="atlas-name">Unchained <small>Connecting separate systems</small></span><span class="atlas-kind">LINKS / PULSES</span><span class="atlas-arrow">↗</span></button>
+          <button class="atlas-row" data-scene="flow"><span class="atlas-index">04</span><span class="atlas-icon icon-flow"><i></i></span><span class="atlas-name">Flow <small>Continuous information streams</small></span><span class="atlas-kind">WAVES / FIELDS</span><span class="atlas-arrow">↗</span></button>
+          <button class="atlas-row" data-scene="interface"><span class="atlas-index">05</span><span class="atlas-icon icon-interface"><i></i></span><span class="atlas-name">Interface II <small>Communication terminal</small></span><span class="atlas-kind">PANELS / HUD</span><span class="atlas-arrow">↗</span></button>
+        </div>
+      </section>
+    </main>
+    <footer><span>PARATRIX / FIVE SCENE STUDIES</span><span>OPEN-SOURCE GRAPHICS · THIRD-PARTY REFERENCE LINKS</span><a href="#stage">BACK TO TOP ↑</a></footer>
+  </div>
+
+  <dialog class="reference-dialog" id="referenceDialog"><div class="reference-top"><div><div class="eyebrow">ORIGINAL / COMPARISON</div><h3 id="referenceHeading">Twist — original Spline viewer</h3></div><button id="closeReference" aria-label="Close reference">✕</button></div><div class="reference-body"><iframe id="referenceFrame" title="Original Spline viewer" src="about:blank" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div><div class="reference-bottom"><span>This iframe displays the original third-party scene, not the reconstructed code.</span><a id="referenceLink" href="https://my.spline.design/twist-rucqgedzQkn2bSHxFUZBOqse/" target="_blank" rel="noopener noreferrer">OPEN IN NEW TAB ↗</a></div></dialog>
+  <script>
+// The UI layer intentionally has NO dependency on Three.js.
+// It remains usable and shows an illustrated preview if 3D imports fail.
+const SCENES = [
+  {
+    id: 'twist', number: '01', name: 'Twist', tag: 'DATA NETWORK / 001', label: 'WORLD 01',
+    description: 'An intertwined, metallic network of flowing ribbons and distributed data.',
+    title: 'Organic complexity.\nComputational control.',
+    text: 'Interwoven procedural surfaces, orbital geometry and luminous data points express an abstract network of industrial information.',
+    geometry: 'Braided ribbon meshes', materials: 'Metal / emissive traces', motion: 'Orbital idle rotation',
+    a: 'NODE SYSTEM / ACTIVE', b: 'REAL WORLD DATA / 300+',
+    reference: 'https://my.spline.design/twist-rucqgedzQkn2bSHxFUZBOqse/'
+  },
+  {
+    id: 'nirvana', number: '02', name: 'Abstract Nirvana', tag: 'MISSION / 002', label: 'WORLD 02',
+    description: 'Glass-like sculptural loops circulate around a luminous, suspended core.',
+    title: 'An object between\ntwo realities.',
+    text: 'Intersecting translucent forms suggest the meeting point of physical industry and digital markets. Light and iridescence become part of the form.',
+    geometry: 'Layered torus knots / annular shells', materials: 'Translucent / pearlescent', motion: 'Counter-rotating gimbals',
+    a: 'MATTER / INFORMATION', b: 'INDEX TOKEN / INDUSTRIAL VALUE',
+    reference: 'https://my.spline.design/abstractnirvana-gsvpgfTvAXZG49Ye459n2QKR/'
+  },
+  {
+    id: 'unchained', number: '03', name: 'Unchained', tag: 'CROSS-CHAIN / 003', label: 'WORLD 03',
+    description: 'Two independent chains form a living connection through pulsing data paths.',
+    title: 'Connecting two\nindependent worlds.',
+    text: 'A field of metallic links and traveling pulses illustrates the transfer of information across two autonomous networks.',
+    geometry: 'Linked toroidal structures', materials: 'Titanium / light conduits', motion: 'Traveling link pulses',
+    a: 'ENDPOINT A / WEB2', b: 'ENDPOINT B / WEB3',
+    reference: 'https://my.spline.design/unchained-FwgwjnybEWFvOyWX1JXBbS1V/'
+  },
+  {
+    id: 'flow', number: '04', name: 'Flow', tag: 'ECOSYSTEM / 004', label: 'WORLD 04',
+    description: 'Streams of iridescent ribbons and particles pass through a common energy field.',
+    title: 'Energy becomes\na continuous system.',
+    text: 'A flowing ribbon field uses parametric waves, moving particles and chromatic light to turn abstract exchange into visible motion.',
+    geometry: 'Parametric ribbon surface field', materials: 'Iridescent gradient / neon', motion: 'Traveling wave and particles',
+    a: 'VELOCITY / CONTINUOUS', b: 'MULTI-CHAIN / FLOW FIELD',
+    reference: 'https://my.spline.design/flow-yS8b8zaNRl80kZzbzpInfySN/'
+  },
+  {
+    id: 'interface', number: '05', name: 'Interface II', tag: 'CONTACT / 005', label: 'WORLD 05',
+    description: 'Floating data panels orbit a luminous communications interface.',
+    title: 'The interface\nas an object.',
+    text: 'Volumetric panels, orbital reticles and procedural graphs create a speculative interface for real-world data communication.',
+    geometry: 'Bevelled HUD panels / orbital rings', materials: 'Frosted glass / luminous lines', motion: 'Floating interface parallax',
+    a: 'SIGNAL / CONNECTED', b: 'COMMUNICATION / READY',
+    reference: 'https://my.spline.design/interfaceii-Dr2HY0YUMSLzbcun6szMte7q/'
+  }
+];
+
+const get = id => document.getElementById(id);
+const initialId = new URLSearchParams(location.search).get('scene');
+const initial = SCENES.find(s => s.id === initialId) || SCENES[0];
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const state = { scene: initial.id, speed: 1, glow: 1, density: 100, detail: 'high', paused: reduced };
+let engine = null;
+let sceneLoadingTimer;
+function sceneById(id) { return SCENES.find(s => s.id === id) || SCENES[0]; }
+
+function updateUI(id, updateHistory=true) {
+  const data = sceneById(id);
+  state.scene = data.id;
+  document.body.dataset.scene = data.id;
+  get('currentChapter').textContent = data.number;
+  get('sceneTag').textContent = data.tag;
+  get('sceneLabel').textContent = data.label;
+  get('sceneTitle').innerHTML = `${data.name}<span>.</span>`;
+  get('sceneDescription').textContent = data.description;
+  get('sceneNumber').textContent = data.number;
+  get('annotationA').textContent = data.a;
+  get('annotationB').textContent = data.b;
+  get('detailNumber').textContent = data.number;
+  get('detailTitle').textContent = data.title;
+  get('detailText').textContent = data.text;
+  get('detailGeometry').textContent = data.geometry;
+  get('detailMaterials').textContent = data.materials;
+  get('detailMotion').textContent = data.motion;
+  for (const b of document.querySelectorAll('.scene-tab')) {
+    const active = b.dataset.scene === id;
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-pressed', String(active));
+  }
+  if (engine) engine.setScene(id);
+  if(updateHistory){const u=new URL(location.href);u.searchParams.set('scene',data.id);history.replaceState(null,'',u);}
+  get('referenceHeading').textContent = `${data.name} — original Spline viewer`;
+  get('referenceLink').href = data.reference;
+  get('capture').disabled = !engine;
+}
+function chooseScene(id, scroll=false){updateUI(id);if(scroll) get('stage').scrollIntoView({behavior:reduced?'instant':'smooth'});}
+for(const el of document.querySelectorAll('[data-scene]')) {
+  if (el === document.body) continue;
+  el.addEventListener('click',()=>chooseScene(el.dataset.scene,el.classList.contains('atlas-row')));
+}
+get('prevScene').addEventListener('click',()=>{
+  const index=SCENES.findIndex(s=>s.id===state.scene);chooseScene(SCENES[(index+4)%5].id);
+});
+get('nextScene').addEventListener('click',()=>{
+  const index=SCENES.findIndex(s=>s.id===state.scene);chooseScene(SCENES[(index+1)%5].id);
+});
+for(const [inputId,key,format] of [
+  ['speed','speed',n=>n.toFixed(2)+'×'],
+  ['glow','glow',n=>n.toFixed(2)],
+  ['density','density',n=>n+'%']
+]) {
+  const input=get(inputId);
+  input.addEventListener('input',()=>{
+    state[key]=Number(input.value);
+    get(inputId+'Val').value=format(state[key]);
+    engine?.setParams(state);
+  });
+}
+get('detail').addEventListener('change',e=>{
+  state.detail=e.target.value;
+  get('detailVal').textContent=({high:'High',medium:'Medium',low:'Low'})[state.detail];
+  engine?.setParams(state);
+});
+get('pause').addEventListener('click',()=>{
+  state.paused=!state.paused;get('pause').innerHTML=state.paused?'RESUME MOTION <span>▷</span>':'PAUSE MOTION <span>Ⅱ</span>';
+  engine?.setParams(state);
+});
+get('reset').addEventListener('click',()=>engine?.resetCamera());
+get('capture').addEventListener('click',()=>engine?.capture());
+get('pause').innerHTML=state.paused?'RESUME MOTION <span>▷</span>':'PAUSE MOTION <span>Ⅱ</span>';
+get('referenceBtn').addEventListener('click',()=>{
+  const scene=sceneById(state.scene);
+  get('referenceFrame').src=scene.reference;
+  get('referenceDialog').showModal();
+});
+get('closeReference').addEventListener('click',()=>get('referenceDialog').close());
+get('referenceDialog').addEventListener('click',e=>{if(e.target===get('referenceDialog'))get('referenceDialog').close();});
+get('referenceDialog').addEventListener('close',()=>{get('referenceFrame').src='about:blank';});
+document.addEventListener('keydown',e=>{
+  if(get('referenceDialog').open || ['INPUT','SELECT','TEXTAREA'].includes(e.target?.tagName))return;
+  if(e.key>='1'&&e.key<='5')chooseScene(SCENES[Number(e.key)-1].id);
+  if(e.key==='ArrowRight')get('nextScene').click();
+  if(e.key==='ArrowLeft')get('prevScene').click();
+});
+window.addEventListener('popstate',()=>updateUI(new URLSearchParams(location.search).get('scene') || 'twist',false));
+window.SceneLab={state,sceneById,register(instance){
+  engine=instance;
+  document.body.classList.add('webgl-ready');
+  get('engineStatus').textContent='THREE.JS / ONLINE';
+  get('engineStatus').classList.add('engine-online');
+  get('capture').disabled=false;
+  clearTimeout(sceneLoadingTimer);
+  engine.setScene(state.scene);
+  engine.setParams(state);
+},error(reason){
+  get('engineStatus').textContent='STATIC PREVIEW / 3D UNAVAILABLE';
+  get('engineStatus').classList.add('engine-offline');
+  get('capture').disabled=true;
+  console.error('3D renderer unavailable:',reason);
+}};
+updateUI(state.scene,false);
+sceneLoadingTimer=setTimeout(()=>{if(!engine){get('engineStatus').textContent='STATIC PREVIEW / ENABLE CDN FOR 3D';get('engineStatus').classList.add('engine-offline');}},5500);
+
+</script>
+  <script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+
+// Independent, procedural sketches of five thematic Paratrix compositions.
+// No Spline data, borrowed 3D models, or copyrighted shader source.
+const TAU = Math.PI * 2;
+const V = (x,y,z) => new THREE.Vector3(x,y,z);
+function prng(seed=1){let s=seed>>>0;return()=>((s=(Math.imul(1664525,s)+1013904223)>>>0)/4294967296);}
+const meshPhysical = (color, opts={}) => new THREE.MeshPhysicalMaterial({color,metalness:.72,roughness:.18,clearcoat:1,clearcoatRoughness:.08,...opts});
+const basic = (color, opacity=1) => new THREE.MeshBasicMaterial({color,transparent:opacity<1,opacity,depthWrite:opacity>=1});
+function glowing(color,intensity=.6){const m=meshPhysical(color,{metalness:.45,roughness:.23});m.emissive=new THREE.Color(color);m.emissiveIntensity=intensity;m.userData.emission=intensity;return m;}
+function tube(group,points,radius,color,opacity=.6,segments=170){
+  const curve = points instanceof THREE.Curve ? points : new THREE.CatmullRomCurve3(points);
+  const geo=new THREE.TubeGeometry(curve,segments,radius,7,false);
+  const mat=basic(color,opacity);const o=new THREE.Mesh(geo,mat);group.add(o);return o;
+}
+function sphere(group,radius,material,p=[0,0,0],detail=24){
+ const obj=new THREE.Mesh(new THREE.SphereGeometry(radius,detail,Math.floor(detail*.65)),material);
+ obj.position.set(...p);group.add(obj);return obj;
+}
+function torus(group,r,t,color,rotation=[0,0,0],opacity=1){
+ const obj=new THREE.Mesh(new THREE.TorusGeometry(r,t,9,150),opacity===1?meshPhysical(color):basic(color,opacity));
+ obj.rotation.set(...rotation);group.add(obj);return obj;
+}
+function createStars(root,count=950,spread=8,seed=8001){
+ const random=prng(seed),pos=new Float32Array(count*3),col=new Float32Array(count*3);
+ for(let i=0;i<count;i++){
+   const a=random()*TAU,r=2.0+Math.pow(random(),.66)*spread,h=(random()-.5)*spread*1.8;
+   pos[i*3]=Math.cos(a)*r;
+   pos[i*3+1]=h;
+   pos[i*3+2]=Math.sin(a)*r*.55;
+   const c=new THREE.Color().setHSL(.52+random()*.16,.32+random()*.45,.48+random()*.42);
+   col[i*3]=c.r;col[i*3+1]=c.g;col[i*3+2]=c.b;
+ }
+ const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(pos,3));geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+ const mat=new THREE.PointsMaterial({size:.038,transparent:true,opacity:.75,vertexColors:true,sizeAttenuation:true,depthWrite:false,blending:THREE.AdditiveBlending});
+ const obj=new THREE.Points(geo,mat);root.add(obj);
+ return {mesh:obj,count,update(density){geo.setDrawRange(0,Math.round(count*density/100));}};
+}
+function makeBase(id,color,starCount=950){
+ const root=new THREE.Group();root.name=`scene-${id}`;
+ const sculpture=new THREE.Group();root.add(sculpture);
+ const stars=createStars(root,starCount,8,{twist:1,nirvana:2,unchained:3,flow:4,interface:5}[id]*1701);
+ return {root,sculpture,stars,updateParticles(d){stars.update(d);},updateGlow(f){root.traverse(obj=>{if(obj.material){const mats=Array.isArray(obj.material)?obj.material:[obj.material];mats.forEach(m=>{if(m.userData?.emission!==undefined)m.emissiveIntensity=m.userData.emission*f;});}});}};
+}
+function makeRibbonGeometry(index,width=.31,steps=250){
+ const vertices=[],uv=[],indices=[];const phase=index*TAU/6;
+ for(let i=0;i<=steps;i++){
+   const t=i/steps,theta=t*TAU*2.15+phase,env=Math.pow(Math.max(0,Math.sin(t*Math.PI)),.6),rad=.24+(1.15+.7*Math.sin(t*10.3+index*.41))*env;
+   const center=V(Math.cos(theta)*rad,(t-.5)*6.5,Math.sin(theta)*rad*.79);
+   const nextT=Math.min(1,t+.002),nextTheta=nextT*TAU*2.15+phase;
+   const nextEnv=Math.pow(Math.max(0,Math.sin(nextT*Math.PI)),.6);
+   const nextRad=.24+(1.15+.7*Math.sin(nextT*10.3+index*.41))*nextEnv;
+   const next=V(Math.cos(nextTheta)*nextRad,(nextT-.5)*6.5,Math.sin(nextTheta)*nextRad*.79);
+   const tangent=next.clone().sub(center).normalize();
+   const ref=V(Math.cos(theta+Math.PI/2),.18,Math.sin(theta+Math.PI/2)).normalize();
+   const side=new THREE.Vector3().crossVectors(tangent,ref).normalize();
+   const normal=new THREE.Vector3().crossVectors(tangent,side).normalize();
+   const twist=theta*.25+t*8+phase;
+   side.multiplyScalar(Math.cos(twist)).addScaledVector(normal,Math.sin(twist)).normalize();
+   for(let s of [-1,1]){const pt=center.clone().addScaledVector(side,s*width*(.65+env*.7));vertices.push(pt.x,pt.y,pt.z);uv.push(t,(s+1)/2);}
+   if(i<steps){const a=i*2;indices.push(a,a+1,a+2,a+1,a+3,a+2);}
+ }
+ const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.setIndex(indices);geo.computeVertexNormals();return geo;
+}
+function buildTwist(detail='high'){
+ const base=makeBase('twist',0x9bd5ff,detail==='low'?500:1050),{sculpture,root}=base;
+ const ribbons=new THREE.Group();sculpture.add(ribbons);
+ const mat1=meshPhysical(0xb2d4ec,{side:THREE.DoubleSide,transparent:true,opacity:.92});
+ const mat2=meshPhysical(0x748bbc,{side:THREE.DoubleSide,transparent:true,opacity:.86});
+ for(let i=0;i<6;i++){const mesh=new THREE.Mesh(makeRibbonGeometry(i,.32,detail==='low'?140:250),i%3?mat1:mat2);ribbons.add(mesh);}
+ for(let i=0;i<6;i++){
+   const pts=[],phase=i*TAU/6;for(let j=0;j<=120;j++){const t=j/120,a=t*TAU*2.15+phase,e=Math.pow(Math.max(0,Math.sin(t*Math.PI)),.6),r=.3+(1.15+.7*Math.sin(t*10.3+i*.41))*e;
+    pts.push(V(Math.cos(a)*r,(t-.5)*6.5,Math.sin(a)*r*.79));}
+   tube(sculpture,pts,.011,i%2?0xb3a4ff:0x99dfff,.59,145);
+ }
+ const center=glowing(0xb6ecff,.28);
+ const core=new THREE.Mesh(new THREE.IcosahedronGeometry(.41,3),center);sculpture.add(core);
+ const rings=new THREE.Group();sculpture.add(rings);
+ for(let i=0;i<4;i++)torus(rings,1.55+i*.18,.018,i%2?0x758fd4:0xa5d8ff,[.3+i*.56,.9+i*.4,i*.8],.47);
+ const nodes=new THREE.Group();sculpture.add(nodes);
+ for(let i=0;i<40;i++){
+   const a=i*2.39996,y=(i/39-.5)*6.8,r=2+(i%4)*.3;
+   sphere(nodes,i%7===0?.09:.035,basic(i%3?0xa2d0ff:0xe5f8ff),[Math.cos(a)*r,y,Math.sin(a)*r*.72],10);
+ }
+ sculpture.rotation.set(.14,-.08,-.15);
+ return {...base,animate(t,dt,mouse,p){sculpture.rotation.y=.12+t*.11+mouse.x*.07;sculpture.rotation.x=.16+Math.sin(t*.33)*.09-mouse.y*.06;rings.rotation.z=t*.07;core.rotation.y=t*.24;nodes.rotation.y=-t*.025;}};
+}
+function buildNirvana(detail='high'){
+ const base=makeBase('nirvana',0xcbb5ff,detail==='low'?420:1050),{root,sculpture}=base;
+ const glass=meshPhysical(0x9dc1f8,{metalness:.38,roughness:.12,transmission:.52,thickness:1,ior:1.32,transparent:true,opacity:.92,side:THREE.DoubleSide});
+ const pearl=meshPhysical(0xe5c8f3,{metalness:.62,roughness:.11,transmission:.3,thickness:.45,side:THREE.DoubleSide});
+ const gimbal=new THREE.Group();sculpture.add(gimbal);
+ const inner=new THREE.Mesh(new THREE.TorusKnotGeometry(1.55,.30,detail==='low'?140:260,20,2,3),glass);gimbal.add(inner);inner.rotation.x=.38;
+ const outer=new THREE.Mesh(new THREE.TorusKnotGeometry(2.04,.16,detail==='low'?130:220,14,3,2),pearl);gimbal.add(outer);outer.rotation.y=Math.PI/3;
+ const rings=new THREE.Group();sculpture.add(rings);
+ for(let i=0;i<5;i++){
+  const mesh=new THREE.Mesh(new THREE.TorusGeometry(2.50+i*.13,.012,6,190),basic(i%2?0xafa2ef:0x97dfff,.27+i*.03));
+  mesh.rotation.set(i*.33+.1,i*.62+.45,i*.54);rings.add(mesh);
+ }
+ const petals=new THREE.Group();sculpture.add(petals);
+ for(let i=0;i<8;i++){
+   const a=i*TAU/8;
+   const petal=new THREE.Mesh(new THREE.SphereGeometry(1,22,16),meshPhysical(i%2?0x899de2:0xbbbbeb,{metalness:.6,roughness:.15,transparent:true,opacity:.61}));
+   petal.position.set(Math.cos(a)*1.6,Math.sin(a)*1.3,Math.sin(a*2)*.55);
+   petal.scale.set(.22,.87,.12);petal.rotation.z=-a+.3;petal.rotation.y=a*.2;petals.add(petal);
+ }
+ const heart=glowing(0xefc6fa,.45);
+ const innerCore=sphere(sculpture,.54,heart,[0,0,0],40);
+ const haze=basic(0xadceff,.08);
+ sphere(sculpture,.85,haze,[0,0,0],28);
+ for(let i=0;i<5;i++){
+   const pts=[];for(let j=0;j<=120;j++){const u=j/120*TAU,rad=2.8+i*.10;pts.push(V(Math.cos(u)*rad,Math.sin(u*1.1+i)*.25,Math.sin(u)*rad*.48));}
+   tube(sculpture,pts,.013,i%2?0xe5b4ff:0x9bc6ff,.22,160);
+ }
+ return {...base,animate(t,dt,mouse,p){sculpture.rotation.y=t*.075+mouse.x*.075;sculpture.rotation.x=Math.sin(t*.32)*.08-mouse.y*.05;gimbal.rotation.y=t*.125;gimbal.rotation.z=Math.sin(t*.24)*.13;rings.rotation.y=-t*.07;petals.rotation.z=t*.035;innerCore.scale.setScalar(1+Math.sin(t*1.25)*.07);}};
+}
+function buildUnchained(detail='high'){
+ const base=makeBase('unchained',0x82efc4,detail==='low'?410:950),{root,sculpture}=base;
+ const leftMat=meshPhysical(0xa5d9df,{metalness:.82,roughness:.2});
+ const rightMat=meshPhysical(0xc5c7ef,{metalness:.84,roughness:.18});
+ const left=new THREE.Group(),right=new THREE.Group();sculpture.add(left,right);
+ const linkCount=detail==='low'?12:18;
+ for(let s=0;s<2;s++){
+   const group=s===0?left:right,mat=s===0?leftMat:rightMat;
+   for(let i=0;i<linkCount;i++){
+     const a=i*TAU/linkCount;
+     const mesh=new THREE.Mesh(new THREE.TorusGeometry(.44,.105,9,32),mat);
+     const r=1.34+.12*Math.sin(i*2.7);
+     mesh.position.set((s===0?-2.0:2.0)+Math.cos(a)*r,Math.sin(a)*r,Math.sin(i*.8)*.23);
+     mesh.rotation.set(Math.PI/2+(i%2)*.7,(i%2)*1.05,a+.5);
+     group.add(mesh);
+   }
+ }
+ for(const [x,c] of [[-2.05,0x88e9c2],[2.05,0xbaaaff]]){
+   const core=new THREE.Mesh(new THREE.IcosahedronGeometry(.59,3),glowing(c,.3));core.position.x=x;sculpture.add(core);
+   const aura=new THREE.Group();aura.position.x=x;sculpture.add(aura);
+   for(let i=0;i<3;i++)torus(aura,.81+i*.15,.013,c,[i*.39+.2,i*.7,0],.48);
+   aura.userData.side=x;
+ }
+ const pathways=new THREE.Group();sculpture.add(pathways);
+ const pulsePaths=[];
+ for(let i=0;i<7;i++){
+   const pts=[V(-2.05,Math.sin(i)*.18,0),V(-1.2,(i-3)*.17,Math.sin(i)*.22),V(0,Math.sin(i*2)*.4,(i-3)*.11),V(1.2,(i-3)*-.15,Math.cos(i)*.22),V(2.05,Math.cos(i)*.14,0)];
+   const path=new THREE.CatmullRomCurve3(pts);pulsePaths.push(path);
+   tube(pathways,path,.011,i%2?0x85edcc:0x9cacff,.38,120);
+ }
+ const pulses=new THREE.Group();sculpture.add(pulses);
+ const pulseObjects=[];
+ for(let i=0;i<14;i++){
+   const obj=sphere(pulses,i%2?.047:.075,basic(i%2?0xd4adff:0xb3ffdc),[0,0,0],10);
+   obj.userData={phase:i/14,route:i%7};pulseObjects.push(obj);
+ }
+ const rings=new THREE.Group();sculpture.add(rings);
+ torus(rings,3.85,.015,0x9acfef,[.2,.1,.3],.23);
+ torus(rings,3.55,.013,0x77c8ab,[.2,.7,-.3],.17);
+ return {...base,animate(t,dt,mouse,p){
+   sculpture.rotation.y=mouse.x*.075+Math.sin(t*.20)*.07;
+   sculpture.rotation.x=-.08+mouse.y*-.06;
+   left.rotation.z=t*.10;right.rotation.z=-t*.095;
+   pulses.children.forEach(obj=>{const phase=((t*.09+obj.userData.phase)%1+1)%1;obj.position.copy(pulsePaths[obj.userData.route].getPoint(phase));});
+   rings.rotation.y=t*.025;
+ }};
+}
+function makeFlowRibbon(k,detail='high'){
+ const steps=detail==='low'?120:260;
+ const width=.18+.10*Math.sin(k*1.2);const vert=[],colors=[],uv=[],idx=[];
+ const colA=new THREE.Color([0x83dfff,0xc0a9ff,0xf2a7d9,0x9ad8cb][k%4]);
+ const colB=new THREE.Color([0xe3b1f8,0xf1a5a5,0x7cacec,0x93cddc][k%4]);
+ for(let j=0;j<=steps;j++){
+   const u=j/steps,x=(u-.5)*9,phi=u*Math.PI*4.1+k*.63;
+   const y=Math.sin(phi)*(.65+k*.072)+Math.cos(u*4.2+k*.8)*.32;
+   const z=Math.cos(phi*.81+k)*(.5+k*.06)+Math.sin(u*6+k*.4)*.16;
+   for(const s of [-1,1]){
+     const w=width*(.8+Math.sin(u*Math.PI)*.6);
+     vert.push(x,y+s*w,z+s*.075*Math.cos(phi));
+     uv.push(u,(s+1)/2);
+     const c=colA.clone().lerp(colB,u*.9).multiplyScalar(.55+u*.46);
+     colors.push(c.r,c.g,c.b);
+   }
+   if(j<steps){const n=j*2;idx.push(n,n+1,n+2,n+1,n+3,n+2);}
+ }
+ const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(vert,3));geo.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.setIndex(idx);geo.computeVertexNormals();return geo;
+}
+function buildFlow(detail='high'){
+ const base=makeBase('flow',0xf2aaca,detail==='low'?520:1050),{sculpture,root}=base;
+ const waves=new THREE.Group();sculpture.add(waves);const ribbonCount=detail==='low'?8:13;
+ for(let i=0;i<ribbonCount;i++){
+   const mat=new THREE.MeshPhysicalMaterial({color:0xffffff,vertexColors:true,metalness:.63,roughness:.24,side:THREE.DoubleSide,transparent:true,opacity:.85,clearcoat:.8});
+   const ribbon=new THREE.Mesh(makeFlowRibbon(i,detail),mat);
+   ribbon.position.set(0,Math.cos(i*2.4)*.28,(i-ribbonCount/2)*.12);
+   ribbon.rotation.x=i*.07;
+   waves.add(ribbon);
+   if(i%2===0){const pts=[];for(let j=0;j<=125;j++){
+      const u=j/125,phi=u*Math.PI*4.1+i*.63;
+      pts.push(V((u-.5)*9,Math.sin(phi)*(.65+i*.072)+Math.cos(u*4.2+i*.8)*.32+Math.cos(i*2.4)*.28,Math.cos(phi*.81+i)*(.5+i*.06)+(i-ribbonCount/2)*.12));
+    }tube(waves,pts,.013,i%4===0?0xf2b6fa:0x8adfff,.65,140);}
+ }
+ const flowParticlesCount=detail==='low'?250:1250;
+ const rand=prng(4444),pos=new Float32Array(flowParticlesCount*3),phase=new Float32Array(flowParticlesCount);
+ for(let i=0;i<flowParticlesCount;i++)phase[i]=rand();
+ const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+ const flowParticles=new THREE.Points(geo,new THREE.PointsMaterial({color:0xf8c8eb,size:.041,transparent:true,opacity:.8,depthWrite:false,blending:THREE.AdditiveBlending}));sculpture.add(flowParticles);
+ const rings=new THREE.Group();sculpture.add(rings);
+ for(let i=0;i<4;i++)torus(rings,1.15+i*.47,.012,i%2?0xedb6ef:0x89d6ff,[.4+i*.28,i*.8,.3],.30);
+ function moveParticles(t){for(let i=0;i<flowParticlesCount;i++){
+    const u=((phase[i]+t*.09)%1+1)%1,k=i%12,phi=u*Math.PI*4.1+k*.63;
+    pos[i*3]=(u-.5)*9;pos[i*3+1]=Math.sin(phi)*(.65+k*.072)+Math.cos(u*4.2+k*.8)*.32+(i%5)*.06;
+    pos[i*3+2]=Math.cos(phi*.81+k)*(.5+k*.06)+(k-6)*.12;
+   }geo.attributes.position.needsUpdate=true;}
+ moveParticles(0);
+ sculpture.rotation.z=-.11;sculpture.rotation.x=.08;
+ return {...base,updateParticles(d){base.updateParticles(d);geo.setDrawRange(0,Math.round(flowParticlesCount*d/100));},animate(t,dt,mouse,p){
+   sculpture.rotation.y=mouse.x*.10+Math.sin(t*.2)*.08;
+   sculpture.rotation.x=.10+mouse.y*-.045;
+   waves.position.y=Math.sin(t*.42)*.12;
+   waves.rotation.x=Math.sin(t*.12)*.07;
+   rings.rotation.x=t*.05;rings.rotation.z=-t*.035;
+   moveParticles(t);
+ }};
+}
+function roundedRectShape(w,h,r=.12){
+ const s=new THREE.Shape(),x=-w/2,y=-h/2;
+ s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);
+ return s;
+}
+function buildInterface(detail='high'){
+ const base=makeBase('interface',0xa5d0ff,detail==='low'?450:1000),{root,sculpture}=base;
+ const panels=new THREE.Group();sculpture.add(panels);
+ const panelMat=new THREE.MeshPhysicalMaterial({color:0x345779,metalness:.4,roughness:.18,transparent:true,opacity:.48,side:THREE.DoubleSide,depthWrite:false});
+ const edgeMat=new THREE.LineBasicMaterial({color:0x8bcaff,transparent:true,opacity:.67});
+ const fine=basic(0x9ccbea,.65);
+ function makePanel(w,h,pos,rot,index){
+   const group=new THREE.Group();group.position.set(...pos);group.rotation.set(...rot);panels.add(group);
+   const geo=new THREE.ShapeGeometry(roundedRectShape(w,h,.15),14);
+   const panel=new THREE.Mesh(geo,panelMat);panel.renderOrder=-1;group.add(panel);
+   const shape=roundedRectShape(w,h,.15);
+   const outline=new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(shape.getPoints(72)),edgeMat);outline.position.z=.018;group.add(outline);
+   for(let j=0;j<(index%2?5:7);j++){
+     const yy=h*.32-j*(h*.11),leng=w*(.25+((j*7+index*3)%7)/13),x=-w*.39;
+     const line=new THREE.Mesh(new THREE.PlaneGeometry(leng,.014),fine);line.position.set(x+leng/2,yy,.04);group.add(line);
+   }
+   if(index%2===0){const pts=[];for(let k=0;k<=20;k++){
+     const x=(k/20-.5)*w*.77,y=-h*.27+Math.sin(k*.6+index)*h*.08+k*h*.006;
+     pts.push(V(x,y,.06));}
+     tube(group,pts,.012,0xa1f2ff,.8,70);
+   }
+   for(let j=0;j<3;j++){
+     const dot=sphere(group,.027,basic(j===0?0xb7e4ff:0x80c4f8),[w*.32-j*.13,h*.35,.05],10);
+   }
+   return group;
+ }
+ const parts=[];
+ parts.push(makePanel(2.45,3.25,[-1.7,.24,-.2],[0,.26,-.13],0));
+ parts.push(makePanel(2.05,2.60,[1.9,.54,-.9],[0,-.25,.11],1));
+ parts.push(makePanel(2.22,1.34,[1.6,-1.60,.65],[.07,-.18,-.11],2));
+ parts.push(makePanel(1.55,.95,[-2.15,-1.67,.73],[.04,.22,.08],3));
+ const reticles=new THREE.Group();sculpture.add(reticles);
+ for(let i=0;i<5;i++)torus(reticles,1.45+i*.32,.011,i%2?0x9babe9:0x8fdcff,[.25+i*.25,.5+i*.35,i*.45],.38);
+ const core=new THREE.Mesh(new THREE.IcosahedronGeometry(.43,2),glowing(0x9deaff,.27));sculpture.add(core);
+ const axles=[];
+ for(let i=0;i<8;i++){
+  const angle=i*TAU/8;
+  const pt=V(Math.cos(angle)*2.35,Math.sin(angle)*2.35,0);
+  tube(sculpture,[pt,V(0,0,0)],.008,0x7ac0e6,.15,30);
+  const dot=sphere(sculpture,.038,basic(0xa6e4ff),pt.toArray(),10);axles.push(dot);
+ }
+ return {...base,animate(t,dt,mouse,p){
+   sculpture.rotation.y=mouse.x*.08+Math.sin(t*.18)*.05;
+   sculpture.rotation.x=-mouse.y*.05;
+   panels.children.forEach((panel,i)=>{panel.position.y=[.24,.54,-1.6,-1.67][i]+Math.sin(t*.45+i*.87)*.085;panel.rotation.y=[.26,-.25,-.18,.22][i]+Math.sin(t*.23+i)*.025;});
+   reticles.rotation.y=t*.035;reticles.rotation.z=-t*.025;
+   core.rotation.y=t*.22;core.rotation.x=t*.11;
+ }};
+}
+function buildScene(id,detail='high'){
+ const builders={twist:buildTwist,nirvana:buildNirvana,unchained:buildUnchained,flow:buildFlow,interface:buildInterface};
+ return (builders[id]||buildTwist)(detail);
+}
+function disposeScene(scene){
+ const geometries=new Set(),materials=new Set();
+ scene.root.traverse(obj=>{
+   if(obj.geometry)geometries.add(obj.geometry);
+   if(obj.material)(Array.isArray(obj.material)?obj.material:[obj.material]).forEach(m=>materials.add(m));
+ });
+ geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());
+}
+
+
+
+
+
+const canvas=document.getElementById('world');
+const stage=document.getElementById('sceneWindow');
+const state=window.SceneLab.state;
+let renderer,scene,camera,controls,current=null,clock,sceneTime=0,lastTime=0;
+let currentId='',lastDetail='',observer;
+const pointer=new THREE.Vector2();
+const onNarrow=()=>stage.clientWidth<820;
+
+try{
+ renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,powerPreference:'high-performance',preserveDrawingBuffer:true});
+ renderer.outputColorSpace=THREE.SRGBColorSpace;
+ renderer.toneMapping=THREE.ACESFilmicToneMapping;
+ renderer.toneMappingExposure=1.25;
+ renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));
+ scene=new THREE.Scene();
+ camera=new THREE.PerspectiveCamera(40,1,.1,150);
+ scene.add(new THREE.HemisphereLight(0xc3ddff,0x111629,2.4));
+ const primary=new THREE.PointLight(0xc9e5ff,54,32,2);primary.position.set(-3,5,7);scene.add(primary);
+ const rim=new THREE.PointLight(0x9387fe,50,36,2);rim.position.set(5,-2,-4);scene.add(rim);
+ const front=new THREE.PointLight(0xeef7ff,28,30,2);front.position.set(2,3,11);scene.add(front);
+ controls=new OrbitControls(camera,canvas);
+ controls.enableDamping=true;controls.dampingFactor=.055;
+ controls.enablePan=false;
+ controls.minDistance=7;controls.maxDistance=25;
+ controls.minPolarAngle=.12;controls.maxPolarAngle=Math.PI-.12;
+ clock=new THREE.Clock();
+ function resetCamera(){
+   const mobile=onNarrow();
+   camera.fov=mobile?49:40;
+   camera.position.set(mobile?.3:1.8,mobile?.8:1.1,mobile?17:14.7);
+   controls.target.set(mobile?0:1.45,0,0);
+   camera.updateProjectionMatrix();controls.update();
+ }
+ function resize(){
+   const w=Math.max(1,stage.clientWidth),h=Math.max(1,stage.clientHeight);
+   renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();
+   if(current){current.root.position.x=onNarrow()?0:1.55;}
+ }
+ function setScene(id){
+   if(currentId===id&&lastDetail===state.detail&&current)return;
+   if(current){scene.remove(current.root);disposeScene(current);}
+   current=buildScene(id,state.detail);
+   scene.add(current.root);
+   current.root.position.x=onNarrow()?0:1.55;
+   currentId=id;lastDetail=state.detail;sceneTime=0;
+   current.updateParticles(state.density);
+   current.updateGlow(state.glow);
+   resetCamera();
+ }
+ function setParams(p){
+   renderer.toneMappingExposure=1.25*p.glow;
+   renderer.setPixelRatio(Math.min(devicePixelRatio,p.detail==='high'?1.75:p.detail==='medium'?1.25:1));
+   if(p.detail!==lastDetail){setScene(p.scene);}else{
+     current?.updateParticles(p.density);
+     current?.updateGlow(p.glow);
+   }
+ }
+ function capture(){
+   renderer.render(scene,camera);
+   const link=document.createElement('a');link.download=`paratrix-${currentId}-procedural.png`;
+   link.href=renderer.domElement.toDataURL('image/png');link.click();
+ }
+ function frame(){
+   requestAnimationFrame(frame);
+   const dt=Math.min(clock.getDelta(),.045);
+   if(document.hidden)return;
+   if(!state.paused){sceneTime+=dt*state.speed;current?.animate(sceneTime,dt,pointer,state);}
+   controls.update();renderer.render(scene,camera);
+ }
+ stage.addEventListener('pointermove',e=>{
+   const box=stage.getBoundingClientRect();
+   pointer.x=((e.clientX-box.left)/box.width-.5)*2;
+   pointer.y=((e.clientY-box.top)/box.height-.5)*2;
+ });
+ observer=new ResizeObserver(resize);observer.observe(stage);
+ resetCamera();resize();
+ window.SceneLab.register({setScene,setParams,resetCamera,capture});
+ frame();
+}catch(err){
+ console.error(err);
+ window.SceneLab.error(err?.message || String(err));
+}
+
+</script>
+</body>
+</html>
