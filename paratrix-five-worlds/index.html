@@ -634,7 +634,7 @@ try{
    const mobile=onNarrow();
    if(currentId==='nirvana'){
      camera.fov=mobile?48:34;
-     camera.position.set(0,0, mobile?19.8:21.2);
+     camera.position.set(0,0, mobile?19.8:13.6);
      controls.target.set(0,0,0);
    }else{
      camera.fov=mobile?49:40;
@@ -646,7 +646,8 @@ try{
  function resize(){
    const w=Math.max(1,stage.clientWidth),h=Math.max(1,stage.clientHeight);
    renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();
-   if(current){current.root.position.x=currentId==='nirvana'?0:(onNarrow()?0:1.55);}
+   if(current){current.root.position.x=currentId==='nirvana'?(onNarrow()?0:-1.35):(onNarrow()?0:1.55);
+     current.root.position.y=currentId==='nirvana'?.25:0;}
  }
  function setScene(id){
    if(currentId===id&&lastDetail===state.detail&&current)return;
@@ -654,7 +655,8 @@ try{
    current=buildScene(id,state.detail);
    scene.add(current.root);
    currentId=id;lastDetail=state.detail;sceneTime=0;
-   current.root.position.x=id==='nirvana'?0:(onNarrow()?0:1.55);
+   current.root.position.x=id==='nirvana'?(onNarrow()?0:-1.35):(onNarrow()?0:1.55);
+   current.root.position.y=id==='nirvana'?.25:0;
    if(id==='nirvana'){
      ambient.intensity=.11;
      primary.color.set(0xf0f1f4);primary.intensity=65;primary.position.set(-5.5,3.0,5.7);
