@@ -14,6 +14,7 @@ const DEMOS = [
   { name: 'bubble-tea', cwd: 'bubble-tea' },
   { name: 'buuble-tea', cwd: 'buuble-tea' },
   { name: 'IAL tutor', cwd: 'IAL tutor' },
+  { name: 'real-estate', cwd: 'real-estate' },
 ];
 
 function run(cmd, args, cwd) {
